@@ -1,0 +1,50 @@
+{
+  "name": "wc-storybook-helpers",
+  "version": "1.0.0",
+  "description": "Helpers designed to make integrating Web Components with Storybook easier.",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "type": "module",
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "types.d.ts",
+    "/dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "deploy": "tsc && npm publish",
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/break-stuff/wc-storybook-helpers.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/break-stuff/wc-storybook-helpers/issues"
+  },
+  "homepage": "https://github.com/break-stuff/wc-storybook-helpers#readme",
+  "keywords": [
+    "web-components",
+    "web components",
+    "custom elements",
+    "storybook",
+    "helpers"
+  ],
+  "dependencies": {
+    "@open-wc/lit-helpers": "^0.5.1",
+    "@storybook/client-api": "^6.5.16",
+    "lit": "^2.6.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.4.0",
+    "@types/node": "^18.6.3",
+    "@types/prettier": "^2.6.4",
+    "@typescript-eslint/eslint-plugin": "^5.48.1",
+    "@typescript-eslint/parser": "^5.48.1",
+    "eslint": "^8.32.0",
+    "ts-jest": "^29.0.5"
+  }
+}

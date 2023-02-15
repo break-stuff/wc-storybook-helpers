@@ -1,0 +1,447 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./my-switch"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/my-switch/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "\"./my-switch\""
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/switch/switch.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "switch",
+          "cssProperties": [
+            {
+              "description": "The width of the switch.",
+              "name": "--width"
+            },
+            {
+              "description": "The height of the switch.",
+              "name": "--height"
+            },
+            {
+              "description": "The size of the thumb.",
+              "name": "--thumb-size"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The component's internal wrapper.",
+              "name": "base"
+            },
+            {
+              "description": "The switch control.",
+              "name": "control"
+            },
+            {
+              "description": "The switch position indicator.",
+              "name": "thumb"
+            },
+            {
+              "description": "The switch label.",
+              "name": "label"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The switch's label.",
+              "name": "label"
+            },
+            {
+              "description": "The message to display when the switch is checked. TODO",
+              "name": "checked-message"
+            },
+            {
+              "description": "The message to display when the switch is unchecked. TODO",
+              "name": "unchecked-message"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "baseName",
+              "type": {
+                "text": "string"
+              },
+              "static": true,
+              "default": "'switch'",
+              "inheritedFrom": {
+                "name": "HarmonyElement",
+                "module": "src/components/index.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "input",
+              "type": {
+                "text": "HTMLInputElement"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "formSubmitController",
+              "privacy": "private",
+              "default": "new FormSubmitController(this, {\r\n    value: (control: switch) => (control.checked ? control.value : undefined),\r\n    defaultValue: (control: switch) => control.defaultChecked,\r\n    setValue: (control: switch, checked: boolean) => (control.checked = checked),\r\n  })"
+            },
+            {
+              "kind": "field",
+              "name": "hasFocus",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "The switch's label. Alternatively, you can use the label slot.",
+              "attribute": "label"
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "description": "The switch's name attribute.",
+              "attribute": "name"
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "description": "The switch's value attribute.",
+              "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Disables the switch.",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "checked",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Draws the switch in a checked state.",
+              "attribute": "checked",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "click",
+              "description": "Simulates a click on the switch."
+            },
+            {
+              "kind": "method",
+              "name": "focus",
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ],
+              "description": "Sets focus on the switch."
+            },
+            {
+              "kind": "method",
+              "name": "blur",
+              "description": "Removes focus from the switch."
+            },
+            {
+              "kind": "method",
+              "name": "handleBlur"
+            },
+            {
+              "kind": "method",
+              "name": "handleCheckedChange"
+            },
+            {
+              "kind": "method",
+              "name": "handleClick"
+            },
+            {
+              "kind": "method",
+              "name": "handleFocus"
+            },
+            {
+              "kind": "method",
+              "name": "handleKeyDown",
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "_dir",
+              "type": {
+                "text": "string | undefined"
+              },
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "HarmonyElement",
+                "module": "src/components/index.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "_lang",
+              "type": {
+                "text": "string | undefined"
+              },
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "HarmonyElement",
+                "module": "src/components/index.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "localize",
+              "privacy": "protected",
+              "default": "new LocalizeController(this)",
+              "inheritedFrom": {
+                "name": "HarmonyElement",
+                "module": "src/components/index.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "dir",
+              "attribute": "dir",
+              "inheritedFrom": {
+                "name": "HarmonyElement",
+                "module": "src/components/index.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "lang",
+              "attribute": "lang",
+              "inheritedFrom": {
+                "name": "HarmonyElement",
+                "module": "src/components/index.ts"
+              }
+            }
+          ],
+          "events": [
+            {
+              "description": "Emitted when the control loses focus.",
+              "name": "my-blur"
+            },
+            {
+              "description": "Emitted when the control's checked state changes.",
+              "name": "my-change"
+            },
+            {
+              "description": "Emitted when the control gains focus.",
+              "name": "my-focus"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "The switch's label. Alternatively, you can use the label slot.",
+              "fieldName": "label"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "description": "The switch's name attribute.",
+              "fieldName": "name"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "description": "The switch's value attribute.",
+              "fieldName": "value"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Disables the switch.",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "checked",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Draws the switch in a checked state.",
+              "fieldName": "checked"
+            },
+            {
+              "name": "dir",
+              "fieldName": "dir",
+              "inheritedFrom": {
+                "name": "HarmonyElement",
+                "module": "src/components/index.ts"
+              }
+            },
+            {
+              "name": "lang",
+              "fieldName": "lang",
+              "inheritedFrom": {
+                "name": "HarmonyElement",
+                "module": "src/components/index.ts"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "HarmonyElement",
+            "module": "/src/components/"
+          },
+          "tagName": "my-switch",
+          "since": "1.3",
+          "status": "stable",
+          "figma": "https://www.figma.com/file/dRwBPvZFZdYgWdAOCK375K/PC-Toolkit?node-id=5%3A897",
+          "customElement": true,
+          "attribute": [
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "The switch's label. Alternatively, you can use the label slot.",
+              "fieldName": "label"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "description": "The switch's name attribute.",
+              "fieldName": "name"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "description": "The switch's value attribute.",
+              "fieldName": "value"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Disables the switch.",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "checked",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Draws the switch in a checked state.",
+              "fieldName": "checked"
+            },
+            {
+              "name": "dir",
+              "fieldName": "dir",
+              "inheritedFrom": {
+                "name": "HarmonyElement",
+                "module": "src/components/index.ts"
+              }
+            },
+            {
+              "name": "lang",
+              "fieldName": "lang",
+              "inheritedFrom": {
+                "name": "HarmonyElement",
+                "module": "src/components/index.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "switch",
+          "declaration": {
+            "name": "switch",
+            "module": "src/components/switch/switch.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "Switch",
+            "module": "src/components/switch/switch.ts"
+          }
+        }
+      ]
+    }
+  ]
+}
