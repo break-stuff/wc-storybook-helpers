@@ -26,7 +26,7 @@ export function getWcStorybookHelpers(tagName: string, cem: any) {
   };
 }
 
-export function getArgTypes(component?: Declaration): ArgTypes {
+function getArgTypes(component?: Declaration): ArgTypes {
   const argTypes: ArgTypes = {
     ...getAttributes(component),
     ...getProperties(component),
