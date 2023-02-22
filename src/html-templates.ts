@@ -27,7 +27,7 @@ export function getTemplate(component?: Declaration, args?: any, slot?: Template
       ${getStyleTemplate(component, args)}
       <${unsafeStatic(component!.tagName!)} ${spread(operators)}>
         ${slotsTemplate}
-        ${slot}
+        ${slot || ''}
       </${unsafeStatic(component!.tagName!)}>
       <script>
         component = document.querySelector('${component!.tagName!}');
@@ -123,8 +123,8 @@ function getSlotsTemplate(component: Declaration, args: any) {
 
         return slotValue
           ? slotName === 'default'
-            ? `${slotValue}`
-            : `<div slot="${slotName}">${slotValue}</div>`
+            ? `${slotValue || ''}`
+            : `<div slot="${slotName}">${slotValue || ''}</div>`
           : '';
       })
       .join('\n')}`
@@ -162,9 +162,9 @@ function setArgObserver(component: Declaration) {
 
       isUpdating = true;
       const attribute = attributes[`${mutation.attributeName}-attr`];
-      if (attribute.control === 'boolean' || (attribute.control as any)?.type === 'boolean') {
+      if (attribute?.control === 'boolean' || (attribute?.control as any)?.type === 'boolean') {
         updateArgs({
-          [`${mutation.attributeName}-attr`]: (mutation.target as HTMLElement).hasAttribute(
+          [`${mutation.attributeName}-attr`]: (mutation.target as HTMLElement)?.hasAttribute(
             mutation.attributeName || ''
           ),
         });
