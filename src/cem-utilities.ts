@@ -24,17 +24,19 @@ export function getAttributes(component?: Declaration): ArgTypes {
 
     const attrType = cleanUpType(attribute?.type?.text);
     const attrName = `${attribute.name}-attr`;
+    const defaultValue = removeQuoteWrappers(attribute.default);
+
     attributes[attrName] = {
       name: attribute.name,
       description: getDescription(attribute.description, attrName),
-      defaultValue: removeQuoteWrappers(attribute.default),
+      defaultValue: defaultValue === "''" ? "" : defaultValue,
       control: {
         type: getControl(attrType),
       },
       table: {
         category: "attributes",
         defaultValue: {
-          summary: removeQuoteWrappers(attribute.default),
+          summary: defaultValue,
         },
         type: {
           summary: attribute?.type?.text,
@@ -77,17 +79,19 @@ export function getProperties(component?: Declaration): ArgTypes {
 
     const propType = cleanUpType(member?.type?.text);
     const propName = `${member.name}-prop`;
+    const defaultValue = removeQuoteWrappers(member.default);
+
     properties[propName] = {
       name: member.name,
       description: getDescription(member.description, propName),
-      defaultValue: removeQuoteWrappers(member.default),
+      defaultValue: defaultValue === "''" ? "" : defaultValue,
       control: {
         type: getControl(propType),
       },
       table: {
         category: "properties",
         defaultValue: {
-          summary: removeQuoteWrappers(member.default),
+          summary: defaultValue,
         },
         type: {
           summary: member?.type?.text,
@@ -129,18 +133,24 @@ export function getReactProperties(component?: Declaration): ArgTypes {
 
     const propType = cleanUpType(member?.type?.text);
     const propName = `${member.name}`;
-    const cemDefaultValue = removeQuoteWrappers(member.default);
+    const defaultValue = removeQuoteWrappers(member.default);
+
     properties[propName] = {
       name: member.name,
       description: member.description,
-      defaultValue: cemDefaultValue === "false" ? false : cemDefaultValue,
+      defaultValue:
+        defaultValue === "false"
+          ? false
+          : defaultValue === "''"
+          ? ""
+          : defaultValue,
       control: {
         type: getControl(propType),
       },
       table: {
         category: "properties",
         defaultValue: {
-          summary: removeQuoteWrappers(member.default),
+          summary: defaultValue,
         },
         type: {
           summary: member?.type?.text,
