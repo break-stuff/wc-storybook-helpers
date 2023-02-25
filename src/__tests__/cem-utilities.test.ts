@@ -1,10 +1,9 @@
 import cem from "./custom-elements.json" assert { type: "json" };
 import {
-  getAttributes,
   getComponentByTagName,
   getCssParts,
   getCssProperties,
-  getProperties,
+  getAttributesAndProperties,
   getReactEventName,
   getReactEvents,
   getReactProperties,
@@ -23,16 +22,16 @@ describe("getComponentByTagName", () => {
   });
 });
 
-describe("getAttributes", () => {
-  test("should return an object with 8 attributes for `my-switch` component", () => {
+describe("getAttributesAndProperties", () => {
+  test("should return an object with 22 updated args for `my-switch` component", () => {
     // Arrange
     const component = getComponentByTagName("my-switch", cem);
 
     // Act
-    const result = getAttributes(component);
+    const result = getAttributesAndProperties(component);
 
     // Assert
-    expect(Object.keys(result).length).toBe(14);
+    expect(Object.keys(result).length).toBe(22);
   });
 
   test("should disable existing attribute and provide a namespaced attribute", () => {
@@ -40,23 +39,21 @@ describe("getAttributes", () => {
     const component = getComponentByTagName("my-switch", cem);
 
     // Act
-    const result = getAttributes(component);
+    const result = getAttributesAndProperties(component);
 
     // Assert
     expect(result["label"].table?.disable).toBe(true);
     expect(result["label-attr"]).toBeDefined();
   });
-});
 
-describe("getProperties", () => {
-  test("should return an object with 15 properties for `my-switch` component where 14 are disabled and 1 is enabled", () => {
+  test("should return an object with 22 properties for `my-switch` component where 14 are disabled and 8 are enabled", () => {
     // Arrange
     const component = getComponentByTagName("my-switch", cem);
     let enabled = 0;
     let disabled = 0;
 
     // Act
-    const result = getProperties(component);
+    const result = getAttributesAndProperties(component);
     Object.keys(result).forEach((key) => {
       if (result[key].table?.disable) {
         disabled++;
@@ -66,7 +63,7 @@ describe("getProperties", () => {
     });
 
     // Assert
-    expect(enabled).toBe(1);
+    expect(enabled).toBe(8);
     expect(disabled).toBe(14);
   });
 });

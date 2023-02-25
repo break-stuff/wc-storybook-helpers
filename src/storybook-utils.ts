@@ -2,11 +2,10 @@ import { TemplateResult } from 'lit';
 import { ArgTypes } from './storybook';
 import { getStyleTemplate, getTemplate } from './html-templates.js';
 import {
-  getAttributes,
   getComponentByTagName,
   getCssParts,
   getCssProperties,
-  getProperties,
+  getAttributesAndProperties,
   getReactEvents,
   getReactProperties,
   getSlots,
@@ -26,10 +25,9 @@ export function getWcStorybookHelpers(tagName: string, cem: any) {
   };
 }
 
-function getArgTypes(component?: Declaration): ArgTypes {
+function getArgTypes(component?: Declaration): ArgTypes {  
   const argTypes: ArgTypes = {
-    ...getAttributes(component),
-    ...getProperties(component),
+    ...getAttributesAndProperties(component),
     ...getCssProperties(component),
     ...getCssParts(component),
     ...getSlots(component),

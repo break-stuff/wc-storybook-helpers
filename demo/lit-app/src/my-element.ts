@@ -17,6 +17,13 @@ export class MyElement extends LitElement {
   docsHint = "Click on the Vite and Lit logos to learn more";
 
   /**
+   * @deprecated replaced by `docs-hint`
+   * Copy for the read the docs hint.
+   */
+  @property({ attribute: "old-docs-hint", reflect: true })
+  oldDocsHint = "Click on the Vite and Lit logos to learn more";
+
+  /**
    * The number of times the button has been clicked.
    */
   @property({ type: Number, reflect: true })

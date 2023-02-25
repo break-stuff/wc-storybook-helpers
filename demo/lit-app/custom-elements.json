@@ -29,9 +29,21 @@
               "type": {
                 "text": "string"
               },
-              "default": "'Click on the Vite and Lit logos to learn more'",
+              "default": "\"Click on the Vite and Lit logos to learn more\"",
               "description": "Copy for the read the docs hint.",
-              "attribute": "docs-hint"
+              "attribute": "docs-hint",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "oldDocsHint",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Click on the Vite and Lit logos to learn more\"",
+              "deprecated": "replaced by `docs-hint`\nCopy for the read the docs hint.",
+              "attribute": "old-docs-hint",
+              "reflects": true
             },
             {
               "kind": "field",
@@ -41,7 +53,8 @@
               },
               "default": "0",
               "description": "The number of times the button has been clicked.",
-              "attribute": "count"
+              "attribute": "count",
+              "reflects": true
             },
             {
               "kind": "method",
@@ -55,9 +68,18 @@
               "type": {
                 "text": "string"
               },
-              "default": "'Click on the Vite and Lit logos to learn more'",
+              "default": "\"Click on the Vite and Lit logos to learn more\"",
               "description": "Copy for the read the docs hint.",
               "fieldName": "docsHint"
+            },
+            {
+              "name": "old-docs-hint",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Click on the Vite and Lit logos to learn more\"",
+              "deprecated": "replaced by `docs-hint`\nCopy for the read the docs hint.",
+              "fieldName": "oldDocsHint"
             },
             {
               "name": "count",

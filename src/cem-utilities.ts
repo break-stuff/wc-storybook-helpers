@@ -11,54 +11,21 @@ export function getComponentByTagName(
   return module?.declarations[0];
 }
 
-export function getAttributes(component?: Declaration): ArgTypes {
-  const attributes: ArgTypes = {};
-
-  component?.attributes?.forEach((attribute) => {
-    attributes[attribute.name] = {
-      name: attribute.name,
-      table: {
-        disable: true,
-      },
-    };
-
-    const attrType = cleanUpType(attribute?.type?.text);
-    const attrName = `${attribute.name}-attr`;
-    const defaultValue = removeQuoteWrappers(attribute.default);
-
-    attributes[attrName] = {
-      name: attribute.name,
-      description: getDescription(attribute.description, attrName),
-      defaultValue: defaultValue === "''" ? "" : defaultValue,
-      control: {
-        type: getControl(attrType),
-      },
-      table: {
-        category: "attributes",
-        defaultValue: {
-          summary: defaultValue,
-        },
-        type: {
-          summary: attribute?.type?.text,
-        },
-      },
-    };
-
-    const values = attrType?.split("|");
-    if (values && values?.length > 1) {
-      attributes[attrName].options = values.map((x) => removeQuoteWrappers(x)!);
-    }
-  });
-
-  return attributes;
-}
-
-export function getProperties(component?: Declaration): ArgTypes {
+export function getAttributesAndProperties(component?: Declaration): ArgTypes {
   const properties: ArgTypes = {};
 
   component?.members?.forEach((member) => {
     if (member.kind !== "field") {
       return;
+    }
+
+    if(member.attribute) {
+      properties[member.attribute] = {
+        name: member.attribute,
+        table: {
+          disable: true,
+        },
+      };
     }
 
     properties[member.name] = {
@@ -69,7 +36,6 @@ export function getProperties(component?: Declaration): ArgTypes {
     };
 
     if (
-      member.attribute ||
       member.privacy === "private" ||
       member.privacy === "protected" ||
       member.static
@@ -78,18 +44,24 @@ export function getProperties(component?: Declaration): ArgTypes {
     }
 
     const propType = cleanUpType(member?.type?.text);
-    const propName = `${member.name}-prop`;
+    const propName = member.attribute
+      ? `${member.attribute}-attr`
+      : `${member.name}-prop`;
     const defaultValue = removeQuoteWrappers(member.default);
-
+    
     properties[propName] = {
-      name: member.name,
-      description: getDescription(member.description, propName),
+      name: member.attribute || member.name,
+      description: getDescription(
+        member.description,
+        propName,
+        member.deprecated
+      ),
       defaultValue: defaultValue === "''" ? "" : defaultValue,
       control: {
         type: getControl(propType),
       },
       table: {
-        category: "properties",
+        category: member.attribute ? "attributes" : "properties",
         defaultValue: {
           summary: defaultValue,
         },
@@ -285,10 +257,21 @@ function removeQuoteWrappers(value?: string) {
   return value?.trim().replace(/^["'](.+(?=["']$))["']$/, "$1");
 }
 
-function getDescription(description?: string, argRef?: string) {
-  return description
-    ? `${description}\n\narg ref - \`${argRef}\``
-    : `arg ref - \`${argRef}\``;
+function getDescription(
+  description?: string,
+  argRef?: string,
+  deprecated?: string
+) {
+  let desc = '';
+  if(deprecated) {
+    desc += `\`@deprecated\` ${deprecated}\n\n\n`;
+  }
+
+  if(description) {
+    desc += `${description}\n\n`;
+  }
+
+  return desc += `arg ref - \`${argRef}\``;
 }
 
 export const getReactEventName = (eventName: string) =>

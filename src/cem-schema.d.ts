@@ -65,6 +65,7 @@ interface Member {
   parameters?: Parameter[];
   return?: Return;
   static?: boolean;
+  deprecated?: string;
 }
 
 interface Type {
@@ -92,6 +93,7 @@ interface Attribute {
   default?: string;
   description?: string;
   fieldName?: string;
+  deprecated?: string;
 }
 
 interface SuperClass {
