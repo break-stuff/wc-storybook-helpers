@@ -136,8 +136,6 @@ export function getReactProperties(component?: Declaration): ArgTypes {
     }
   });
 
-  // console.log(component?.tagName, properties);
-
   return properties;
 }
 
@@ -243,6 +241,10 @@ function getControl(type?: string): ControlOptions {
 
   const values = type.split("|");
   if (values.length > 1) {
+    if(values.length < 3) {
+      return "inline-radio";
+    }
+
     return values.length <= 4 ? "radio" : "select";
   }
 

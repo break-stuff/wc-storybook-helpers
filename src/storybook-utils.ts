@@ -42,7 +42,5 @@ function getReactProps(component?: Declaration): ArgTypes {
     ...getReactEvents(component),
   };
 
-  // console.log(component?.tagName, argTypes);
-
   return argTypes;
 }
