@@ -16,6 +16,16 @@ export class MyElement extends LitElement {
   @property({ attribute: "docs-hint", reflect: true })
   docsHint = "Click on the Vite and Lit logos to learn more";
 
+  /** The button's theme variant. */
+  @property({ reflect: true }) variant:
+    | "default"
+    | "primary"
+    | "success"
+    | "neutral"
+    | "warning"
+    | "danger"
+    | "text" = "default";
+
   /**
    * @deprecated replaced by `docs-hint`
    * Copy for the read the docs hint.
