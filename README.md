@@ -44,14 +44,13 @@ npm i -D wc-storybook-helpers
 Import your custom elements manifest and the storybook helpers into your story:
 
 ```js
-import cem from "../custom-elements.json";
 import { getWcStorybookHelpers } from "wc-storybook-helpers";
 ```
 
 Pass your element's tag name and the custom elements manifest into the Storybook helper function.
 
 ```js
-const { events, argTypes, template } = getWcStorybookHelpers("my-element", cem);
+const { events, argTypes, template } = getWcStorybookHelpers("my-element");
 ```
 
 Add the `argTypes` and events to your story config:
