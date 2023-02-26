@@ -36,6 +36,17 @@
             },
             {
               "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "| \"default\"\n    | \"primary\"\n    | \"success\"\n    | \"neutral\"\n    | \"warning\"\n    | \"danger\"\n    | \"text\""
+              },
+              "default": "\"default\"",
+              "description": "The button's theme variant.",
+              "attribute": "variant",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "oldDocsHint",
               "type": {
                 "text": "string"
@@ -71,6 +82,15 @@
               "default": "\"Click on the Vite and Lit logos to learn more\"",
               "description": "Copy for the read the docs hint.",
               "fieldName": "docsHint"
+            },
+            {
+              "name": "variant",
+              "type": {
+                "text": "| \"default\"\n    | \"primary\"\n    | \"success\"\n    | \"neutral\"\n    | \"warning\"\n    | \"danger\"\n    | \"text\""
+              },
+              "default": "\"default\"",
+              "description": "The button's theme variant.",
+              "fieldName": "variant"
             },
             {
               "name": "old-docs-hint",
