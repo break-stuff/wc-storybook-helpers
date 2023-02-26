@@ -1,9 +1,8 @@
 import { html } from "lit";
 import "./my-element";
-import cem from '../custom-elements.json';
 import { getWcStorybookHelpers } from '../../../';
 
-const { events, argTypes, template } = getWcStorybookHelpers("my-element", cem);
+const { events, argTypes, template } = getWcStorybookHelpers("my-element");
 
 
 export default {

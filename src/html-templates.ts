@@ -1,16 +1,22 @@
-import { spread } from '@open-wc/lit-helpers';
-import { useArgs } from '@storybook/client-api';
-import { TemplateResult } from 'lit';
-import { html, unsafeStatic } from 'lit/static-html.js';
-import { Declaration } from './cem-schema';
-import { getAttributes, getCssParts, getCssProperties, getSlots } from './cem-utilities.js';
+import { spread } from "@open-wc/lit-helpers";
+import { useArgs } from "@storybook/client-api";
+import { TemplateResult } from "lit";
+import { html, unsafeStatic } from "lit/static-html.js";
+import { Declaration } from "./cem-schema";
+import { getAttributesAndProperties, getCssParts, getCssProperties, getSlots } from "./cem-utilities.js";
 
 let argObserver: MutationObserver | undefined;
 let lastTagName: string | undefined;
 
-export function getTemplate(component?: Declaration, args?: any, slot?: TemplateResult): TemplateResult {
+export function getTemplate(
+  component?: Declaration,
+  args?: any,
+  slot?: TemplateResult
+): TemplateResult {
   if (!args) {
-    return html`<${unsafeStatic(component!.tagName!)}></${unsafeStatic(component!.tagName!)}>`;
+    return html`<${unsafeStatic(component!.tagName!)}></${unsafeStatic(
+      component!.tagName!
+    )}>`;
   }
 
   // reset argObserver if the component changes
@@ -27,7 +33,7 @@ export function getTemplate(component?: Declaration, args?: any, slot?: Template
       ${getStyleTemplate(component, args)}
       <${unsafeStatic(component!.tagName!)} ${spread(operators)}>
         ${slotsTemplate}
-        ${slot || ''}
+        ${slot || ""}
       </${unsafeStatic(component!.tagName!)}>
       <script>
         component = document.querySelector('${component!.tagName!}');
@@ -48,23 +54,29 @@ export function getStyleTemplate(component?: Declaration, args?: any) {
 }
 
 function getTemplateOperators(component: Declaration, args: any) {
-  const attributes = getAttributes(component);
+  const attributes = getAttributesAndProperties(component);
   const operators: any = {};
 
   Object.keys(attributes)
-    .filter(key => key.endsWith('-attr'))
-    .forEach(key => {
+    .filter((key) => key.endsWith("-attr"))
+    .forEach((key) => {
       const attr = attributes[key];
       const attrName = attributes[key].name;
       const attrValue = args![key] as unknown;
-      const prop: string = (attr.control as any).type === 'boolean' ? `?${attrName}` : attrName;
-      operators[prop] = attrValue === 'false' ? false : attrValue;
+      const prop: string =
+        (attr.control as any).type === "boolean" ? `?${attrName}` : attrName;
+      operators[prop] = attrValue === "false" ? false : attrValue;
     });
 
   Object.keys(args)
-    .filter(key => !key.endsWith('-attr') && !key.endsWith('-part') && !key.endsWith('-slot'))
-    .forEach(key => {
-      if (key.startsWith('on')) {
+    .filter(
+      (key) =>
+        !key.endsWith("-attr") &&
+        !key.endsWith("-part") &&
+        !key.endsWith("-slot")
+    )
+    .forEach((key) => {
+      if (key.startsWith("on")) {
         return;
       }
 
@@ -81,12 +93,12 @@ function getCssPropTemplate(component: Declaration, args: any) {
   const template = unsafeStatic(`
       ${component?.tagName} {
         ${Object.keys(cssProperties)
-          .map(key => {
+          .map((key) => {
             const cssName = cssProperties[key].name;
             const cssValue = args![key];
-            return cssValue ? `${cssName}: ${cssValue || ''};` : '';
+            return cssValue ? `${cssName}: ${cssValue || ""};` : "";
           })
-          .join('\n')}
+          .join("\n")}
       }`);
 
   return template;
@@ -97,15 +109,15 @@ function getCssPartsTemplate(component: Declaration, args: any) {
 
   const template = unsafeStatic(
     `${Object.keys(cssParts)
-      .filter(key => key.endsWith('-part'))
-      .map(key => {
+      .filter((key) => key.endsWith("-part"))
+      .map((key) => {
         const cssPartName = cssParts[key].name;
         const cssPartValue = args![key];
         return `${component?.tagName}::part(${cssPartName}) {
-          ${cssPartValue || ''}
+          ${cssPartValue || ""}
         }`;
       })
-      .join('\n')}`
+      .join("\n")}`
   );
 
   return template;
@@ -116,18 +128,18 @@ function getSlotsTemplate(component: Declaration, args: any) {
 
   const template = unsafeStatic(
     `${Object.keys(slots)
-      .filter(key => key.endsWith('-slot'))
-      .map(key => {
+      .filter((key) => key.endsWith("-slot"))
+      .map((key) => {
         const slotName = slots[key].name;
         const slotValue = args![key];
 
         return slotValue
-          ? slotName === 'default'
-            ? `${slotValue || ''}`
-            : `<div slot="${slotName}">${slotValue || ''}</div>`
-          : '';
+          ? slotName === "default"
+            ? `${slotValue || ""}`
+            : `<div slot="${slotName}">${slotValue || ""}</div>`
+          : "";
       })
-      .join('\n')}`
+      .join("\n")}`
   );
 
   return template;
@@ -148,31 +160,37 @@ function syncControls(component: Declaration) {
 function setArgObserver(component: Declaration) {
   let isUpdating = false;
   const updateArgs = useArgs()[1];
-  const attributes = getAttributes(component);
+  const attributes = getAttributesAndProperties(component);
 
   if (argObserver) {
     return;
   }
 
-  argObserver = new MutationObserver(mutations => {
-    mutations.forEach(mutation => {
-      if ((mutation.type as string) !== 'attributes' || (mutation.attributeName === 'class' && isUpdating)) {
+  argObserver = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (
+        (mutation.type as string) !== "attributes" ||
+        (mutation.attributeName === "class" && isUpdating)
+      ) {
         return;
       }
 
       isUpdating = true;
       const attribute = attributes[`${mutation.attributeName}-attr`];
-      if (attribute?.control === 'boolean' || (attribute?.control as any)?.type === 'boolean') {
+      if (
+        attribute?.control === "boolean" ||
+        (attribute?.control as any)?.type === "boolean"
+      ) {
         updateArgs({
-          [`${mutation.attributeName}-attr`]: (mutation.target as HTMLElement)?.hasAttribute(
-            mutation.attributeName || ''
-          ),
+          [`${mutation.attributeName}-attr`]: (
+            mutation.target as HTMLElement
+          )?.hasAttribute(mutation.attributeName || ""),
         });
       } else {
         updateArgs({
-          [`${mutation.attributeName}-attr`]: (mutation.target as HTMLElement).getAttribute(
-            mutation.attributeName || ''
-          ),
+          [`${mutation.attributeName}-attr`]: (
+            mutation.target as HTMLElement
+          ).getAttribute(mutation.attributeName || ""),
         });
       }
 

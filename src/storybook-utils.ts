@@ -12,7 +12,20 @@ import {
 } from './cem-utilities.js';
 import { Declaration } from './cem-schema';
 
-export function getWcStorybookHelpers(tagName: string, cem: any) {
+/**
+ * Gets Storybook helpers for a given component
+ * @param tagName the tag name referenced in the Custom Elements Manifest
+ * @returns An object containing the argTypes, reactArgTypes, events, styleTemplate, and template
+ */
+export function getWcStorybookHelpers(tagName: string) {
+  /** 
+   * 
+   * uses the global window.__STORYBOOK_CUSTOM_ELEMENTS_MANIFEST__ 
+   * variable created by the Storybook `setCustomElementsManifest` 
+   * method in the `preview.cjs` file 
+   * 
+   */
+  const cem = (window as any).__STORYBOOK_CUSTOM_ELEMENTS_MANIFEST__;  
   const component = getComponentByTagName(tagName, cem);
   const eventNames = component?.events?.map(event => event.name) || [];
 
