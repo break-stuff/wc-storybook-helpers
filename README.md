@@ -41,7 +41,7 @@ npm i -D wc-storybook-helpers
 
 ## Setup
 
-Import your custom elements manifest and the storybook helpers into your story:
+Import the storybook helpers into your story:
 
 ```js
 import { getWcStorybookHelpers } from "wc-storybook-helpers";
@@ -53,7 +53,7 @@ Pass your element's tag name into the Storybook helper function.
 const { events, argTypes, template } = getWcStorybookHelpers("my-element");
 ```
 
-Add the `argTypes` and events to your story config:
+Add the `argTypes` and `events` to your story config:
 
 ```js
 export default {
@@ -68,7 +68,7 @@ export default {
 };
 ```
 
-Add the template to your story's template:
+Add the template to your story's template and pass in the story `args` into the `template` function (this is an optional parameter, but required for arguments to function properly):
 
 ```ts
 const DefaultTemplate = (args: any) => template(args);
