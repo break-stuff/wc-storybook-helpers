@@ -6,8 +6,8 @@ There are a number of things that this helper library does to provide devs with 
 
 1. Uses types to intelligently provide better controls
 2. Prevents name collisions when attributes, properties, slots, and CSS shadow parts share the same name
-3. Provides two-way binding for controls and attributes
-4. Provides a template with bindings for attributes, properties, CSS custom properties, and CSS shadow parts.
+3. Provides a template with bindings for attributes, properties, CSS custom properties, and CSS shadow parts.
+4. Provides two-way binding for controls and attributes in the template
 
 ## Before You Install
 
