@@ -126,7 +126,7 @@ oldDocsHint = "Click on the Vite and Lit logos to learn more";
 
 ### Overriding Controls
 
-If you would like to change any of your controls, you can easily override it.
+If you would like to change any of your controls, you can easily override it using the spread operator and passing in an updated `argType` after the helper `argTypes`.
 
 ```js
 export default {
@@ -134,7 +134,7 @@ export default {
   component: "my-element",
   argTypes: {
     ...argTypes,
-    'docs-hint-attr' = {
+    'docs-hint-attr': {
       name: 'docs-hint',
       description: '...',
       defaultValue: '...',
@@ -158,6 +158,8 @@ export default {
 ## Events
 
 If you want to capture the events output by your component, you can map them to your story's config under the parameter's section.
+
+**Note:** They will only be captured if the `bubbles` option on your `CustomEvent` is set to `true` (it is `true` by default).
 
 ```js
 export default {
