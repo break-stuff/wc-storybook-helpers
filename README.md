@@ -27,8 +27,8 @@ setCustomElementsManifest(customElements);
 export const parameters = {
   ...
   controls: {
-    ...
     expanded: true,
+    ...
   },
 }
 ```
@@ -47,7 +47,7 @@ Import your custom elements manifest and the storybook helpers into your story:
 import { getWcStorybookHelpers } from "wc-storybook-helpers";
 ```
 
-Pass your element's tag name and the custom elements manifest into the Storybook helper function.
+Pass your element's tag name into the Storybook helper function.
 
 ```js
 const { events, argTypes, template } = getWcStorybookHelpers("my-element");
@@ -72,6 +72,9 @@ Add the template to your story's template:
 
 ```ts
 const DefaultTemplate = (args: any) => template(args);
+
+export const Default: any = DefaultTemplate.bind({});
+Default.args = {};
 ```
 
 ## `argTypes`
@@ -92,7 +95,7 @@ One of the challenges with the default implementation is that if there are multi
 
 The reference name will be documented with the control's description.
 
-![screenshot of storybook control panel with a select input expanded displaying options](https://github.com/break-stuff/wc-storybook-helpers/blob/main/demo/img/arg-ref.png?raw=true)
+![screenshot of storybook control panel with arrow pointing to the "arg ref" label](https://github.com/break-stuff/wc-storybook-helpers/blob/main/demo/img/arg-ref.png?raw=true)
 
 That reference can then be used to bind default values to the template.
 
@@ -104,6 +107,22 @@ Default.args = {
   "docs-hint-attr": "Some other value than the default",
 };
 ```
+
+### Deprecated Controls
+
+If you use the `@deprecated` tag in your jsDoc descriptions, those will also display in the description.
+
+```ts
+/**
+ * @deprecated replaced by `docs-hint`
+ * Copy for the read the docs hint.
+ */
+@property({ attribute: "old-docs-hint", reflect: true })
+oldDocsHint = "Click on the Vite and Lit logos to learn more";
+```
+
+![screenshot of storybook control panel with "deprecated" label in the description](https://github.com/break-stuff/wc-storybook-helpers/blob/main/demo/img/deprecated.png?raw=true)
+
 
 ### Overriding Controls
 
@@ -225,7 +244,7 @@ const ComponentTemplate = (args: any) => html`
   )}
   <script>
     // set property values
-    component.value = '2';
+    component.value = "2";
 
     // call component methods
     component.show();
