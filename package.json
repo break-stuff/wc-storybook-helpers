@@ -31,7 +31,8 @@
     "web components",
     "custom elements",
     "storybook",
-    "helpers"
+    "helpers",
+    "storybook web components"
   ],
   "dependencies": {
     "@open-wc/lit-helpers": "^0.5.1",
