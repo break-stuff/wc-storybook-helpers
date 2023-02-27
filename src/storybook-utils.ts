@@ -26,9 +26,12 @@ export function getWcStorybookHelpers(tagName: string) {
    *
    */
   const cem = (window as any).__STORYBOOK_CUSTOM_ELEMENTS_MANIFEST__;
-  if(!cem) {
-    throw new Error("Custom Elements Manifest not found. Be sure to follow the pre-install steps in this guide:\nhttps://www.npmjs.com/package/wc-storybook-helpers#before-you-install");
+  if (!cem) {
+    throw new Error(
+      "Custom Elements Manifest not found. Be sure to follow the pre-install steps in this guide:\nhttps://www.npmjs.com/package/wc-storybook-helpers#before-you-install"
+    );
   }
+
   const component = getComponentByTagName(tagName, cem);
   const eventNames = component?.events?.map((event) => event.name) || [];
 
