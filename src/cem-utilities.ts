@@ -8,7 +8,10 @@ export function getComponentByTagName(
   const module = (
     customElementsManifest as CustomElementsManifest
   ).modules?.find((m) => m.declarations?.some((d) => d.tagName === tagName));
-  return module?.declarations[0];
+  
+  return module?.declarations.find(
+    (x) => x.kind === "class" && x.tagName === tagName
+  );
 }
 
 export function getAttributesAndProperties(component?: Declaration): ArgTypes {
@@ -19,7 +22,7 @@ export function getAttributesAndProperties(component?: Declaration): ArgTypes {
       return;
     }
 
-    if(member.attribute) {
+    if (member.attribute) {
       properties[member.attribute] = {
         name: member.attribute,
         table: {
@@ -48,7 +51,7 @@ export function getAttributesAndProperties(component?: Declaration): ArgTypes {
       ? `${member.attribute}-attr`
       : `${member.name}-prop`;
     const defaultValue = removeQuoteWrappers(member.default);
-    
+
     properties[propName] = {
       name: member.attribute || member.name,
       description: getDescription(
@@ -241,7 +244,7 @@ function getControl(type?: string): ControlOptions {
 
   const values = type.split("|");
   if (values.length > 1) {
-    if(values.length < 3) {
+    if (values.length < 3) {
       return "inline-radio";
     }
 
@@ -264,16 +267,16 @@ function getDescription(
   argRef?: string,
   deprecated?: string
 ) {
-  let desc = '';
-  if(deprecated) {
+  let desc = "";
+  if (deprecated) {
     desc += `\`@deprecated\` ${deprecated}\n\n\n`;
   }
 
-  if(description) {
+  if (description) {
     desc += `${description}\n\n`;
   }
 
-  return desc += `arg ref - \`${argRef}\``;
+  return (desc += `arg ref - \`${argRef}\``);
 }
 
 export const getReactEventName = (eventName: string) =>
