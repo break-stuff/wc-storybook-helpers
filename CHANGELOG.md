@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.0.0-beta.2
+
+- Add better control selection
+- Allow for `undefined`/empty values in controls
+- Provide better default value support
+
 ## 1.0.0-beta.1
 
 - Add error if Custom Elements Manifest is not found.
