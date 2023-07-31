@@ -8,10 +8,7 @@ export function getComponentByTagName(
   const module = (
     customElementsManifest as CustomElementsManifest
   ).modules?.find((m) => m.declarations?.some((d) => d.tagName === tagName));
-  
-  return module?.declarations.find(
-    (x) => x.kind === "class" && x.tagName === tagName
-  );
+  return module?.declarations.find((d) => d.kind === "class" && d.tagName === tagName);
 }
 
 export function getAttributesAndProperties(component?: Declaration): ArgTypes {
@@ -108,24 +105,19 @@ export function getReactProperties(component?: Declaration): ArgTypes {
 
     const propType = cleanUpType(member?.type?.text);
     const propName = `${member.name}`;
-    const defaultValue = removeQuoteWrappers(member.default);
+    const controlType = getControl(propType);
 
     properties[propName] = {
       name: member.name,
       description: member.description,
-      defaultValue:
-        defaultValue === "false"
-          ? false
-          : defaultValue === "''"
-          ? ""
-          : defaultValue,
+      defaultValue: getDefaultValue(controlType, member.default),
       control: {
-        type: getControl(propType),
+        type: controlType,
       },
       table: {
         category: "properties",
         defaultValue: {
-          summary: defaultValue,
+          summary: removeQuoteWrappers(member.default),
         },
         type: {
           summary: member?.type?.text,
@@ -225,6 +217,15 @@ export function getSlots(component?: Declaration): ArgTypes {
   return slots;
 }
 
+function getDefaultValue(controlType: ControlOptions, defaultValue?: string) {
+  const initialValue = removeQuoteWrappers(defaultValue);
+  return controlType === "boolean"
+      ? initialValue === "true"
+      : initialValue === "''"
+      ? ""
+      : initialValue;
+}
+
 function getControl(type?: string): ControlOptions {
   if (!type) {
     return "text";
@@ -234,24 +235,16 @@ function getControl(type?: string): ControlOptions {
     return "boolean";
   }
 
-  if (type.includes("number") && !type.includes("string")) {
+  if (type.includes("number") && !type.includes("string") && type.length <= 2) {
     return "number";
   }
 
-  if (type.includes("Date")) {
+  if (type.includes("Date") && type.length <= 2) {
     return "date";
   }
 
-  const values = type.split("|");
-  if (values.length > 1) {
-    if (values.length < 3) {
-      return "inline-radio";
-    }
-
-    return values.length <= 4 ? "radio" : "select";
-  }
-
-  return "text";
+  // if types is a list of string options
+  return type.includes("|") ? "select" : "text";
 }
 
 function cleanUpType(type?: string): string {
