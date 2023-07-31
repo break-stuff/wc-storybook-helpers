@@ -3,7 +3,12 @@ import { useArgs } from "@storybook/client-api";
 import { TemplateResult } from "lit";
 import { html, unsafeStatic } from "lit/static-html.js";
 import { Declaration } from "./cem-schema";
-import { getAttributesAndProperties, getCssParts, getCssProperties, getSlots } from "./cem-utilities.js";
+import {
+  getAttributesAndProperties,
+  getCssParts,
+  getCssProperties,
+  getSlots,
+} from "./cem-utilities.js";
 
 let argObserver: MutationObserver | undefined;
 let lastTagName: string | undefined;
@@ -64,7 +69,7 @@ function getTemplateOperators(component: Declaration, args: any) {
       const attrName = attributes[key].name;
       const attrValue = args![key] as unknown;
       const prop: string =
-        (attr.control as any).type === "boolean" ? `?${attrName}` : attrName;
+        (attr.control as any)?.type === "boolean" ? `?${attrName}` : attrName;
       operators[prop] = attrValue === "false" ? false : attrValue;
     });
 
