@@ -16,8 +16,8 @@
     "analyze": "cem analyze",
     "dev": "vite",
     "build": "tsc && cem analyze && vite build",
-    "storybook": "npm run build && start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "storybook": "npm run build && storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "lit": "^2.6.1"
@@ -25,13 +25,16 @@
   "devDependencies": {
     "@babel/core": "^7.21.0",
     "@custom-elements-manifest/analyzer": "^0.6.8",
-    "@storybook/addon-actions": "^6.5.16",
-    "@storybook/addon-essentials": "^6.5.16",
-    "@storybook/addon-links": "^6.5.16",
-    "@storybook/builder-vite": "^0.4.2",
-    "@storybook/web-components": "^6.5.16",
+    "@storybook/addon-essentials": "^7.2.3",
+    "@storybook/addon-links": "^7.2.3",
+    "@storybook/blocks": "^7.2.3",
+    "@storybook/web-components": "^7.2.3",
+    "@storybook/web-components-vite": "^7.2.3",
     "babel-loader": "^8.3.0",
     "lit-html": "^2.6.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "storybook": "^7.2.3",
     "typescript": "^4.9.3",
     "vite": "^4.1.0"
   }
