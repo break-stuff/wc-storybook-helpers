@@ -14,7 +14,9 @@
   "scripts": {
     "build": "tsc",
     "deploy": "tsc && npm publish",
-    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
+    "demo:v6": "tsc && cd demo/lit-app-v6 && npm run storybook",
+    "demo:v7": "tsc && cd demo/lit-app-v7 && npm run storybook"
   },
   "repository": {
     "type": "git",
