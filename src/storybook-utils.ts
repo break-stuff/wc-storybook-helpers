@@ -36,6 +36,7 @@ export function getWcStorybookHelpers(tagName: string) {
   const eventNames = component?.events?.map((event) => event.name) || [];
 
   return {
+    args: getArgs(component),
     argTypes: getArgTypes(component),
     reactArgTypes: getReactProps(component),
     events: eventNames,
@@ -54,6 +55,16 @@ function getArgTypes(component?: Declaration): ArgTypes {
   };
 
   return argTypes;
+}
+
+function getArgs(component?: Declaration): Record<string, any> {
+  const args = Object.entries(getArgTypes(component))
+    // We only want to get args that have a control in Storybook
+    .filter(([, value]) => value?.control)
+    .map(([key, value]) => ({ [key]: value.defaultValue || '' }))
+    .reduce((acc, value) => ({ ...acc, ...value }), {});
+
+  return args;
 }
 
 function getReactProps(component?: Declaration): ArgTypes {

@@ -50,12 +50,14 @@ export function getStyleTemplate(component?: Declaration, args?: any) {
   const cssPropertiesTemplate = getCssPropTemplate(component!, args);
   const cssPartsTemplate = getCssPartsTemplate(component!, args);
 
-  return html`
-    <style>
-      ${cssPropertiesTemplate}
-      ${cssPartsTemplate}
-    </style>
-  `;
+  return cssPropertiesTemplate || cssPartsTemplate
+    ? html`
+        <style>
+          ${cssPropertiesTemplate}
+          ${cssPartsTemplate}
+        </style>
+      `
+    : "";
 }
 
 function getTemplateOperators(component: Declaration, args: any) {
@@ -94,6 +96,14 @@ function getTemplateOperators(component: Declaration, args: any) {
 
 function getCssPropTemplate(component: Declaration, args: any) {
   const cssProperties = getCssProperties(component);
+  const hasCssProperties = Object.keys(cssProperties).some((key) => {
+    const cssValue = args![key];
+    return cssValue ? true : false;
+  });
+
+  if (!hasCssProperties) {
+    return;
+  }
 
   const template = unsafeStatic(`
       ${component?.tagName} {
@@ -111,6 +121,14 @@ function getCssPropTemplate(component: Declaration, args: any) {
 
 function getCssPartsTemplate(component: Declaration, args: any) {
   const cssParts = getCssParts(component);
+  const hasCssParts = Object.keys(cssParts).some((key) => {
+    const cssValue = args![key];
+    return cssValue ? true : false;
+  });
+
+  if (!hasCssParts) {
+    return;
+  }
 
   const template = unsafeStatic(
     `${Object.keys(cssParts)
@@ -118,10 +136,13 @@ function getCssPartsTemplate(component: Declaration, args: any) {
       .map((key) => {
         const cssPartName = cssParts[key].name;
         const cssPartValue = args![key];
-        return `${component?.tagName}::part(${cssPartName}) {
-          ${cssPartValue || ""}
-        }`;
+        return cssPartValue
+          ? `${component?.tagName}::part(${cssPartName}) {
+              ${cssPartValue || ""}
+            }`
+          : null;
       })
+      .filter((value) => value !== null)
       .join("\n")}`
   );
 
@@ -142,8 +163,9 @@ function getSlotsTemplate(component: Declaration, args: any) {
           ? slotName === "default"
             ? `${slotValue || ""}`
             : `<div slot="${slotName}">${slotValue || ""}</div>`
-          : "";
+          : null;
       })
+      .filter((value) => value !== null)
       .join("\n")}`
   );
 

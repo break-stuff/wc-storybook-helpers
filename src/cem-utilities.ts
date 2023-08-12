@@ -8,7 +8,9 @@ export function getComponentByTagName(
   const module = (
     customElementsManifest as CustomElementsManifest
   ).modules?.find((m) => m.declarations?.some((d) => d.tagName === tagName));
-  return module?.declarations.find((d) => d.kind === "class" && d.tagName === tagName);
+  return module?.declarations.find(
+    (d) => d.kind === "class" && d.tagName === tagName
+  );
 }
 
 export function getAttributesAndProperties(component?: Declaration): ArgTypes {
@@ -183,6 +185,7 @@ export function getCssParts(component?: Declaration): ArgTypes {
       name: part.name,
       description: getDescription(part.description, `${part.name}-part`),
       control: "text",
+      defaultValue: `${component?.tagName}::part(${part.name}) {}`,
       table: {
         category: "css shadow parts",
       },
@@ -198,6 +201,8 @@ export function getSlots(component?: Declaration): ArgTypes {
   component?.slots?.forEach((slot) => {
     slots[slot.name] = {
       name: slot.name,
+      defaultValue:
+        slot.name === "default" ? "" : `<span slot="${slot.name}"></span>`,
       table: {
         disable: true,
       },
@@ -220,10 +225,10 @@ export function getSlots(component?: Declaration): ArgTypes {
 function getDefaultValue(controlType: ControlOptions, defaultValue?: string) {
   const initialValue = removeQuoteWrappers(defaultValue);
   return controlType === "boolean"
-      ? initialValue === "true"
-      : initialValue === "''"
-      ? ""
-      : initialValue;
+    ? initialValue === "true"
+    : initialValue === "''"
+    ? ""
+    : initialValue;
 }
 
 function getControl(type?: string): ControlOptions {
