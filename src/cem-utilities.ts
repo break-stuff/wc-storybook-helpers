@@ -47,8 +47,8 @@ export function getAttributesAndProperties(component?: Declaration): ArgTypes {
 
     const propType = cleanUpType(member?.type?.text);
     const propName = member.attribute
-      ? `${member.attribute}-attr`
-      : `${member.name}-prop`;
+      ? `${member.name}Attr`
+      : `${member.name}Prop`;
     const defaultValue = removeQuoteWrappers(member.default);
 
     properties[propName] = {
@@ -181,11 +181,10 @@ export function getCssParts(component?: Declaration): ArgTypes {
       },
     };
 
-    parts[`${part.name}-part`] = {
+    parts[`${part.name}Part`] = {
       name: part.name,
-      description: getDescription(part.description, `${part.name}-part`),
+      description: getDescription(part.description, `${part.name}Part`),
       control: "text",
-      defaultValue: `${component?.tagName}::part(${part.name}) {}`,
       table: {
         category: "css shadow parts",
       },
@@ -201,17 +200,15 @@ export function getSlots(component?: Declaration): ArgTypes {
   component?.slots?.forEach((slot) => {
     slots[slot.name] = {
       name: slot.name,
-      defaultValue:
-        slot.name === "default" ? "" : `<span slot="${slot.name}"></span>`,
       table: {
         disable: true,
       },
     };
 
     const slotName = slot.name || "default";
-    slots[`${slotName}-slot`] = {
+    slots[`${slotName}Slot`] = {
       name: slotName,
-      description: getDescription(slot.description, `${slotName}-slot`),
+      description: getDescription(slot.description, `${slotName}Slot`),
       control: "text",
       table: {
         category: "slots",
@@ -267,14 +264,15 @@ function getDescription(
 ) {
   let desc = "";
   if (deprecated) {
-    desc += `\`@deprecated\` ${deprecated}\n\n\n`;
+    desc += `\`@deprecated\` ${deprecated}`;
   }
 
   if (description) {
-    desc += `${description}\n\n`;
+    desc += desc ? "\n\n\n" : "";
+    desc += description;
   }
 
-  return (desc += `arg ref - \`${argRef}\``);
+  return (desc += `"\n\n\narg ref - \`${argRef}\``);
 }
 
 export const getReactEventName = (eventName: string) =>
