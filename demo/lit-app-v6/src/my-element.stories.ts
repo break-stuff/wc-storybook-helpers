@@ -17,10 +17,7 @@ export default {
 };
 
 const DefaultTemplate = (args: any) => {
-  return html`
-    ${template(args)}
-    
-  `;
+  return html`${template(args)}`;
 };
 
 export const Default: any = DefaultTemplate.bind({});
