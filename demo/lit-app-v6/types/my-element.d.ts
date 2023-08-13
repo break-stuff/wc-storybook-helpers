@@ -1,4 +1,4 @@
-import { LitElement } from 'lit';
+import { LitElement } from "lit";
 /**
  * An example element.
  *
@@ -10,6 +10,13 @@ export declare class MyElement extends LitElement {
      * Copy for the read the docs hint.
      */
     docsHint: string;
+    /** The button's theme variant. */
+    variant: "default" | "primary" | "success" | "neutral" | "warning" | "danger" | "text";
+    /**
+     * @deprecated replaced by `docs-hint`
+     * Copy for the read the docs hint.
+     */
+    oldDocsHint: string;
     /**
      * The number of times the button has been clicked.
      */
@@ -20,6 +27,6 @@ export declare class MyElement extends LitElement {
 }
 declare global {
     interface HTMLElementTagNameMap {
-        'my-element': MyElement;
+        "my-element": MyElement;
     }
 }

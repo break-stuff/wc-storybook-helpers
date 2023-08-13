@@ -20,6 +20,10 @@
             {
               "description": "This element has a slot",
               "name": ""
+            },
+            {
+              "description": "This element has a slot",
+              "name": "button"
             }
           ],
           "members": [

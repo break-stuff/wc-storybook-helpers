@@ -3,6 +3,7 @@ import { LitElement } from "lit";
  * An example element.
  *
  * @slot - This element has a slot
+ * @slot button - This element has a slot
  * @csspart button - The button
  */
 export declare class MyElement extends LitElement {

@@ -1,7 +1,8 @@
-import "./index";
+import "./my-element";
 declare const _default: {
     title: string;
     component: string;
+    argTypes: ArgTypes;
     parameters: {
         actions: {
             handles: string[];
@@ -10,5 +11,3 @@ declare const _default: {
 };
 export default _default;
 export declare const Default: any;
-export declare const ActionTest: any;
-export declare const IconTest: any;

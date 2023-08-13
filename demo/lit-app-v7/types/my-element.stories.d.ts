@@ -1,13 +1,5 @@
+import type { Meta, StoryObj } from '@storybook/web-components';
 import "./my-element";
-declare const _default: {
-    title: string;
-    component: string;
-    argTypes: ArgTypes;
-    parameters: {
-        actions: {
-            handles: string[];
-        };
-    };
-};
-export default _default;
-export declare const Default: any;
+declare const meta: Meta;
+export default meta;
+export declare const Default: StoryObj;

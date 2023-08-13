@@ -6,6 +6,7 @@ import litLogo from "./assets/lit.svg";
  * An example element.
  *
  * @slot - This element has a slot
+ * @slot button - This element has a slot
  * @csspart button - The button
  */
 @customElement("my-element")
@@ -53,6 +54,7 @@ export class MyElement extends LitElement {
       <div class="card">
         <button @click=${this._onClick} part="button">
           count is ${this.count}
+          <slot name="button"></slot>
         </button>
       </div>
       <p class="read-the-docs">${this.docsHint}</p>
