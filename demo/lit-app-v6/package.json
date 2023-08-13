@@ -16,7 +16,7 @@
     "analyze": "cem analyze",
     "dev": "vite",
     "build": "tsc && cem analyze && vite build",
-    "storybook": "npm run build && start-storybook -p 6006",
+    "storybook": "NODE_OPTIONS=--openssl-legacy-provider && npm run build && start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
   "dependencies": {
