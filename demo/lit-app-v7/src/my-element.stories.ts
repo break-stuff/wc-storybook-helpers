@@ -1,4 +1,4 @@
-import { html } from "lit";
+import type { Meta, StoryObj } from '@storybook/web-components';
 import "./my-element";
 import { getWcStorybookHelpers } from "../../..";
 
@@ -7,7 +7,7 @@ const { args, events, argTypes, template } =
 
 console.log("argTypes", argTypes);
 
-export default {
+const meta: Meta = {
   title: "Components/My Element",
   component: "my-element",
   args,
@@ -18,10 +18,11 @@ export default {
     },
   },
 };
+export default meta;
 
-const DefaultTemplate = (args: any) => {
-  return html` ${template(args)} `;
-};
-
-export const Default: any = DefaultTemplate.bind({});
-Default.args = {};
+export const Default: StoryObj = {
+  render: (args) => template(args),
+  args: {
+    docsHintAttr: "my-element",
+  }
+}
