@@ -49,7 +49,6 @@ export function getTemplate(
 }
 
 export function getStyleTemplate(component?: Declaration, args?: any) {
-  const cssPropertiesTemplate = getCssPropTemplate(component!, args);
   const cssPartsTemplate = getCssPartsTemplate(component!, args);
 
   return `${cssPartsTemplate}`?.replaceAll(/\s+/g, "") != ""
