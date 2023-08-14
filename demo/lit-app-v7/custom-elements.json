@@ -42,12 +42,15 @@
               "kind": "field",
               "name": "variant",
               "type": {
-                "text": "| \"default\"\n    | \"primary\"\n    | \"success\"\n    | \"neutral\"\n    | \"warning\"\n    | \"danger\"\n    | \"text\""
+                "text": "Variant"
               },
-              "default": "\"default\"",
+              "default": "\"primary\"",
               "description": "The button's theme variant.",
               "attribute": "variant",
-              "reflects": true
+              "reflects": true,
+              "expandedType": {
+                "text": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
+              }
             },
             {
               "kind": "field",
@@ -90,11 +93,14 @@
             {
               "name": "variant",
               "type": {
-                "text": "| \"default\"\n    | \"primary\"\n    | \"success\"\n    | \"neutral\"\n    | \"warning\"\n    | \"danger\"\n    | \"text\""
+                "text": "Variant"
               },
-              "default": "\"default\"",
+              "default": "\"primary\"",
               "description": "The button's theme variant.",
-              "fieldName": "variant"
+              "fieldName": "variant",
+              "expandedType": {
+                "text": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
+              }
             },
             {
               "name": "old-docs-hint",

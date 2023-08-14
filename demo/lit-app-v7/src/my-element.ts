@@ -2,6 +2,15 @@ import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import litLogo from "./assets/lit.svg";
 
+export type Variant =
+  | "default"
+  | "primary"
+  | "success"
+  | "neutral"
+  | "warning"
+  | "danger"
+  | "text";
+
 /**
  * An example element.
  *
@@ -18,14 +27,7 @@ export class MyElement extends LitElement {
   docsHint = "Click on the Vite and Lit logos to learn more";
 
   /** The button's theme variant. */
-  @property({ reflect: true }) variant:
-    | "default"
-    | "primary"
-    | "success"
-    | "neutral"
-    | "warning"
-    | "danger"
-    | "text" = "default";
+  @property({ reflect: true }) variant: Variant = "primary";
 
   /**
    * @deprecated replaced by `docs-hint`

@@ -1,4 +1,5 @@
 import { LitElement } from "lit";
+export type Variant = "default" | "primary" | "success" | "neutral" | "warning" | "danger" | "text";
 /**
  * An example element.
  *
@@ -12,7 +13,7 @@ export declare class MyElement extends LitElement {
      */
     docsHint: string;
     /** The button's theme variant. */
-    variant: "default" | "primary" | "success" | "neutral" | "warning" | "danger" | "text";
+    variant: Variant;
     /**
      * @deprecated replaced by `docs-hint`
      * Copy for the read the docs hint.

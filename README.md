@@ -50,12 +50,15 @@ import { getWcStorybookHelpers } from "wc-storybook-helpers";
 Pass your element's tag name into the Storybook helper function.
 
 ```js
-const { events, argTypes, template } = getWcStorybookHelpers("my-element");
+const { events, args, argTypes, template } = getWcStorybookHelpers("my-element");
 ```
 
 Add the `argTypes` and `events` to your story config:
 
+> **NOTE:** If you are using using Storybook v6 the default values for the `args` will automatically be provided. If you are using v7 you will need to include the `args` object from the helpers and add them to the default export.
+
 ```js
+// Storybook v6
 export default {
   title: "Components/My Element",
   component: "my-element",
@@ -68,14 +71,43 @@ export default {
 };
 ```
 
+```js
+// Storybook v7
+import type { Meta, StoryObj } from '@storybook/web-components';
+
+const meta: Meta = {
+  title: "Components/My Element",
+  component: "my-element",
+  args,  // <- default values for Storybook v7
+  argTypes,
+  parameters: {
+    actions: {
+      handles: events,
+    },
+  },
+};
+export default meta;
+```
+
 Add the template to your story's template and pass in the story `args` into the `template` function (this is an optional parameter, but required for arguments to function properly):
 
 ```ts
+// Storybook v6
 const DefaultTemplate = (args: any) => template(args);
 
 export const Default: any = DefaultTemplate.bind({});
 Default.args = {};
 ```
+
+```ts
+// Storybook v7
+export const Default: StoryObj = {
+  render: (args) => template(args),
+  args: {}
+}
+```
+
+## Controls
 
 ## `argTypes`
 
@@ -91,7 +123,7 @@ For example if your component has an attribute called `variant` with predefined 
 
 ### Name-Spaced Controls
 
-One of the challenges with the default implementation is that if there are multiple properties with the same name, they will be overridden. For example, if there is an attribute named `label` as well as a slot named `label` only one will display. In order to ensure every argument is displayed properly, arguments will be suffixed with `-attr`, `-prop`, ans `-slot` respectively (CSS Custom Properties don't receive one because they already have a unique property value).
+One of the challenges with the default implementation is that if there are multiple properties with the same name, they will be overridden. For example, if there is an attribute named `label` as well as a slot named `label` only one will display. In order to ensure every argument is displayed properly, arguments will be suffixed with `Attr`, `Prop`, ans `Slot` respectively (CSS Custom Properties don't receive one because they already have a unique property value).
 
 The reference name will be documented with the control's description.
 
@@ -104,8 +136,18 @@ const DefaultTemplate = (args: any) => template(args);
 
 export const Default: any = DefaultTemplate.bind({});
 Default.args = {
-  "docs-hint-attr": "Some other value than the default",
+  docsHintAttr: "Some other value than the default",
 };
+```
+
+```ts
+// Storybook v7
+export const Default: StoryObj = {
+  render: (args) => template(args),
+  args: {
+    docsHintAttr: "Some other value than the default",
+  }
+}
 ```
 
 ### Deprecated Controls
@@ -134,7 +176,7 @@ export default {
   component: "my-element",
   argTypes: {
     ...argTypes,
-    'docs-hint-attr': {
+    docsHintAttr: {
       name: 'docs-hint',
       description: '...',
       defaultValue: '...',

@@ -1,5 +1,5 @@
 import { TemplateResult } from "lit";
-import { ArgTypes } from "./storybook";
+import type { ArgTypes, Options } from "./storybook";
 import { getStyleTemplate, getTemplate } from "./html-templates.js";
 import {
   getComponentByTagName,
@@ -11,6 +11,15 @@ import {
   getSlots,
 } from "./cem-utilities.js";
 import { Declaration } from "./cem-schema";
+
+/**
+ * sets the global config for the Storybook helpers
+ * @param options 
+ */
+export function setWcStorybookHelpersConfig(options: Options) {
+  console.log(options);
+  (window as any).__WC_STORYBOOK_HELPERS_CONFIG__ = options;
+}
 
 /**
  * Gets Storybook helpers for a given component

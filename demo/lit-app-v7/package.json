@@ -31,6 +31,7 @@
     "@storybook/web-components": "^7.2.3",
     "@storybook/web-components-vite": "^7.2.3",
     "babel-loader": "^8.3.0",
+    "cem-plugin-expanded-types": "^1.0.0",
     "lit-html": "^2.6.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

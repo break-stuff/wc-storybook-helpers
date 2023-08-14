@@ -1,6 +1,11 @@
 import { CustomElementsManifest, Declaration } from "./cem-schema";
-import { ArgTypes, ControlOptions } from "./storybook";
+import type { ArgTypes, ControlOptions, Options } from "./storybook";
 
+let options: Options = {};
+
+setTimeout(() => {
+  options = (window as any).__WC_STORYBOOK_HELPERS_CONFIG__ || {};
+});
 export function getComponentByTagName(
   tagName: string,
   customElementsManifest: CustomElementsManifest
@@ -45,7 +50,10 @@ export function getAttributesAndProperties(component?: Declaration): ArgTypes {
       return;
     }
 
-    const propType = cleanUpType(member?.type?.text);
+    const type = options.typeRef
+      ? (member as any)[`${options.typeRef}`]?.text || member?.type?.text
+      : member?.type?.text;
+    const propType = cleanUpType(type);
     const propName = member.attribute
       ? `${member.name}Attr`
       : `${member.name}Prop`;
@@ -68,7 +76,7 @@ export function getAttributesAndProperties(component?: Declaration): ArgTypes {
           summary: defaultValue,
         },
         type: {
-          summary: member?.type?.text,
+          summary: type,
         },
       },
     };
@@ -105,7 +113,10 @@ export function getReactProperties(component?: Declaration): ArgTypes {
       return;
     }
 
-    const propType = cleanUpType(member?.type?.text);
+    const type = options.typeRef
+      ? (member as any)[`${options.typeRef}`]?.text || member?.type?.text
+      : member?.type?.text;
+    const propType = cleanUpType(type);
     const propName = `${member.name}`;
     const controlType = getControl(propType);
 
@@ -122,7 +133,7 @@ export function getReactProperties(component?: Declaration): ArgTypes {
           summary: removeQuoteWrappers(member.default),
         },
         type: {
-          summary: member?.type?.text,
+          summary: type,
         },
       },
     };
@@ -272,7 +283,7 @@ function getDescription(
     desc += description;
   }
 
-  return (desc += `"\n\n\narg ref - \`${argRef}\``);
+  return options.hideArgRef ? desc : (desc += `"\n\n\narg ref - \`${argRef}\``);
 }
 
 export const getReactEventName = (eventName: string) =>

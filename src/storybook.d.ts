@@ -1,3 +1,10 @@
+export interface Options {
+  /** hides the `arg ref` label on each control */
+  hideArgRef?: boolean;
+  /** sets the custom type reference in the Custom Elements Manifest */
+  typeRef?: string;
+}
+
 export interface ArgTypes {
   [key: string]: ArgSettings;
 }
