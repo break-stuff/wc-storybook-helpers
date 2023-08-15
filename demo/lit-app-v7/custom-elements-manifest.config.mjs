@@ -4,7 +4,7 @@ export default {
   /** Globs to analyze */
   globs: ["src/my-element.ts"],
   /** Globs to exclude */
-  exclude: [],
+  exclude: ["src/**/*.stories.ts"],
   /** Directory to output CEM to */
   outdir: "/",
   /** Run in dev mode, provides extra logging */
