@@ -17,7 +17,6 @@ import { Declaration } from "./cem-schema";
  * @param options 
  */
 export function setWcStorybookHelpersConfig(options: Options) {
-  console.log(options);
   (window as any).__WC_STORYBOOK_HELPERS_CONFIG__ = options;
 }
 

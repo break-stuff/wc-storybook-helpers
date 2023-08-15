@@ -26,21 +26,21 @@ export function getAttributesAndProperties(component?: Declaration): ArgTypes {
       return;
     }
 
-    if (member.attribute) {
-      properties[member.attribute] = {
-        name: member.attribute,
-        table: {
-          disable: true,
-        },
-      };
-    }
+    // if (member.attribute) {
+    //   properties[member.attribute] = {
+    //     name: member.attribute,
+    //     table: {
+    //       disable: true,
+    //     },
+    //   };
+    // }
 
-    properties[member.name] = {
-      name: member.name,
-      table: {
-        disable: true,
-      },
-    };
+    // properties[member.name] = {
+    //   name: member.name,
+    //   table: {
+    //     disable: true,
+    //   },
+    // };
 
     if (
       member.privacy === "private" ||
@@ -54,9 +54,7 @@ export function getAttributesAndProperties(component?: Declaration): ArgTypes {
       ? (member as any)[`${options.typeRef}`]?.text || member?.type?.text
       : member?.type?.text;
     const propType = cleanUpType(type);
-    const propName = member.attribute
-      ? `${member.name}Attr`
-      : `${member.name}Prop`;
+    const propName = member.name;
     const defaultValue = removeQuoteWrappers(member.default);
 
     properties[propName] = {

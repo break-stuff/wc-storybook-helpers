@@ -62,24 +62,21 @@ function getTemplateOperators(component: Declaration, args: any) {
   const attributes = getAttributesAndProperties(component);
   const operators: any = {};
 
-  Object.keys(attributes)
-    .filter((key) => key.endsWith("Attr"))
-    .forEach((key) => {
-      const attr = attributes[key];
-      const attrName = attributes[key].name;
-      const attrValue = args![key] as unknown;
-      const prop: string =
-        (attr.control as any).type === "boolean" ? `?${attrName}` : attrName;
-      operators[prop] = attrValue === "false" ? false : attrValue;
-    });
+  Object.keys(attributes).forEach((key) => {
+    const attr = attributes[key];
+    if (attr?.table?.category !== "attributes") {
+      return;
+    }
+
+    const attrName = attr.name;
+    const attrValue = args![key] as unknown;
+    const prop: string =
+      (attr.control as any).type === "boolean" ? `?${attrName}` : attrName;
+    operators[prop] = attrValue === "false" ? false : attrValue;
+  });
 
   Object.keys(args)
-    .filter(
-      (key) =>
-        !key.endsWith("Attr") &&
-        !key.endsWith("Part") &&
-        !key.endsWith("Slot")
-    )
+    .filter((key) => attributes[key]?.table?.category === "properties")
     .forEach((key) => {
       if (key.startsWith("on")) {
         return;
@@ -194,19 +191,19 @@ function setArgObserver(component: Declaration) {
       }
 
       isUpdating = true;
-      const attribute = attributes[`${mutation.attributeName}Attr`];
+      const attribute = attributes[`${mutation.attributeName}`];
       if (
         attribute?.control === "boolean" ||
         (attribute?.control as any)?.type === "boolean"
       ) {
         updateArgs({
-          [`${mutation.attributeName}Attr`]: (
+          [`${mutation.attributeName}`]: (
             mutation.target as HTMLElement
           )?.hasAttribute(mutation.attributeName || ""),
         });
       } else {
         updateArgs({
-          [`${mutation.attributeName}Attr`]: (
+          [`${mutation.attributeName}`]: (
             mutation.target as HTMLElement
           ).getAttribute(mutation.attributeName || ""),
         });

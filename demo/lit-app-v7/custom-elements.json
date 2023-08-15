@@ -75,6 +75,14 @@
               "reflects": true
             },
             {
+              "kind": "field",
+              "name": "test",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "test property"
+            },
+            {
               "kind": "method",
               "name": "_onClick",
               "privacy": "private"

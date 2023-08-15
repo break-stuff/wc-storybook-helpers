@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/web-components";
-import "./my-element";
+import { MyElement } from "./my-element";
 import { getWcStorybookHelpers } from "../../..";
 
 const { args, events, argTypes, template } =
@@ -18,9 +18,7 @@ const meta: Meta = {
 };
 export default meta;
 
-export const Default: StoryObj = {
+export const Default: StoryObj<MyElement & typeof args> = {
   render: (args) => template(args),
-  args: {
-    docsHintAttr: "my-element",
-  },
+  args: {},
 };

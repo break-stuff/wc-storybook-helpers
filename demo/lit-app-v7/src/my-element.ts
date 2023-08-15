@@ -42,6 +42,12 @@ export class MyElement extends LitElement {
   @property({ type: Number, reflect: true })
   count = 0;
 
+  /**
+   * test property
+   */
+  @property({ attribute: false })
+  test?: string;
+
   render() {
     return html`
       <div>
@@ -49,6 +55,7 @@ export class MyElement extends LitElement {
           <img src="/vite.svg" class="logo" alt="Vite logo" />
         </a>
         <a href="https://lit.dev" target="_blank">
+          This is a test: ${this.test}
           <img src=${litLogo} class="logo lit" alt="Lit logo" />
         </a>
       </div>

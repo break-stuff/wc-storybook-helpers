@@ -34,7 +34,7 @@ interface Table {
   /** Removes control from table. */
   disable?: boolean;
   /** Assigns control to control group */
-  category?: string;
+  category?: 'slots' | 'attributes' | 'css properties' | 'css shadow parts' | 'events' | 'properties' | 'methods';
   /** Assigns the argTypes to a specific subcategory */
   subcategory?: string;
 }
