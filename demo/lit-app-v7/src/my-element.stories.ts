@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/web-components";
-import { MyElement } from "./my-element";
+import type { MyElement } from "./my-element";
+import "./my-element";
 import { getWcStorybookHelpers } from "../../..";
 
 const { args, events, argTypes, template } =
