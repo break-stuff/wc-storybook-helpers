@@ -50,7 +50,8 @@ import { getWcStorybookHelpers } from "wc-storybook-helpers";
 Pass your element's tag name into the Storybook helper function.
 
 ```js
-const { events, args, argTypes, template } = getWcStorybookHelpers("my-element");
+const { events, args, argTypes, template } =
+  getWcStorybookHelpers("my-element");
 ```
 
 Add the `argTypes` and `events` to your story config:
@@ -73,12 +74,12 @@ export default {
 
 ```js
 // Storybook v7
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from "@storybook/web-components";
 
 const meta: Meta = {
   title: "Components/My Element",
   component: "my-element",
-  args,  // <- default values for Storybook v7
+  args, // <- default values for Storybook v7
   argTypes,
   parameters: {
     actions: {
@@ -101,13 +102,18 @@ Default.args = {};
 
 ```ts
 // Storybook v7
-export const Default: StoryObj = {
-  render: (args) => template(args),
-  args: {}
-}
-```
 
-## Controls
+/**
+ * create Story type that will provide autocomplete and docs for `args`,
+ * but also allow for namespaced args like CSS Shadow Parts and Slots
+ */
+type Story = StoryObj<MyElement & typeof args>;
+
+export const Default: Story = {
+  render: (args) => template(args),
+  args: {},
+};
+```
 
 ## `argTypes`
 
@@ -123,7 +129,7 @@ For example if your component has an attribute called `variant` with predefined 
 
 ### Name-Spaced Controls
 
-One of the challenges with the default implementation is that if there are multiple properties with the same name, they will be overridden. For example, if there is an attribute named `label` as well as a slot named `label` only one will display. In order to ensure every argument is displayed properly, arguments will be suffixed with `Attr`, `Prop`, ans `Slot` respectively (CSS Custom Properties don't receive one because they already have a unique property value).
+One of the challenges with the default implementation is that if there are multiple properties with the same name, they will be overridden. For example, if there is an attribute named `label` as well as a slot named `label` only one will display. In order to ensure every argument is displayed properly, CSS Shadow Part and Slot arguments will be suffixed with `-part`, and `-slot` respectively. CSS Custom Properties don't receive one because they already have a unique property value and attributes and properties will rely on the camel-cased property name.
 
 The reference name will be documented with the control's description.
 
@@ -136,18 +142,18 @@ const DefaultTemplate = (args: any) => template(args);
 
 export const Default: any = DefaultTemplate.bind({});
 Default.args = {
-  docsHintAttr: "Some other value than the default",
+  docsHint: "Some other value than the default",
 };
 ```
 
 ```ts
 // Storybook v7
-export const Default: StoryObj = {
+export const Default: Story = {
   render: (args) => template(args),
   args: {
-    docsHintAttr: "Some other value than the default",
-  }
-}
+    docsHint: "Some other value than the default",
+  },
+};
 ```
 
 ### Deprecated Controls
@@ -164,7 +170,6 @@ oldDocsHint = "Click on the Vite and Lit logos to learn more";
 ```
 
 ![screenshot of storybook control panel with "deprecated" label in the description](https://github.com/break-stuff/wc-storybook-helpers/blob/main/demo/img/deprecated.png?raw=true)
-
 
 ### Overriding Controls
 
@@ -196,6 +201,10 @@ export default {
   ...
 };
 ```
+
+## Using Slot Controls
+
+Using slots form the controls panel is fairly straight forward. The input is already wired up to the appropriate slot and so rich content can be added directly to the input with no additional content
 
 ## Events
 
