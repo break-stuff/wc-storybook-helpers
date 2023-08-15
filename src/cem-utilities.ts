@@ -26,21 +26,21 @@ export function getAttributesAndProperties(component?: Declaration): ArgTypes {
       return;
     }
 
-    // if (member.attribute) {
-    //   properties[member.attribute] = {
-    //     name: member.attribute,
-    //     table: {
-    //       disable: true,
-    //     },
-    //   };
-    // }
+    if (member.attribute) {
+      properties[member.attribute] = {
+        name: member.attribute,
+        table: {
+          disable: true,
+        },
+      };
+    }
 
-    // properties[member.name] = {
-    //   name: member.name,
-    //   table: {
-    //     disable: true,
-    //   },
-    // };
+    properties[member.name] = {
+      name: member.name,
+      table: {
+        disable: true,
+      },
+    };
 
     if (
       member.privacy === "private" ||
@@ -190,9 +190,9 @@ export function getCssParts(component?: Declaration): ArgTypes {
       },
     };
 
-    parts[`${part.name}Part`] = {
+    parts[`${part.name}-part`] = {
       name: part.name,
-      description: getDescription(part.description, `${part.name}Part`),
+      description: getDescription(part.description, `${part.name}-part`),
       control: "text",
       table: {
         category: "css shadow parts",
@@ -215,9 +215,9 @@ export function getSlots(component?: Declaration): ArgTypes {
     };
 
     const slotName = slot.name || "default";
-    slots[`${slotName}Slot`] = {
+    slots[`${slotName}-slot`] = {
       name: slotName,
-      description: getDescription(slot.description, `${slotName}Slot`),
+      description: getDescription(slot.description, `${slotName}-slot`),
       control: "text",
       table: {
         category: "slots",
