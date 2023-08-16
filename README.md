@@ -56,7 +56,7 @@ const { events, args, argTypes, template } =
 
 Add the `argTypes` and `events` to your story config:
 
-> **NOTE:** If you are using using Storybook v6 the default values for the `args` will automatically be provided. If you are using v7 you will need to include the `args` object from the helpers and add them to the default export.
+> **NOTE:** If you are using using Storybook v6 the default values are included as part of the `argTypes`. If you are using v7 you will need to include the `args` object from the helpers and add them to the default export.
 
 ```js
 // Storybook v6
@@ -202,20 +202,6 @@ export default {
 };
 ```
 
-## Using Slot Controls
-
-If you are using the `template`, using slots form the controls panel is fairly straight forward. The input is already wired up to the appropriate slot and so rich content can be added directly to the input with no additional set-up required.
-
-![screenshot of storybook control panel with a select input expanded displaying options](https://github.com/break-stuff/wc-storybook-helpers/blob/main/demo/img/slots.png?raw=true)
-
-
-## Using CSS Shadow Parts Controls
-
-Like the slot controls, the `template` makes working with CSS Shadow Parts easy. The template is pre-configured with the appropriate code to apply styles to the component's parts. You can simply apply the styles directly to the control input.
-
-![screenshot of storybook control panel with a select input expanded displaying options](https://github.com/break-stuff/wc-storybook-helpers/blob/main/demo/img/parts.png?raw=true)
-
-
 ## Events
 
 If you want to capture the events output by your component, you can map them to your story's config under the parameter's section.
@@ -266,7 +252,7 @@ const SelectTemplate = (args: any) =>
 
 export const Default: any = SelectTemplate.bind({});
 Default.args = {
-  "docs-hint-attr": "Some other value than the default",
+  docsHint: "Some other value than the default",
 };
 ```
 
@@ -313,4 +299,46 @@ const ComponentTemplate = (args: any) => html`
     component.show();
   </script>
 `;
+```
+
+## Using Slot Controls
+
+If you are using the `template`, using slots form the controls panel is fairly straight forward. The input is already wired up to the appropriate slot and so rich content can be added directly to the input with no additional set-up required.
+
+![screenshot of storybook control panel with a select input expanded displaying options](https://github.com/break-stuff/wc-storybook-helpers/blob/main/demo/img/slots.png?raw=true)
+
+## Using CSS Shadow Parts Controls
+
+Like the slot controls, the `template` makes working with CSS Shadow Parts easy. The template is pre-configured with the appropriate code to apply styles to the component's parts. You can simply apply the styles directly to the control input.
+
+![screenshot of storybook control panel with a select input expanded displaying options](https://github.com/break-stuff/wc-storybook-helpers/blob/main/demo/img/parts.png?raw=true)
+
+## Configuration
+
+The helpers package provides a way to set global configurations for your stories using the `setWcStorybookHelpersConfig` function. This can be added to the `.storybook/preview.js` file.
+
+```ts
+import { setWcStorybookHelpersConfig } from "wc-storybook-helpers";
+
+setWcStorybookHelpersConfig({ ... });
+setCustomElementsManifest(customElements);
+
+```
+
+### Hide "Arg Types"
+
+There may be times you want to hide the "arg types" label. You can set the `hideArgRef` to `false` and it will remove the label from controls.
+
+```ts
+setWcStorybookHelpersConfig({
+  hideArgRef: process.env.NODE_ENV === "production",
+});
+```
+
+### Custom Types
+
+It is common for teams to parse or create custom types and add them to the Custom Elements Manifest to use for other tools. The helpers can be configured to use those types instead of the default types in your manifest using the `typeRef`. If no custom type is found, it will fallback to the default type.
+
+```ts
+setWcStorybookHelpersConfig({ typeRef: "expandedType" });
 ```
