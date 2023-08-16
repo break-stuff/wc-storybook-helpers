@@ -1,6 +1,6 @@
 import { html } from "lit";
 import "./my-element";
-import { getWcStorybookHelpers } from '../../../';
+import { getWcStorybookHelpers } from '../../..';
 
 const { events, argTypes, template } = getWcStorybookHelpers("my-element");
 
@@ -17,10 +17,7 @@ export default {
 };
 
 const DefaultTemplate = (args: any) => {
-  return html`
-    ${template(args)}
-    
-  `;
+  return html`${template(args)}`;
 };
 
 export const Default: any = DefaultTemplate.bind({});

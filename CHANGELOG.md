@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.0-beta.3
+
+- Prep for Storybook 7
+
 ## 1.0.0-beta.2
 
 - Add better control selection

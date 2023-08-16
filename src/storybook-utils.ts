@@ -1,5 +1,5 @@
 import { TemplateResult } from "lit";
-import { ArgTypes } from "./storybook";
+import type { ArgTypes, Options } from "./storybook";
 import { getStyleTemplate, getTemplate } from "./html-templates.js";
 import {
   getComponentByTagName,
@@ -11,6 +11,14 @@ import {
   getSlots,
 } from "./cem-utilities.js";
 import { Declaration } from "./cem-schema";
+
+/**
+ * sets the global config for the Storybook helpers
+ * @param options 
+ */
+export function setWcStorybookHelpersConfig(options: Options) {
+  (window as any).__WC_STORYBOOK_HELPERS_CONFIG__ = options;
+}
 
 /**
  * Gets Storybook helpers for a given component
@@ -36,6 +44,7 @@ export function getWcStorybookHelpers(tagName: string) {
   const eventNames = component?.events?.map((event) => event.name) || [];
 
   return {
+    args: getArgs(component),
     argTypes: getArgTypes(component),
     reactArgTypes: getReactProps(component),
     events: eventNames,
@@ -54,6 +63,16 @@ function getArgTypes(component?: Declaration): ArgTypes {
   };
 
   return argTypes;
+}
+
+function getArgs(component?: Declaration): Record<string, any> {
+  const args = Object.entries(getArgTypes(component))
+    // We only want to get args that have a control in Storybook
+    .filter(([, value]) => value?.control)
+    .map(([key, value]) => ({ [key]: value.defaultValue || '' }))
+    .reduce((acc, value) => ({ ...acc, ...value }), {});
+
+  return args;
 }
 
 function getReactProps(component?: Declaration): ArgTypes {

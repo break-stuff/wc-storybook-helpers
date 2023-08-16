@@ -1,6 +1,11 @@
 import { CustomElementsManifest, Declaration } from "./cem-schema";
-import { ArgTypes, ControlOptions } from "./storybook";
+import type { ArgTypes, ControlOptions, Options } from "./storybook";
 
+let options: Options = {};
+
+setTimeout(() => {
+  options = (window as any).__WC_STORYBOOK_HELPERS_CONFIG__ || {};
+});
 export function getComponentByTagName(
   tagName: string,
   customElementsManifest: CustomElementsManifest
@@ -8,7 +13,9 @@ export function getComponentByTagName(
   const module = (
     customElementsManifest as CustomElementsManifest
   ).modules?.find((m) => m.declarations?.some((d) => d.tagName === tagName));
-  return module?.declarations.find((d) => d.kind === "class" && d.tagName === tagName);
+  return module?.declarations.find(
+    (d) => d.kind === "class" && d.tagName === tagName
+  );
 }
 
 export function getAttributesAndProperties(component?: Declaration): ArgTypes {
@@ -43,10 +50,11 @@ export function getAttributesAndProperties(component?: Declaration): ArgTypes {
       return;
     }
 
-    const propType = cleanUpType(member?.type?.text);
-    const propName = member.attribute
-      ? `${member.attribute}-attr`
-      : `${member.name}-prop`;
+    const type = options.typeRef
+      ? (member as any)[`${options.typeRef}`]?.text || member?.type?.text
+      : member?.type?.text;
+    const propType = cleanUpType(type);
+    const propName = member.name;
     const defaultValue = removeQuoteWrappers(member.default);
 
     properties[propName] = {
@@ -66,7 +74,7 @@ export function getAttributesAndProperties(component?: Declaration): ArgTypes {
           summary: defaultValue,
         },
         type: {
-          summary: member?.type?.text,
+          summary: type,
         },
       },
     };
@@ -103,7 +111,10 @@ export function getReactProperties(component?: Declaration): ArgTypes {
       return;
     }
 
-    const propType = cleanUpType(member?.type?.text);
+    const type = options.typeRef
+      ? (member as any)[`${options.typeRef}`]?.text || member?.type?.text
+      : member?.type?.text;
+    const propType = cleanUpType(type);
     const propName = `${member.name}`;
     const controlType = getControl(propType);
 
@@ -120,7 +131,7 @@ export function getReactProperties(component?: Declaration): ArgTypes {
           summary: removeQuoteWrappers(member.default),
         },
         type: {
-          summary: member?.type?.text,
+          summary: type,
         },
       },
     };
@@ -220,10 +231,10 @@ export function getSlots(component?: Declaration): ArgTypes {
 function getDefaultValue(controlType: ControlOptions, defaultValue?: string) {
   const initialValue = removeQuoteWrappers(defaultValue);
   return controlType === "boolean"
-      ? initialValue === "true"
-      : initialValue === "''"
-      ? ""
-      : initialValue;
+    ? initialValue === "true"
+    : initialValue === "''"
+    ? ""
+    : initialValue;
 }
 
 function getControl(type?: string): ControlOptions {
@@ -262,14 +273,15 @@ function getDescription(
 ) {
   let desc = "";
   if (deprecated) {
-    desc += `\`@deprecated\` ${deprecated}\n\n\n`;
+    desc += `\`@deprecated\` ${deprecated}`;
   }
 
   if (description) {
-    desc += `${description}\n\n`;
+    desc += desc ? "\n\n\n" : "";
+    desc += description;
   }
 
-  return (desc += `arg ref - \`${argRef}\``);
+  return options.hideArgRef ? desc : (desc += `"\n\n\narg ref - \`${argRef}\``);
 }
 
 export const getReactEventName = (eventName: string) =>

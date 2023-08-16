@@ -50,12 +50,16 @@ import { getWcStorybookHelpers } from "wc-storybook-helpers";
 Pass your element's tag name into the Storybook helper function.
 
 ```js
-const { events, argTypes, template } = getWcStorybookHelpers("my-element");
+const { events, args, argTypes, template } =
+  getWcStorybookHelpers("my-element");
 ```
 
 Add the `argTypes` and `events` to your story config:
 
+> **NOTE:** If you are using using Storybook v6 the default values are included as part of the `argTypes`. If you are using v7 you will need to include the `args` object from the helpers and add them to the default export.
+
 ```js
+// Storybook v6
 export default {
   title: "Components/My Element",
   component: "my-element",
@@ -68,13 +72,47 @@ export default {
 };
 ```
 
+```js
+// Storybook v7
+import type { Meta, StoryObj } from "@storybook/web-components";
+
+const meta: Meta = {
+  title: "Components/My Element",
+  component: "my-element",
+  args, // <- default values for Storybook v7
+  argTypes,
+  parameters: {
+    actions: {
+      handles: events,
+    },
+  },
+};
+export default meta;
+```
+
 Add the template to your story's template and pass in the story `args` into the `template` function (this is an optional parameter, but required for arguments to function properly):
 
 ```ts
+// Storybook v6
 const DefaultTemplate = (args: any) => template(args);
 
 export const Default: any = DefaultTemplate.bind({});
 Default.args = {};
+```
+
+```ts
+// Storybook v7
+
+/**
+ * create Story type that will provide autocomplete and docs for `args`,
+ * but also allow for namespaced args like CSS Shadow Parts and Slots
+ */
+type Story = StoryObj<MyElement & typeof args>;
+
+export const Default: Story = {
+  render: (args) => template(args),
+  args: {},
+};
 ```
 
 ## `argTypes`
@@ -91,7 +129,7 @@ For example if your component has an attribute called `variant` with predefined 
 
 ### Name-Spaced Controls
 
-One of the challenges with the default implementation is that if there are multiple properties with the same name, they will be overridden. For example, if there is an attribute named `label` as well as a slot named `label` only one will display. In order to ensure every argument is displayed properly, arguments will be suffixed with `-attr`, `-prop`, ans `-slot` respectively (CSS Custom Properties don't receive one because they already have a unique property value).
+One of the challenges with the default implementation is that if there are multiple properties with the same name, they will be overridden. For example, if there is an attribute named `label` as well as a slot named `label` only one will display. In order to ensure every argument is displayed properly, CSS Shadow Part and Slot arguments will be suffixed with `-part`, and `-slot` respectively. CSS Custom Properties don't receive one because they already have a unique property value and attributes and properties will rely on the camel-cased property name.
 
 The reference name will be documented with the control's description.
 
@@ -104,7 +142,17 @@ const DefaultTemplate = (args: any) => template(args);
 
 export const Default: any = DefaultTemplate.bind({});
 Default.args = {
-  "docs-hint-attr": "Some other value than the default",
+  docsHint: "Some other value than the default",
+};
+```
+
+```ts
+// Storybook v7
+export const Default: Story = {
+  render: (args) => template(args),
+  args: {
+    docsHint: "Some other value than the default",
+  },
 };
 ```
 
@@ -123,7 +171,6 @@ oldDocsHint = "Click on the Vite and Lit logos to learn more";
 
 ![screenshot of storybook control panel with "deprecated" label in the description](https://github.com/break-stuff/wc-storybook-helpers/blob/main/demo/img/deprecated.png?raw=true)
 
-
 ### Overriding Controls
 
 If you would like to change any of your controls, you can easily override it using the spread operator and passing in an updated `argType` after the helper `argTypes`.
@@ -134,7 +181,7 @@ export default {
   component: "my-element",
   argTypes: {
     ...argTypes,
-    'docs-hint-attr': {
+    docsHintAttr: {
       name: 'docs-hint',
       description: '...',
       defaultValue: '...',
@@ -205,7 +252,7 @@ const SelectTemplate = (args: any) =>
 
 export const Default: any = SelectTemplate.bind({});
 Default.args = {
-  "docs-hint-attr": "Some other value than the default",
+  docsHint: "Some other value than the default",
 };
 ```
 
@@ -252,4 +299,46 @@ const ComponentTemplate = (args: any) => html`
     component.show();
   </script>
 `;
+```
+
+## Using Slot Controls
+
+If you are using the `template`, using slots form the controls panel is fairly straight forward. The input is already wired up to the appropriate slot and so rich content can be added directly to the input with no additional set-up required.
+
+![screenshot of storybook control panel with a select input expanded displaying options](https://github.com/break-stuff/wc-storybook-helpers/blob/main/demo/img/slots.png?raw=true)
+
+## Using CSS Shadow Parts Controls
+
+Like the slot controls, the `template` makes working with CSS Shadow Parts easy. The template is pre-configured with the appropriate code to apply styles to the component's parts. You can simply apply the styles directly to the control input.
+
+![screenshot of storybook control panel with a select input expanded displaying options](https://github.com/break-stuff/wc-storybook-helpers/blob/main/demo/img/parts.png?raw=true)
+
+## Configuration
+
+The helpers package provides a way to set global configurations for your stories using the `setWcStorybookHelpersConfig` function. This can be added to the `.storybook/preview.js` file.
+
+```ts
+import { setWcStorybookHelpersConfig } from "wc-storybook-helpers";
+
+setWcStorybookHelpersConfig({ ... });
+setCustomElementsManifest(customElements);
+
+```
+
+### Hide "Arg Types"
+
+There may be times you want to hide the "arg types" label. You can set the `hideArgRef` to `false` and it will remove the label from controls.
+
+```ts
+setWcStorybookHelpersConfig({
+  hideArgRef: process.env.NODE_ENV === "production",
+});
+```
+
+### Custom Types
+
+It is common for teams to parse or create custom types and add them to the Custom Elements Manifest to use for other tools. The helpers can be configured to use those types instead of the default types in your manifest using the `typeRef`. If no custom type is found, it will fallback to the default type.
+
+```ts
+setWcStorybookHelpersConfig({ typeRef: "expandedType" });
 ```

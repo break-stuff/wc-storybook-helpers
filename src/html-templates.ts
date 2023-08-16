@@ -32,54 +32,51 @@ export function getTemplate(
 
   const operators = getTemplateOperators(component!, args);
   const slotsTemplate = getSlotsTemplate(component!, args);
+  const cssPropertiesTemplate = getCssPropTemplate(component!, args);
   syncControls(component!);
 
-  return html`
-      ${getStyleTemplate(component, args)}
-      <${unsafeStatic(component!.tagName!)} ${spread(operators)}>
-        ${slotsTemplate}
-        ${slot || ""}
-      </${unsafeStatic(component!.tagName!)}>
-      <script>
-        component = document.querySelector('${component!.tagName!}');
-      </script>
-    `;
+  return html`${getStyleTemplate(component, args)}
+<${unsafeStatic(component!.tagName!)} 
+  ${spread(operators)} 
+  ${cssPropertiesTemplate}
+  >
+    ${slotsTemplate}${slot || ""}
+</${unsafeStatic(component!.tagName!)}>
+<script>
+  component = document.querySelector('${component!.tagName!}');
+</script>
+`;
 }
 
 export function getStyleTemplate(component?: Declaration, args?: any) {
-  const cssPropertiesTemplate = getCssPropTemplate(component!, args);
   const cssPartsTemplate = getCssPartsTemplate(component!, args);
 
-  return html`
-    <style>
-      ${cssPropertiesTemplate}
-      ${cssPartsTemplate}
-    </style>
-  `;
+  return `${cssPartsTemplate}`?.replaceAll(/\s+/g, "") != ""
+    ? html`<style>
+        ${cssPartsTemplate}
+      </style> `
+    : "";
 }
 
 function getTemplateOperators(component: Declaration, args: any) {
   const attributes = getAttributesAndProperties(component);
   const operators: any = {};
 
-  Object.keys(attributes)
-    .filter((key) => key.endsWith("-attr"))
-    .forEach((key) => {
-      const attr = attributes[key];
-      const attrName = attributes[key].name;
-      const attrValue = args![key] as unknown;
-      const prop: string =
-        (attr.control as any)?.type === "boolean" ? `?${attrName}` : attrName;
-      operators[prop] = attrValue === "false" ? false : attrValue;
-    });
+  Object.keys(attributes).forEach((key) => {
+    const attr = attributes[key];
+    if (attr?.table?.category !== "attributes") {
+      return;
+    }
+
+    const attrName = attr.name;
+    const attrValue = args![key] as unknown;
+    const prop: string =
+      (attr.control as any).type === "boolean" ? `?${attrName}` : attrName;
+    operators[prop] = attrValue === "false" ? false : attrValue;
+  });
 
   Object.keys(args)
-    .filter(
-      (key) =>
-        !key.endsWith("-attr") &&
-        !key.endsWith("-part") &&
-        !key.endsWith("-slot")
-    )
+    .filter((key) => attributes[key]?.table?.category === "properties")
     .forEach((key) => {
       if (key.startsWith("on")) {
         return;
@@ -94,60 +91,73 @@ function getTemplateOperators(component: Declaration, args: any) {
 
 function getCssPropTemplate(component: Declaration, args: any) {
   const cssProperties = getCssProperties(component);
+  const hasCssProperties = Object.keys(cssProperties).some((key) => {
+    const cssValue = args![key];
+    return cssValue ? true : false;
+  });
 
-  const template = unsafeStatic(`
-      ${component?.tagName} {
-        ${Object.keys(cssProperties)
-          .map((key) => {
-            const cssName = cssProperties[key].name;
-            const cssValue = args![key];
-            return cssValue ? `${cssName}: ${cssValue || ""};` : "";
-          })
-          .join("\n")}
-      }`);
+  if (!hasCssProperties) {
+    return;
+  }
 
-  return template;
+  return unsafeStatic(
+    `style="${Object.keys(cssProperties)
+      .map((key) => {
+        const cssName = cssProperties[key].name;
+        const cssValue = args![key];
+        return cssValue ? `${cssName}: ${cssValue || ""}` : null;
+      })
+      .filter((value) => value !== null)
+      .join(";")}"`
+  );
 }
 
 function getCssPartsTemplate(component: Declaration, args: any) {
   const cssParts = getCssParts(component);
+  const hasCssParts = Object.keys(cssParts).some((key) => {
+    const cssValue = args![key];
+    return cssValue ? true : false;
+  });
 
-  const template = unsafeStatic(
+  if (!hasCssParts) {
+    return;
+  }
+
+  return unsafeStatic(
     `${Object.keys(cssParts)
       .filter((key) => key.endsWith("-part"))
       .map((key) => {
         const cssPartName = cssParts[key].name;
         const cssPartValue = args![key];
-        return `${component?.tagName}::part(${cssPartName}) {
-          ${cssPartValue || ""}
-        }`;
+        return cssPartValue?.replaceAll(/\s+/g, "") !== ""
+          ? `${component?.tagName}::part(${cssPartName}) {
+              ${cssPartValue || ""}
+            }`
+          : null;
       })
+      .filter((value) => value !== null)
       .join("\n")}`
   );
-
-  return template;
 }
 
 function getSlotsTemplate(component: Declaration, args: any) {
   const slots = getSlots(component);
 
-  const template = unsafeStatic(
+  return unsafeStatic(
     `${Object.keys(slots)
       .filter((key) => key.endsWith("-slot"))
       .map((key) => {
         const slotName = slots[key].name;
         const slotValue = args![key];
-
         return slotValue
           ? slotName === "default"
             ? `${slotValue || ""}`
-            : `<div slot="${slotName}">${slotValue || ""}</div>`
-          : "";
+            : `<span slot="${slotName}">${slotValue || ""}</span>`
+          : null;
       })
+      .filter((value) => value !== null)
       .join("\n")}`
   );
-
-  return template;
 }
 
 function syncControls(component: Declaration) {
@@ -181,19 +191,19 @@ function setArgObserver(component: Declaration) {
       }
 
       isUpdating = true;
-      const attribute = attributes[`${mutation.attributeName}-attr`];
+      const attribute = attributes[`${mutation.attributeName}`];
       if (
         attribute?.control === "boolean" ||
         (attribute?.control as any)?.type === "boolean"
       ) {
         updateArgs({
-          [`${mutation.attributeName}-attr`]: (
+          [`${mutation.attributeName}`]: (
             mutation.target as HTMLElement
           )?.hasAttribute(mutation.attributeName || ""),
         });
       } else {
         updateArgs({
-          [`${mutation.attributeName}-attr`]: (
+          [`${mutation.attributeName}`]: (
             mutation.target as HTMLElement
           ).getAttribute(mutation.attributeName || ""),
         });

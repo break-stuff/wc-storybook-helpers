@@ -1,0 +1,160 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/my-element.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "An example element.",
+          "name": "MyElement",
+          "cssParts": [
+            {
+              "description": "The button",
+              "name": "button"
+            }
+          ],
+          "slots": [
+            {
+              "description": "This element has a slot",
+              "name": ""
+            },
+            {
+              "description": "This element has a slot",
+              "name": "button"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "docsHint",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Click on the Vite and Lit logos to learn more\"",
+              "description": "Copy for the read the docs hint.",
+              "attribute": "docs-hint",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "Variant"
+              },
+              "default": "\"primary\"",
+              "description": "The button's theme variant.",
+              "attribute": "variant",
+              "reflects": true,
+              "expandedType": {
+                "text": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "oldDocsHint",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Click on the Vite and Lit logos to learn more\"",
+              "deprecated": "replaced by `docs-hint`\nCopy for the read the docs hint.",
+              "attribute": "old-docs-hint",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "count",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "The number of times the button has been clicked.",
+              "attribute": "count",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "test",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "test property"
+            },
+            {
+              "kind": "method",
+              "name": "_onClick",
+              "privacy": "private"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "docs-hint",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Click on the Vite and Lit logos to learn more\"",
+              "description": "Copy for the read the docs hint.",
+              "fieldName": "docsHint"
+            },
+            {
+              "name": "variant",
+              "type": {
+                "text": "Variant"
+              },
+              "default": "\"primary\"",
+              "description": "The button's theme variant.",
+              "fieldName": "variant",
+              "expandedType": {
+                "text": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
+              }
+            },
+            {
+              "name": "old-docs-hint",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Click on the Vite and Lit logos to learn more\"",
+              "deprecated": "replaced by `docs-hint`\nCopy for the read the docs hint.",
+              "fieldName": "oldDocsHint"
+            },
+            {
+              "name": "count",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "The number of times the button has been clicked.",
+              "fieldName": "count"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "my-element",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "MyElement",
+          "declaration": {
+            "name": "MyElement",
+            "module": "src/my-element.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "my-element",
+          "declaration": {
+            "name": "MyElement",
+            "module": "src/my-element.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

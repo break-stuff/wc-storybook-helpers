@@ -43,7 +43,7 @@ describe("getAttributesAndProperties", () => {
 
     // Assert
     expect(result["label"].table?.disable).toBe(true);
-    expect(result["label-attr"]).toBeDefined();
+    expect(result["labelAttr"]).toBeDefined();
   });
 
   test("should return an object with 22 properties for `my-switch` component where 14 are disabled and 8 are enabled", () => {
