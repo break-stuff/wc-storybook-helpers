@@ -204,7 +204,17 @@ export default {
 
 ## Using Slot Controls
 
-Using slots form the controls panel is fairly straight forward. The input is already wired up to the appropriate slot and so rich content can be added directly to the input with no additional content
+If you are using the `template`, using slots form the controls panel is fairly straight forward. The input is already wired up to the appropriate slot and so rich content can be added directly to the input with no additional set-up required.
+
+![screenshot of storybook control panel with a select input expanded displaying options](https://github.com/break-stuff/wc-storybook-helpers/blob/main/demo/img/slots.png?raw=true)
+
+
+## Using CSS Shadow Parts Controls
+
+Like the slot controls, the `template` makes working with CSS Shadow Parts easy. The template is pre-configured with the appropriate code to apply styles to the component's parts. You can simply apply the styles directly to the control input.
+
+![screenshot of storybook control panel with a select input expanded displaying options](https://github.com/break-stuff/wc-storybook-helpers/blob/main/demo/img/parts.png?raw=true)
+
 
 ## Events
 
