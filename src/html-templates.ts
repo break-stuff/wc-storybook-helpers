@@ -125,7 +125,7 @@ function getCssPartsTemplate(component: Declaration, args: any) {
 
   return unsafeStatic(
     `${Object.keys(cssParts)
-      .filter((key) => key.endsWith("Part"))
+      .filter((key) => key.endsWith("-part"))
       .map((key) => {
         const cssPartName = cssParts[key].name;
         const cssPartValue = args![key];
@@ -145,14 +145,14 @@ function getSlotsTemplate(component: Declaration, args: any) {
 
   return unsafeStatic(
     `${Object.keys(slots)
-      .filter((key) => key.endsWith("Slot"))
+      .filter((key) => key.endsWith("-slot"))
       .map((key) => {
         const slotName = slots[key].name;
         const slotValue = args![key];
         return slotValue
           ? slotName === "default"
             ? `${slotValue || ""}`
-            : `<div slot="${slotName}">${slotValue || ""}</div>`
+            : `<span slot="${slotName}">${slotValue || ""}</span>`
           : null;
       })
       .filter((value) => value !== null)
