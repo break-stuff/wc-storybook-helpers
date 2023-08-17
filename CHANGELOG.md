@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.0
+
+- Code clean-up and optimizations for release
+
 ## 1.0.0-beta.3
 
 - Prep for Storybook 7

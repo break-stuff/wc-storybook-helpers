@@ -90,15 +90,11 @@ function getTemplateOperators(component: Declaration, args: any) {
 }
 
 function getCssPropTemplate(component: Declaration, args: any) {
-  const cssProperties = getCssProperties(component);
-  const hasCssProperties = Object.keys(cssProperties).some((key) => {
-    const cssValue = args![key];
-    return cssValue ? true : false;
-  });
-
-  if (!hasCssProperties) {
+  if(!component?.cssProperties?.length) {
     return;
   }
+
+  const cssProperties = getCssProperties(component);
 
   return unsafeStatic(
     `style="${Object.keys(cssProperties)
@@ -113,15 +109,11 @@ function getCssPropTemplate(component: Declaration, args: any) {
 }
 
 function getCssPartsTemplate(component: Declaration, args: any) {
-  const cssParts = getCssParts(component);
-  const hasCssParts = Object.keys(cssParts).some((key) => {
-    const cssValue = args![key];
-    return cssValue ? true : false;
-  });
-
-  if (!hasCssParts) {
+  if(!component?.cssParts?.length) {
     return;
   }
+
+  const cssParts = getCssParts(component);
 
   return unsafeStatic(
     `${Object.keys(cssParts)
@@ -141,6 +133,10 @@ function getCssPartsTemplate(component: Declaration, args: any) {
 }
 
 function getSlotsTemplate(component: Declaration, args: any) {
+  if(!component?.slots?.length) {
+    return;
+  }
+
   const slots = getSlots(component);
 
   return unsafeStatic(

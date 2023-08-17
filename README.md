@@ -1,10 +1,10 @@
 # Storybook Helpers for Web Components
 
-Helpers designed to make integrating Web Components with Storybook easier.
+These helpers are designed to make integrating Web Components with Storybook easier.
 
-There are a number of things that this helper library does to provide devs with a better experience with Storybook and Web Components:
+There are a number of things that this helper library does to provide developers a better experience with Storybook and Web Components:
 
-1. Uses types to intelligently provide better controls
+1. Uses types to provide better controls
 2. Prevents name collisions when attributes, properties, slots, and CSS shadow parts share the same name
 3. Provides a template with bindings for attributes, properties, CSS custom properties, and CSS shadow parts.
 4. Provides two-way binding for controls and attributes in the template to help keep control values in sync with the component
@@ -16,7 +16,7 @@ There are a number of things that this helper library does to provide devs with 
 
 ```js
 import { setCustomElementsManifest } from "@storybook/web-components";
-import customElements from "../custom-elements.json";
+import customElements from "./path/to/custom-elements.json";
 
 setCustomElementsManifest(customElements);
 ```
@@ -206,7 +206,7 @@ export default {
 
 If you want to capture the events output by your component, you can map them to your story's config under the parameter's section.
 
-**Note:** They will only be captured if the `bubbles` option on your `CustomEvent` is set to `true` (it is `true` by default).
+**Note:** They will only be captured if the `bubbles` option on your `CustomEvent` is set to `true` (note - it is `true` by default).
 
 ```js
 export default {
@@ -318,6 +318,7 @@ Like the slot controls, the `template` makes working with CSS Shadow Parts easy.
 The helpers package provides a way to set global configurations for your stories using the `setWcStorybookHelpersConfig` function. This can be added to the `.storybook/preview.js` file.
 
 ```ts
+//preview.js
 import { setWcStorybookHelpersConfig } from "wc-storybook-helpers";
 
 setWcStorybookHelpersConfig({ ... });
@@ -330,9 +331,7 @@ setCustomElementsManifest(customElements);
 There may be times you want to hide the "arg types" label. You can set the `hideArgRef` to `false` and it will remove the label from controls.
 
 ```ts
-setWcStorybookHelpersConfig({
-  hideArgRef: process.env.NODE_ENV === "production",
-});
+setWcStorybookHelpersConfig({ hideArgRef: true });
 ```
 
 ### Custom Types
