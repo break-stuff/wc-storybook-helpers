@@ -4,7 +4,7 @@ import type { ArgTypes, ControlOptions, Options } from "./storybook";
 let options: Options = {};
 
 setTimeout(() => {
-  options = (window as any).__WC_STORYBOOK_HELPERS_CONFIG__ || {};
+  options = (globalThis as any)?.__WC_STORYBOOK_HELPERS_CONFIG__ || {};
 });
 export function getComponentByTagName(
   tagName: string,

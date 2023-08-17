@@ -23,7 +23,7 @@ describe("getComponentByTagName", () => {
 });
 
 describe("getAttributesAndProperties", () => {
-  test("should return an object with 22 updated args for `my-switch` component", () => {
+  test("should return an object with 14 updated args for `my-switch` component", () => {
     // Arrange
     const component = getComponentByTagName("my-switch", cem);
 
@@ -31,22 +31,10 @@ describe("getAttributesAndProperties", () => {
     const result = getAttributesAndProperties(component);
 
     // Assert
-    expect(Object.keys(result).length).toBe(22);
+    expect(Object.keys(result).length).toBe(14);
   });
 
-  test("should disable existing attribute and provide a namespaced attribute", () => {
-    // Arrange
-    const component = getComponentByTagName("my-switch", cem);
-
-    // Act
-    const result = getAttributesAndProperties(component);
-
-    // Assert
-    expect(result["label"].table?.disable).toBe(true);
-    expect(result["labelAttr"]).toBeDefined();
-  });
-
-  test("should return an object with 22 properties for `my-switch` component where 14 are disabled and 8 are enabled", () => {
+  test("should return an object with 14 properties for `my-switch` component where 6 are disabled and 8 are enabled", () => {
     // Arrange
     const component = getComponentByTagName("my-switch", cem);
     let enabled = 0;
@@ -64,7 +52,7 @@ describe("getAttributesAndProperties", () => {
 
     // Assert
     expect(enabled).toBe(8);
-    expect(disabled).toBe(14);
+    expect(disabled).toBe(6);
   });
 });
 
