@@ -16,7 +16,7 @@ There are a number of things that this helper library does to provide developers
 
 ```js
 import { setCustomElementsManifest } from "@storybook/web-components";
-import customElements from "../custom-elements.json";
+import customElements from "./path/to/custom-elements.json";
 
 setCustomElementsManifest(customElements);
 ```
@@ -206,7 +206,7 @@ export default {
 
 If you want to capture the events output by your component, you can map them to your story's config under the parameter's section.
 
-**Note:** They will only be captured if the `bubbles` option on your `CustomEvent` is set to `true` (it is `true` by default).
+**Note:** They will only be captured if the `bubbles` option on your `CustomEvent` is set to `true` (note - it is `true` by default).
 
 ```js
 export default {
