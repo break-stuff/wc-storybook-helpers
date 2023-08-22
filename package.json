@@ -1,6 +1,6 @@
 {
   "name": "wc-storybook-helpers",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Helpers designed to make integrating Web Components with Storybook easier.",
   "main": "index.js",
   "types": "index.d.ts",
@@ -12,7 +12,7 @@
     "/dist"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && cp src/storybook.d.ts dist/storybook.d.ts || copy src/storybook.d.ts dist/storybook.d.ts",
     "deploy": "tsc && npm publish",
     "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
     "demo:v6": "tsc && cd demo/lit-app-v6 && npm run storybook",

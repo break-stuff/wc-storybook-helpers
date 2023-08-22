@@ -1,1 +1,1 @@
-export { getWcStorybookHelpers, setWcStorybookHelpersConfig } from './dist/storybook-utils.js';
+export * from './dist/index.js';

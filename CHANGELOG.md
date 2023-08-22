@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.3
+
+- Included missing `storybook` type definition file.
+
 ## 1.0.2
 
 - Add missing export in the type definition file for `setWcStorybookHelpersConfig`
@@ -8,7 +12,7 @@
 
 - Reduce package size
 - Fix failing tests
-  
+
 ## 1.0.0
 
 - Code clean-up and optimizations for release
