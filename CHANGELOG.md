@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.2
+
+- Add missing export in the type definition file for `setWcStorybookHelpersConfig`
+
 ## 1.0.1
 
 - Reduce package size
