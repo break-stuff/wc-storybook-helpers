@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.4
+
+- Fix error for getter-only properties.
+
 ## 1.0.3
 
 - Included missing `storybook` type definition file.
