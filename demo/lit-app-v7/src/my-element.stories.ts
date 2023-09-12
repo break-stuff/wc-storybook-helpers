@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/web-components";
+import type { StoryObj } from "@storybook/web-components";
 import type { MyElement } from "./my-element";
 import "./my-element";
 import { getWcStorybookHelpers } from "../../..";
@@ -6,7 +6,7 @@ import { getWcStorybookHelpers } from "../../..";
 const { args, events, argTypes, template } =
   getWcStorybookHelpers("my-element");
 
-const meta: Meta = {
+const meta = {
   title: "Components/My Element",
   component: "my-element",
   args,

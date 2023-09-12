@@ -27,6 +27,10 @@ export declare class MyElement extends LitElement {
      * test property
      */
     test?: string;
+    /** Test getter property */
+    get validity(): string;
+    /** Example without a type */
+    noType: string;
     render(): import("lit-html").TemplateResult<1>;
     private _onClick;
     static styles: import("lit").CSSResult;

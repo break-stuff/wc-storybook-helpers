@@ -83,6 +83,23 @@
               "description": "test property"
             },
             {
+              "kind": "field",
+              "name": "validity",
+              "type": {
+                "text": "string"
+              },
+              "description": "Test getter property"
+            },
+            {
+              "kind": "field",
+              "name": "noType",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "Example without a type"
+            },
+            {
               "kind": "method",
               "name": "_onClick",
               "privacy": "private"
