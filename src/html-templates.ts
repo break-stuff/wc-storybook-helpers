@@ -1,4 +1,4 @@
-import { spread } from "@open-wc/lit-helpers";
+import { spread, spreadProps } from "@open-wc/lit-helpers";
 import { useArgs } from "@storybook/client-api";
 import { TemplateResult } from "lit";
 import { html, unsafeStatic } from "lit/static-html.js";
@@ -30,14 +30,15 @@ export function getTemplate(
     lastTagName = component?.tagName;
   }
 
-  const operators = getTemplateOperators(component!, args);
+  const { attrOperators, propOperators } = getTemplateOperators(component!, args);
   const slotsTemplate = getSlotsTemplate(component!, args);
   const cssPropertiesTemplate = getCssPropTemplate(component!, args);
   syncControls(component!);
 
   return html`${getStyleTemplate(component, args)}
 <${unsafeStatic(component!.tagName!)} 
-  ${spread(operators)} 
+  ${spread(attrOperators)}
+  ${spreadProps(propOperators)} 
   ${cssPropertiesTemplate}
   >
     ${slotsTemplate}${slot || ""}
@@ -60,7 +61,8 @@ export function getStyleTemplate(component?: Declaration, args?: any) {
 
 function getTemplateOperators(component: Declaration, args: any) {
   const attributes = getAttributesAndProperties(component);
-  const operators: any = {};
+  const attrOperators: any = {};
+  const propOperators: any = {};
 
   Object.keys(attributes).forEach((key) => {
     const attr = attributes[key];
@@ -72,7 +74,7 @@ function getTemplateOperators(component: Declaration, args: any) {
     const attrValue = args![key] as unknown;
     const prop: string =
       (attr.control as any).type === "boolean" ? `?${attrName}` : attrName;
-    operators[prop] = attrValue === "false" ? false : attrValue;
+    attrOperators[prop] = attrValue === "false" ? false : attrValue;
   });
 
   Object.keys(args)
@@ -83,10 +85,10 @@ function getTemplateOperators(component: Declaration, args: any) {
       }
 
       const propValue = args![key];
-      operators[`.${key}`] = propValue;
+      propOperators[`.${key}`] = propValue;
     });
 
-  return operators;
+  return { attrOperators, propOperators };
 }
 
 function getCssPropTemplate(component: Declaration, args: any) {

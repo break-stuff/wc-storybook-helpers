@@ -48,6 +48,16 @@ export class MyElement extends LitElement {
   @property({ attribute: false })
   test?: string;
 
+  /** Test getter property */
+  @property({ attribute: false })
+  get validity(): string {
+    return '';
+  }
+
+  /** Example without a type */
+  @property({ attribute: false })
+  noType = '';
+
   render() {
     return html`
       <div>
