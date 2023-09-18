@@ -14,6 +14,10 @@
             {
               "description": "The button",
               "name": "button"
+            },
+            {
+              "description": "Part for styling the label element",
+              "name": "label"
             }
           ],
           "slots": [
@@ -83,6 +87,15 @@
               "description": "test property"
             },
             {
+              "kind": "field",
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "this prvides a label for the element",
+              "attribute": "label"
+            },
+            {
               "kind": "method",
               "name": "_onClick",
               "privacy": "private"
@@ -127,6 +140,14 @@
               "default": "0",
               "description": "The number of times the button has been clicked.",
               "fieldName": "count"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "this prvides a label for the element",
+              "fieldName": "label"
             }
           ],
           "superclass": {

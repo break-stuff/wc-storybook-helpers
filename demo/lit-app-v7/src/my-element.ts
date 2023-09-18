@@ -1,6 +1,6 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import litLogo from "./assets/lit.svg";
+// import litLogo from "./assets/lit.svg";
 
 export type Variant =
   | "default"
@@ -17,6 +17,7 @@ export type Variant =
  * @slot - This element has a slot
  * @slot button - This element has a slot
  * @csspart button - The button
+ * @csspart label - Part for styling the label element
  */
 @customElement("my-element")
 export class MyElement extends LitElement {
@@ -48,6 +49,10 @@ export class MyElement extends LitElement {
   @property({ attribute: false })
   test?: string;
 
+  /** this prvides a label for the element */
+  @property()
+  label?: string;
+
   render() {
     return html`
       <div>
@@ -56,7 +61,6 @@ export class MyElement extends LitElement {
         </a>
         <a href="https://lit.dev" target="_blank">
           This is a test: ${this.test}
-          <img src=${litLogo} class="logo lit" alt="Lit logo" />
         </a>
       </div>
       <slot></slot>
