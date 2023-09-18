@@ -55,11 +55,12 @@ export function getWcStorybookHelpers(tagName: string) {
 }
 
 function getArgTypes(component?: Declaration): ArgTypes {
+  // Attributes and properties must go last to prevent namespaced attributes from being overwritten
   const argTypes: ArgTypes = {
-    ...getAttributesAndProperties(component),
     ...getCssProperties(component),
     ...getCssParts(component),
     ...getSlots(component),
+    ...getAttributesAndProperties(component),
   };
 
   return argTypes;
