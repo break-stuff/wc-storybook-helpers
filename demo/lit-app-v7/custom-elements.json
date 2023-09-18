@@ -14,6 +14,10 @@
             {
               "description": "The button",
               "name": "button"
+            },
+            {
+              "description": "Adds custom styles to label",
+              "name": "label"
             }
           ],
           "slots": [
@@ -100,6 +104,15 @@
               "description": "Example without a type"
             },
             {
+              "kind": "field",
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Adds a label to the component",
+              "attribute": "label"
+            },
+            {
               "kind": "method",
               "name": "_onClick",
               "privacy": "private"
@@ -144,6 +157,14 @@
               "default": "0",
               "description": "The number of times the button has been clicked.",
               "fieldName": "count"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Adds a label to the component",
+              "fieldName": "label"
             }
           ],
           "superclass": {

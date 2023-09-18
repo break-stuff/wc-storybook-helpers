@@ -26,17 +26,10 @@ export function getAttributesAndProperties(component?: Declaration): ArgTypes {
       return;
     }
 
-    if (member.attribute) {
-      properties[member.attribute] = {
-        name: member.attribute,
-        table: {
-          disable: true,
-        },
-      };
-    }
+    const propName = member.name;
 
-    properties[member.name] = {
-      name: member.name,
+    properties[propName] = {
+      name: propName,
       table: {
         disable: true,
       },
@@ -54,7 +47,6 @@ export function getAttributesAndProperties(component?: Declaration): ArgTypes {
       ? (member as any)[`${options.typeRef}`]?.text || member?.type?.text
       : member?.type?.text;
     const propType = cleanUpType(type);
-    const propName = member.name;
     const defaultValue = removeQuoteWrappers(member.default);
 
     properties[propName] = {
