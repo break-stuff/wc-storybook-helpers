@@ -56,10 +56,10 @@ export function getWcStorybookHelpers(tagName: string) {
 
 function getArgTypes(component?: Declaration): ArgTypes {
   const argTypes: ArgTypes = {
-    ...getAttributesAndProperties(component),
     ...getCssProperties(component),
     ...getCssParts(component),
     ...getSlots(component),
+    ...getAttributesAndProperties(component),
   };
 
   return argTypes;
