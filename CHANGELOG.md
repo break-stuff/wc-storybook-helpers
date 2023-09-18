@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.5
+
+- Fix missing attributes in `argTypes`
+
 ## 1.0.4
 
 - Fix error for getter-only properties.
