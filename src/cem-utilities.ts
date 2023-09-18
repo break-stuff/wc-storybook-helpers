@@ -4,7 +4,7 @@ import type { ArgTypes, ControlOptions, Options } from "./storybook";
 let options: Options = {};
 
 setTimeout(() => {
-  options = (window as any).__WC_STORYBOOK_HELPERS_CONFIG__ || {};
+  options = (globalThis as any).__WC_STORYBOOK_HELPERS_CONFIG__ || {};
 });
 export function getComponentByTagName(
   tagName: string,
@@ -26,17 +26,10 @@ export function getAttributesAndProperties(component?: Declaration): ArgTypes {
       return;
     }
 
-    if (member.attribute) {
-      properties[member.attribute] = {
-        name: member.attribute,
-        table: {
-          disable: true,
-        },
-      };
-    }
+    const propName = member.attribute || member.name;
 
-    properties[member.name] = {
-      name: member.name,
+    properties[propName] = {
+      name: member.attribute || member.name,
       table: {
         disable: true,
       },
@@ -54,11 +47,10 @@ export function getAttributesAndProperties(component?: Declaration): ArgTypes {
       ? (member as any)[`${options.typeRef}`]?.text || member?.type?.text
       : member?.type?.text;
     const propType = cleanUpType(type);
-    const propName = member.name;
     const defaultValue = removeQuoteWrappers(member.default);
 
     properties[propName] = {
-      name: member.attribute || member.name,
+      name: propName,
       description: getDescription(
         member.description,
         propName,
