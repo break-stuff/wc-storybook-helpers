@@ -6,6 +6,7 @@ export type Variant = "default" | "primary" | "success" | "neutral" | "warning" 
  * @slot - This element has a slot
  * @slot button - This element has a slot
  * @csspart button - The button
+ * @csspart label - Adds custom styles to label
  */
 export declare class MyElement extends LitElement {
     /**
@@ -31,6 +32,8 @@ export declare class MyElement extends LitElement {
     get validity(): string;
     /** Example without a type */
     noType: string;
+    /** Adds a label to the component */
+    label?: string;
     render(): import("lit-html").TemplateResult<1>;
     private _onClick;
     static styles: import("lit").CSSResult;

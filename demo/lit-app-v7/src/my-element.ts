@@ -17,6 +17,7 @@ export type Variant =
  * @slot - This element has a slot
  * @slot button - This element has a slot
  * @csspart button - The button
+ * @csspart label - Adds custom styles to label
  */
 @customElement("my-element")
 export class MyElement extends LitElement {
@@ -57,6 +58,10 @@ export class MyElement extends LitElement {
   /** Example without a type */
   @property({ attribute: false })
   noType = '';
+
+  /** Adds a label to the component */
+  @property()
+  label?: string;
 
   render() {
     return html`
