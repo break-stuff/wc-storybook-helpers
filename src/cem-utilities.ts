@@ -49,7 +49,7 @@ export function getAttributesAndProperties(component?: Declaration): ArgTypes {
     const propType = cleanUpType(type);
     const defaultValue = removeQuoteWrappers(member.default);
 
-    properties[propName] = {
+    properties[member.attribute || member.name] = {
       name: member.attribute || member.name,
       description: getDescription(
         member.description,
