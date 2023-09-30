@@ -1,6 +1,6 @@
 {
   "name": "wc-storybook-helpers",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Helpers designed to make integrating Web Components with Storybook easier.",
   "main": "index.js",
   "types": "index.d.ts",
