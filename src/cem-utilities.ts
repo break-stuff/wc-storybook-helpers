@@ -26,6 +26,7 @@ export function getAttributesAndProperties(component?: Declaration): ArgTypes {
       return;
     }
 
+    const attribute = component.attributes.find(x => member.name === x.fieldName);
     const propName = member.name;
 
     properties[propName] = {
@@ -43,14 +44,15 @@ export function getAttributesAndProperties(component?: Declaration): ArgTypes {
       return;
     }
 
+    const name = attribute?.name || member.name;
     const type = options.typeRef
       ? (member as any)[`${options.typeRef}`]?.text || member?.type?.text
       : member?.type?.text;
     const propType = cleanUpType(type);
     const defaultValue = removeQuoteWrappers(member.default);
 
-    properties[member.attribute || member.name] = {
-      name: member.attribute || member.name,
+    properties[name] = {
+      name: name,
       description: getDescription(
         member.description,
         propName,
@@ -61,7 +63,7 @@ export function getAttributesAndProperties(component?: Declaration): ArgTypes {
         type: getControl(propType),
       },
       table: {
-        category: member.attribute ? "attributes" : "properties",
+        category: attribute ? "attributes" : "properties",
         defaultValue: {
           summary: defaultValue,
         },
@@ -73,7 +75,7 @@ export function getAttributesAndProperties(component?: Declaration): ArgTypes {
 
     const values = propType?.split("|");
     if (values && values?.length > 1) {
-      properties[propName].options = values.map((x) => removeQuoteWrappers(x)!);
+      properties[name].options = values.map((x) => removeQuoteWrappers(x)!);
     }
   });
 
