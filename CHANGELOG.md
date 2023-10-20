@@ -1,6 +1,10 @@
 # CHANGELOG
 
-## 1.0.5
+## 1.0.7
+
+- Patched attribute mapping for Stencil
+
+## 1.0.6
 
 - Fix duplicate attributes in `argTypes`
 
