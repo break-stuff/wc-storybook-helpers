@@ -11,6 +11,11 @@ export type Variant =
   | "danger"
   | "text";
 
+type DataObject = {
+  test: string;
+  value: string;
+};
+
 /**
  * An example element.
  *
@@ -29,6 +34,9 @@ export class MyElement extends LitElement {
 
   /** The button's theme variant. */
   @property({ reflect: true }) variant: Variant = "primary";
+
+  /** The button's theme variant. */
+  @property({ attribute: false }) dataObject?: DataObject;
 
   /**
    * @deprecated replaced by `docs-hint`
@@ -59,6 +67,11 @@ export class MyElement extends LitElement {
   @property({ attribute: false })
   get validity(): string {
     return '';
+  }
+
+  // no-op setter
+  set validity(_: string) {
+    return;
   }
 
   /** Example without a type */

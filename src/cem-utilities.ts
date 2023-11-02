@@ -26,7 +26,9 @@ export function getAttributesAndProperties(component?: Declaration): ArgTypes {
       return;
     }
 
-    const attribute = component.attributes.find(x => member.name === x.fieldName);
+    const attribute = component.attributes.find(
+      (x) => member.name === x.fieldName
+    );
     const propName = member.name;
 
     properties[propName] = {
@@ -248,7 +250,12 @@ function getControl(type?: string): ControlOptions {
     return "date";
   }
 
-  if(type.includes('{') || type.includes('[') || type.includes('Array')) {
+  if (
+    type.includes("{") ||
+    type.includes("[") ||
+    type.includes("Array") ||
+    type[0] === type[0].toUpperCase()
+  ) {
     return "object";
   }
 

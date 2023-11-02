@@ -58,6 +58,14 @@
             },
             {
               "kind": "field",
+              "name": "dataObject",
+              "type": {
+                "text": "DataObject | undefined"
+              },
+              "description": "The button's theme variant."
+            },
+            {
+              "kind": "field",
               "name": "oldDocsHint",
               "type": {
                 "text": "string"
