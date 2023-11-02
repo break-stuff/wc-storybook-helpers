@@ -70,7 +70,7 @@ export class MyElement extends LitElement {
   }
 
   // no-op setter
-  set validity(_: string) {
+  set validity(_: any) {
     return;
   }
 
