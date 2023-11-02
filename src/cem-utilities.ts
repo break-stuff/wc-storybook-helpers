@@ -240,12 +240,16 @@ function getControl(type?: string): ControlOptions {
     return "boolean";
   }
 
-  if (type.includes("number") && !type.includes("string") && type.length <= 2) {
+  if (type.includes("number") && !type.includes("string")) {
     return "number";
   }
 
-  if (type.includes("Date") && type.length <= 2) {
+  if (type.includes("Date")) {
     return "date";
+  }
+
+  if(type.includes('{') || type.includes('[') || type.includes('Array')) {
+    return "object";
   }
 
   // if types is a list of string options
@@ -275,7 +279,7 @@ function getDescription(
     desc += description;
   }
 
-  return options.hideArgRef ? desc : (desc += `"\n\n\narg ref - \`${argRef}\``);
+  return options.hideArgRef ? desc : (desc += `\n\n\narg ref - \`${argRef}\``);
 }
 
 export const getReactEventName = (eventName: string) =>

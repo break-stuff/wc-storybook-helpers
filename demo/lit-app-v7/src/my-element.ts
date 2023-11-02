@@ -41,7 +41,13 @@ export class MyElement extends LitElement {
    * The number of times the button has been clicked.
    */
   @property({ type: Number, reflect: true })
-  count = 0;
+  count?: number = 0;
+  
+  /**
+   * An example with a type of string array.
+   */
+  @property({ attribute: false })
+  values?: string[] = [];
 
   /**
    * test property
@@ -86,7 +92,7 @@ export class MyElement extends LitElement {
   }
 
   private _onClick() {
-    this.count++;
+    this.count!++;
   }
 
   static styles = css`

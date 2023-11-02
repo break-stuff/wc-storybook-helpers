@@ -23,7 +23,11 @@ export declare class MyElement extends LitElement {
     /**
      * The number of times the button has been clicked.
      */
-    count: number;
+    count?: number;
+    /**
+     * An example with a type of string array.
+     */
+    values?: string[];
     /**
      * test property
      */

@@ -71,12 +71,21 @@
               "kind": "field",
               "name": "count",
               "type": {
-                "text": "number"
+                "text": "number | undefined"
               },
               "default": "0",
               "description": "The number of times the button has been clicked.",
               "attribute": "count",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "values",
+              "type": {
+                "text": "string[] | undefined"
+              },
+              "default": "[]",
+              "description": "An example with a type of string array."
             },
             {
               "kind": "field",
@@ -152,7 +161,7 @@
             {
               "name": "count",
               "type": {
-                "text": "number"
+                "text": "number | undefined"
               },
               "default": "0",
               "description": "The number of times the button has been clicked.",
