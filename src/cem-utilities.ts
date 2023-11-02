@@ -251,10 +251,11 @@ function getControl(type?: string): ControlOptions {
   }
 
   if (
-    type.includes("{") ||
-    type.includes("[") ||
-    type.includes("Array") ||
-    type[0] === type[0].toUpperCase()
+    !type.includes("string") &&
+    (type.includes("{") ||
+      type.includes("[") ||
+      type.includes("Array") ||
+      type[0] === type[0].toUpperCase())
   ) {
     return "object";
   }
