@@ -31,14 +31,15 @@ export function getTemplate(
   }
 
   const { attrOperators, propOperators } = getTemplateOperators(component!, args);
+  const operators  = {...attrOperators, ...propOperators};
   const slotsTemplate = getSlotsTemplate(component!, args);
   const cssPropertiesTemplate = getCssPropTemplate(component!, args);
   syncControls(component!);
 
+  console.log(propOperators);
   return html`${getStyleTemplate(component, args)}
 <${unsafeStatic(component!.tagName!)} 
-  ${spread(attrOperators)}
-  ${spreadProps(propOperators)} 
+  ${spread(operators)}
   ${cssPropertiesTemplate}
   >
     ${slotsTemplate}${slot || ""}

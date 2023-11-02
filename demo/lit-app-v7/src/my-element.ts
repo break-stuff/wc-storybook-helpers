@@ -11,6 +11,11 @@ export type Variant =
   | "danger"
   | "text";
 
+type DataObject = {
+  test: string;
+  value: string;
+};
+
 /**
  * An example element.
  *
@@ -30,6 +35,9 @@ export class MyElement extends LitElement {
   /** The button's theme variant. */
   @property({ reflect: true }) variant: Variant = "primary";
 
+  /** The button's theme variant. */
+  @property({ attribute: false }) dataObject?: DataObject;
+
   /**
    * @deprecated replaced by `docs-hint`
    * Copy for the read the docs hint.
@@ -41,7 +49,13 @@ export class MyElement extends LitElement {
    * The number of times the button has been clicked.
    */
   @property({ type: Number, reflect: true })
-  count = 0;
+  count?: number = 0;
+  
+  /**
+   * An example with a type of string array.
+   */
+  @property({ attribute: false })
+  values?: string[] = [];
 
   /**
    * test property
@@ -53,6 +67,11 @@ export class MyElement extends LitElement {
   @property({ attribute: false })
   get validity(): string {
     return '';
+  }
+
+  // no-op setter
+  set validity(_: any) {
+    return;
   }
 
   /** Example without a type */
@@ -86,7 +105,7 @@ export class MyElement extends LitElement {
   }
 
   private _onClick() {
-    this.count++;
+    this.count!++;
   }
 
   static styles = css`

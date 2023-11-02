@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 1.0.8
+
+- Fix control types
+- Fix object binding
+- Remove trailing double-quotes (`"`) from descriptions
+- Add docs for Actions
+
 ## 1.0.7
 
 - Patched attribute mapping for Stencil

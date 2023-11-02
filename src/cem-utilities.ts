@@ -26,7 +26,9 @@ export function getAttributesAndProperties(component?: Declaration): ArgTypes {
       return;
     }
 
-    const attribute = component.attributes.find(x => member.name === x.fieldName);
+    const attribute = component.attributes.find(
+      (x) => member.name === x.fieldName
+    );
     const propName = member.name;
 
     properties[propName] = {
@@ -240,12 +242,22 @@ function getControl(type?: string): ControlOptions {
     return "boolean";
   }
 
-  if (type.includes("number") && !type.includes("string") && type.length <= 2) {
+  if (type.includes("number") && !type.includes("string")) {
     return "number";
   }
 
-  if (type.includes("Date") && type.length <= 2) {
+  if (type.includes("Date")) {
     return "date";
+  }
+
+  if (
+    !type.includes("string") &&
+    (type.includes("{") ||
+      type.includes("[") ||
+      type.includes("Array") ||
+      type[0] === type[0].toUpperCase())
+  ) {
+    return "object";
   }
 
   // if types is a list of string options
@@ -275,7 +287,7 @@ function getDescription(
     desc += description;
   }
 
-  return options.hideArgRef ? desc : (desc += `"\n\n\narg ref - \`${argRef}\``);
+  return options.hideArgRef ? desc : (desc += `\n\n\narg ref - \`${argRef}\``);
 }
 
 export const getReactEventName = (eventName: string) =>

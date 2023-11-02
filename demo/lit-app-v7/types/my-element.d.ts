@@ -1,5 +1,9 @@
 import { LitElement } from "lit";
 export type Variant = "default" | "primary" | "success" | "neutral" | "warning" | "danger" | "text";
+type DataObject = {
+    test: string;
+    value: string;
+};
 /**
  * An example element.
  *
@@ -15,6 +19,8 @@ export declare class MyElement extends LitElement {
     docsHint: string;
     /** The button's theme variant. */
     variant: Variant;
+    /** The button's theme variant. */
+    dataObject?: DataObject;
     /**
      * @deprecated replaced by `docs-hint`
      * Copy for the read the docs hint.
@@ -23,13 +29,18 @@ export declare class MyElement extends LitElement {
     /**
      * The number of times the button has been clicked.
      */
-    count: number;
+    count?: number;
+    /**
+     * An example with a type of string array.
+     */
+    values?: string[];
     /**
      * test property
      */
     test?: string;
     /** Test getter property */
     get validity(): string;
+    set validity(_: any);
     /** Example without a type */
     noType: string;
     /** Adds a label to the component */
@@ -43,3 +54,4 @@ declare global {
         "my-element": MyElement;
     }
 }
+export {};

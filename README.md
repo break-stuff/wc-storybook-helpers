@@ -76,7 +76,7 @@ export default {
 // Storybook v7
 import type { Meta, StoryObj } from "@storybook/web-components";
 
-const meta: Meta = {
+const meta: Meta<MyElement> = {
   title: "Components/My Element",
   component: "my-element",
   args, // <- default values for Storybook v7
@@ -232,6 +232,28 @@ export default {
 };
 ```
 
+### Events in Actions Tab
+
+If you are migrating from v6 to v7, and important note is that there were a number of APIs removed from the default project including the ability to automatically capture events in the `Actions` tab. To add it back in, you will need to update your stories with the `withActions` decorator.
+
+```ts
+import { withActions } from '@storybook/addon-actions/decorator';
+
+const { args, argTypes, events, template } = getWcStorybookHelpers('my-element');
+
+const meta: Meta<MyElement> = {
+  ...
+  parameters: {
+    actions: {
+      handles: events,
+    },
+  },
+  decorators: [withActions],
+};
+
+export default meta;
+```
+
 ## Templates
 
 Templates are configured to automatically map the control's attributes, properties, CSS custom properties, and CSS shadow parts to your element as well as provide two-way data binding for the component attributes back to the controls to keep them in sync.
@@ -258,7 +280,7 @@ Default.args = {
 
 ### Extending Templates
 
-Templates can be interpolated into a template with additional content.
+Component templates can be interpolated into a story's template with additional content.
 
 ```ts
 const FormTemplate = (args: any) => html`
@@ -299,6 +321,30 @@ const ComponentTemplate = (args: any) => html`
     component.show();
   </script>
 `;
+```
+
+### Troubleshooting Templates
+
+Templates provide a generic binding with properties. If you have getter-only properties you are likely to encounter an error like this:
+
+```
+Cannot set property validity of #<MyElement> which has only a getter
+```
+
+If you are implementing a "read-only" property with only a getter, you can create a "no-op" setter to prevent this error.
+
+```ts
+export class MyElement extends HTMLElement {
+  /** Gets input validation information */
+  get validity(): ValidationState {
+    return this.getInputValidity();
+  }
+
+  // no-op setter
+  set validity(_: any) {
+    return;
+  }
+}
 ```
 
 ## Using Slot Controls
