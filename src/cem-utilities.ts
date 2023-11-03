@@ -238,30 +238,36 @@ function getControl(type?: string): ControlOptions {
     return "text";
   }
 
-  if (type.includes("boolean")) {
-    return "boolean";
-  }
+  const lowerType = type.toLowerCase();
 
-  if (type.includes("number") && !type.includes("string")) {
-    return "number";
-  }
-
-  if (type.includes("Date")) {
-    return "date";
-  }
-
-  if (
-    !type.includes("string") &&
-    (type.includes("{") ||
-      type.includes("[") ||
-      type.includes("Array") ||
-      type[0] === type[0].toUpperCase())
-  ) {
+  if (isObject(lowerType)) {
     return "object";
   }
 
+  if (lowerType.includes("boolean")) {
+    return "boolean";
+  }
+
+  if (lowerType.includes("number") && !lowerType.includes("string")) {
+    return "number";
+  }
+
+  if (lowerType.includes("date")) {
+    return "date";
+  }
+
   // if types is a list of string options
-  return type.includes("|") ? "select" : "text";
+  return lowerType.includes("|") ? "select" : "text";
+}
+
+function isObject(type: string) {
+  return (
+    type.includes("array") ||
+    type.includes("object") ||
+    type.includes("{") ||
+    type.includes("[") ||
+    type.includes("<")
+  );
 }
 
 function cleanUpType(type?: string): string {

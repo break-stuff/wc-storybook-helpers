@@ -62,6 +62,7 @@
               "type": {
                 "text": "DataObject | undefined"
               },
+              "default": "{}",
               "description": "The button's theme variant."
             },
             {

@@ -13,6 +13,13 @@ import {
 let argObserver: MutationObserver | undefined;
 let lastTagName: string | undefined;
 
+/**
+ * Gets the template used to render the component in Storybook
+ * @param component component object from the Custom Elements Manifest
+ * @param args args object from Storybook story
+ * @param slot content to be rendered between the component's opening and closing tags
+ * @returns
+ */
 export function getTemplate(
   component?: Declaration,
   args?: any,
@@ -30,13 +37,15 @@ export function getTemplate(
     lastTagName = component?.tagName;
   }
 
-  const { attrOperators, propOperators } = getTemplateOperators(component!, args);
-  const operators  = {...attrOperators, ...propOperators};
+  const { attrOperators, propOperators } = getTemplateOperators(
+    component!,
+    args
+  );
+  const operators = { ...attrOperators, ...propOperators };
   const slotsTemplate = getSlotsTemplate(component!, args);
   const cssPropertiesTemplate = getCssPropTemplate(component!, args);
   syncControls(component!);
 
-  console.log(propOperators);
   return html`${getStyleTemplate(component, args)}
 <${unsafeStatic(component!.tagName!)} 
   ${spread(operators)}
@@ -50,6 +59,12 @@ export function getTemplate(
 `;
 }
 
+/**
+ * Gets the template used to render the component's styles in Storybook
+ * @param component component object from the Custom Elements Manifest
+ * @param args args object from Storybook story
+ * @returns styles in a tagged template literal
+ */
 export function getStyleTemplate(component?: Declaration, args?: any) {
   const cssPartsTemplate = getCssPartsTemplate(component!, args);
 
@@ -60,6 +75,12 @@ export function getStyleTemplate(component?: Declaration, args?: any) {
     : "";
 }
 
+/**
+ * Gets a formatted object with the component's attributes and properties formatted to be used as operators in the template
+ * @param component component object from the Custom Elements Manifest
+ * @param args args object from Storybook story
+ * @returns object of properties and attributes with their values
+ */
 function getTemplateOperators(component: Declaration, args: any) {
   const attributes = getAttributesAndProperties(component);
   const attrOperators: any = {};
@@ -92,8 +113,14 @@ function getTemplateOperators(component: Declaration, args: any) {
   return { attrOperators, propOperators };
 }
 
+/**
+ * Gets the template used to render the component's styles in Storybook
+ * @param component component object from the Custom Elements Manifest
+ * @param args args object from Storybook story
+ * @returns string of css properties with arg values
+ */
 function getCssPropTemplate(component: Declaration, args: any) {
-  if(!component?.cssProperties?.length) {
+  if (!component?.cssProperties?.length) {
     return;
   }
 
@@ -111,8 +138,14 @@ function getCssPropTemplate(component: Declaration, args: any) {
   );
 }
 
+/**
+ * Gets the template used to render the component's CSS Shadow Parts in Storybook
+ * @param component component object from the Custom Elements Manifest
+ * @param args args object from Storybook story
+ * @returns formatted string with CSS shadow parts and their styles
+ */
 function getCssPartsTemplate(component: Declaration, args: any) {
-  if(!component?.cssParts?.length) {
+  if (!component?.cssParts?.length) {
     return;
   }
 
@@ -135,8 +168,14 @@ function getCssPartsTemplate(component: Declaration, args: any) {
   );
 }
 
+/**
+ * Gets the template used to render the component's slots in Storybook
+ * @param component component object from the Custom Elements Manifest
+ * @param args args object from Storybook story
+ * @returns formatted string with slots and their values
+ */
 function getSlotsTemplate(component: Declaration, args: any) {
-  if(!component?.slots?.length) {
+  if (!component?.slots?.length) {
     return;
   }
 
@@ -159,6 +198,10 @@ function getSlotsTemplate(component: Declaration, args: any) {
   );
 }
 
+/**
+ * Watches for changes to the component's attributes and properties and updates Storybook controls
+ * @param component component object from the Custom Elements Manifest
+ */
 function syncControls(component: Declaration) {
   setArgObserver(component);
 
@@ -171,6 +214,10 @@ function syncControls(component: Declaration) {
   });
 }
 
+/**
+ * Sets up the MutationObserver to sync the component's attributes and properties with Storybook controls
+ * @param component component object from the Custom Elements Manifest
+ */
 function setArgObserver(component: Declaration) {
   let isUpdating = false;
   const updateArgs = useArgs()[1];

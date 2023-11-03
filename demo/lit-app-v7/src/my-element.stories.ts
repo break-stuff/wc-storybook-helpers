@@ -6,6 +6,7 @@ import { getWcStorybookHelpers } from "../../..";
 const { args, events, argTypes, template } =
   getWcStorybookHelpers("my-element");
 
+console.log(args);
 const meta = {
   title: "Components/My Element",
   component: "my-element",

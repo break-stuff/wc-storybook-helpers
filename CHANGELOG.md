@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.0.9
+
+- Fix `object` type control
+- Fix select mapping
+- Update default value mapping
+
 ## 1.0.8
 
 - Fix control types
