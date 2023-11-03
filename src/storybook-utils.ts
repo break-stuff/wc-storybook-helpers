@@ -14,7 +14,7 @@ import { Declaration } from "./cem-schema";
 
 /**
  * sets the global config for the Storybook helpers
- * @param options 
+ * @param options
  */
 export function setWcStorybookHelpersConfig(options: Options) {
   (window as any).__WC_STORYBOOK_HELPERS_CONFIG__ = options;
@@ -54,6 +54,11 @@ export function getWcStorybookHelpers(tagName: string) {
   };
 }
 
+/**
+ * Gets the Storybook `argTypes` (controls) for the component
+ * @param component component object from the Custom Elements Manifest
+ * @returns an object containing the `argTypes` for the component
+ */
 function getArgTypes(component?: Declaration): ArgTypes {
   // Attributes and properties must go last to prevent namespaced attributes from being overwritten
   const argTypes: ArgTypes = {
@@ -66,16 +71,44 @@ function getArgTypes(component?: Declaration): ArgTypes {
   return argTypes;
 }
 
+/**
+ * Gets the Storybook `args` (default values) for the component
+ * @param component component object from the Custom Elements Manifest
+ * @returns an object containing the `args` for the component
+ */
 function getArgs(component?: Declaration): Record<string, any> {
   const args = Object.entries(getArgTypes(component))
     // We only want to get args that have a control in Storybook
     .filter(([, value]) => value?.control)
-    .map(([key, value]) => ({ [key]: value.defaultValue || '' }))
+    .map(([key, value]) => {
+      const defaultValue = getDefaultValue(value.defaultValue);
+      return {
+        [key]: defaultValue === undefined ? '' : defaultValue,
+      };
+    })
     .reduce((acc, value) => ({ ...acc, ...value }), {});
 
   return args;
 }
 
+/**
+ * Gets the default value for a given attribute/property in the CEM
+ * @param value the default value from the Custom Elements Manifest
+ * @returns the default value
+ */
+function getDefaultValue(value?: string | number | boolean | object) {
+  try {
+    return JSON.parse(value as string);
+  } catch (error) {
+    return value;
+  }
+}
+
+/**
+ * Gets the Storybook `argTypes` (controls) formatted for React components
+ * @param component component object from the Custom Elements Manifest
+ * @returns an object containing the `argTypes` for a React component
+ */
 function getReactProps(component?: Declaration): ArgTypes {
   const argTypes: ArgTypes = {
     ...getReactProperties(component),

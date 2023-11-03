@@ -1,8 +1,8 @@
 import { LitElement } from "lit";
 export type Variant = "default" | "primary" | "success" | "neutral" | "warning" | "danger" | "text";
 type DataObject = {
-    test: string;
-    value: string;
+    test?: string;
+    value?: string;
 };
 /**
  * An example element.
