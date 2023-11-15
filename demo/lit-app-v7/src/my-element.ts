@@ -69,11 +69,6 @@ export class MyElement extends LitElement {
     return '';
   }
 
-  // no-op setter
-  set validity(_: any) {
-    return;
-  }
-
   /** Example without a type */
   @property({ attribute: false })
   noType = '';

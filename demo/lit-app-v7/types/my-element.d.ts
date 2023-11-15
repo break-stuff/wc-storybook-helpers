@@ -40,7 +40,6 @@ export declare class MyElement extends LitElement {
     test?: string;
     /** Test getter property */
     get validity(): string;
-    set validity(_: any);
     /** Example without a type */
     noType: string;
     /** Adds a label to the component */
