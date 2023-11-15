@@ -323,30 +323,6 @@ const ComponentTemplate = (args: any) => html`
 `;
 ```
 
-### Troubleshooting Templates
-
-Templates provide a generic binding with properties. If you have getter-only properties you are likely to encounter an error like this:
-
-```
-Cannot set property validity of #<MyElement> which has only a getter
-```
-
-If you are implementing a "read-only" property with only a getter, you can create a "no-op" setter to prevent this error.
-
-```ts
-export class MyElement extends HTMLElement {
-  /** Gets input validation information */
-  get validity(): ValidationState {
-    return this.getInputValidity();
-  }
-
-  // no-op setter
-  set validity(_: any) {
-    return;
-  }
-}
-```
-
 ## Using Slot Controls
 
 If you are using the `template`, using slots form the controls panel is fairly straight forward. The input is already wired up to the appropriate slot and so rich content can be added directly to the input with no additional set-up required.
