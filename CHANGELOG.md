@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.10
+
+- Add patch for errors with "getter" only properties
+
 ## 1.0.9
 
 - Fix `object` type control
