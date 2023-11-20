@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.1.0
+
+- Updated control type for attributes to not support the object controller since they do not map to the component properly
+- *Minor version jump since v1.0.9 should have been a feature and not a patch
+
 ## 1.0.10
 
 - Add patch for errors with "getter" only properties

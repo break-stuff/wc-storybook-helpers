@@ -62,7 +62,7 @@ export function getAttributesAndProperties(component?: Declaration): ArgTypes {
       ),
       defaultValue: defaultValue === "''" ? "" : defaultValue,
       control: {
-        type: getControl(propType),
+        type: getControl(propType, attribute !== undefined),
       },
       table: {
         category: attribute ? "attributes" : "properties",
@@ -233,14 +233,14 @@ function getDefaultValue(controlType: ControlOptions, defaultValue?: string) {
     : initialValue;
 }
 
-function getControl(type?: string): ControlOptions {
+function getControl(type: string, isAttribute = false): ControlOptions {
   if (!type) {
     return "text";
   }
 
   const lowerType = type.toLowerCase();
 
-  if (isObject(lowerType)) {
+  if (isObject(lowerType) && !isAttribute) {
     return "object";
   }
 
