@@ -239,25 +239,29 @@ function getControl(type: string, isAttribute = false): ControlOptions {
   }
 
   const lowerType = type.toLowerCase();
+  const options = lowerType
+    .split("|")
+    .map((x) => x.trim())
+    .filter((x) => x !== "" && x !== "null" && x !== "undefined");
 
   if (isObject(lowerType) && !isAttribute) {
     return "object";
   }
 
-  if (lowerType.includes("boolean")) {
+  if (hasType(options, "boolean")) {
     return "boolean";
   }
 
-  if (lowerType.includes("number") && !lowerType.includes("string")) {
+  if (hasType(options, "number") && !hasType(options, "string")) {
     return "number";
   }
 
-  if (lowerType.includes("date")) {
+  if (hasType(options, "date")) {
     return "date";
   }
 
   // if types is a list of string options
-  return lowerType.includes("|") ? "select" : "text";
+  return options.length > 1 ? "select" : "text";
 }
 
 function isObject(type: string) {
@@ -268,6 +272,10 @@ function isObject(type: string) {
     type.includes("[") ||
     type.includes("<")
   );
+}
+
+function hasType(values: string[] = [], type: string) {
+  return values?.find((value) => value === type) !== undefined;
 }
 
 function cleanUpType(type?: string): string {

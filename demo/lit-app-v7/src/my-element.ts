@@ -9,7 +9,8 @@ export type Variant =
   | "neutral"
   | "warning"
   | "danger"
-  | "text";
+  | "text"
+  | "number";
 
 type DataObject = {
   test?: string;
