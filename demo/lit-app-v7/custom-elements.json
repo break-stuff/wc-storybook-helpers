@@ -53,7 +53,7 @@
               "attribute": "variant",
               "reflects": true,
               "expandedType": {
-                "text": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
+                "text": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text' | 'number'"
               }
             },
             {
@@ -155,7 +155,7 @@
               "description": "The button's theme variant.",
               "fieldName": "variant",
               "expandedType": {
-                "text": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
+                "text": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text' | 'number'"
               }
             },
             {
