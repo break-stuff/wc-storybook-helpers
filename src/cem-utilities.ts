@@ -138,6 +138,9 @@ export function getReactProperties(component?: Declaration): ArgTypes {
     }
   });
 
+  // remove ref property if it exists
+  delete properties["ref"];
+
   return properties;
 }
 
@@ -167,7 +170,7 @@ export function getCssProperties(component?: Declaration): ArgTypes {
       description: property.description,
       defaultValue: property.default,
       control: {
-        type: "text",
+        type: (property.name.toLowerCase()).includes('color') ? "color" : "text",
       },
     };
   });
@@ -259,6 +262,7 @@ function getControl(type: string, isAttribute = false): ControlOptions {
   if (hasType(options, "date")) {
     return "date";
   }
+
 
   // if types is a list of string options
   return options.length > 1 ? "select" : "text";
