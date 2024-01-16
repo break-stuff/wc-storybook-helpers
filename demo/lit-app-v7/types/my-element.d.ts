@@ -11,6 +11,8 @@ type DataObject = {
  * @slot button - This element has a slot
  * @csspart button - The button
  * @csspart label - Adds custom styles to label
+ *
+ * @cssprop [--my-element-background-color=#ccc] - The background color
  */
 export declare class MyElement extends LitElement {
     /**

@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.2.0
+
+- Set control "color" for CSS variables that include the word "color"
+- Removed `ref` control if it is included in the list of React properties.
+
 ## 1.1.1
 
 - Added stricter type checks for determining controls 
