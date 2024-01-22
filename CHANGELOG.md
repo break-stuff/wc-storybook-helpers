@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.2.1
+
+- Add patch for error cause when elements do not have attributes
+
 ## 1.2.0
 
 - Set control "color" for CSS variables that include the word "color"
