@@ -26,7 +26,7 @@ export function getAttributesAndProperties(component?: Declaration): ArgTypes {
       return;
     }
 
-    const attribute = component.attributes.find(
+    const attribute = component.attributes?.find(
       (x) => member.name === x.fieldName
     );
     const propName = member.name;
