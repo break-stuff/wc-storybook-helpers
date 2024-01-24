@@ -216,7 +216,7 @@ export class SpreadDirective extends SpreadEventsDirective {
           break;
         default:
           // standard attribute
-          if (value != null) {
+          if (value) {
             element.setAttribute(key, String(value));
           } else {
             element.removeAttribute(key);
