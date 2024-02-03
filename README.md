@@ -358,7 +358,7 @@ setWcStorybookHelpersConfig({ hideArgRef: true });
 
 ### Custom Types
 
-It is common for teams to parse or create custom types and add them to the Custom Elements Manifest to use for other tools (if you're not already, check out [this tool](https://www.npmjs.com/package/cem-plugin-expanded-types)). The helpers can be configured to use those types instead of the default types in your manifest using the `typeRef`. If no custom type is found, it will fallback to the default type.
+It is common for teams to parse or create custom types and add them to the Custom Elements Manifest to use for other tools (if you're not already, [CEM Analyzer Expanded Types plugin](https://www.npmjs.com/package/cem-plugin-expanded-types)) can help with this. The helpers can be configured to use those types instead of the default types in your manifest using the `typeRef`. If no custom type is found, it will fallback to the default type.
 
 ```ts
 setWcStorybookHelpersConfig({ typeRef: "expandedType" });
