@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.2.2
+
+- Remove unset attributes
+
 ## 1.2.1
 
 - Add patch for error cause when elements do not have attributes
