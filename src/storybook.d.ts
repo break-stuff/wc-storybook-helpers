@@ -3,6 +3,11 @@ export interface Options {
   hideArgRef?: boolean;
   /** sets the custom type reference in the Custom Elements Manifest */
   typeRef?: string;
+  /**
+   * doesn't render attributes when their value is equal to the default value
+   * of that attribute
+   */
+  hideDefaultAttributeValues?: boolean;
 }
 
 export interface ArgTypes {

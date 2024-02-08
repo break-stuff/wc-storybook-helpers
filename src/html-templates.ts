@@ -9,9 +9,16 @@ import {
   getCssProperties,
   getSlots,
 } from "./cem-utilities.js";
+import { Options } from "./storybook";
 
 let argObserver: MutationObserver | undefined;
 let lastTagName: string | undefined;
+
+let options: Options = {};
+
+setTimeout(() => {
+  options = (globalThis as any)?.__WC_STORYBOOK_HELPERS_CONFIG__ || {};
+});
 
 /**
  * Gets the template used to render the component in Storybook
@@ -96,7 +103,9 @@ function getTemplateOperators(component: Declaration, args: any) {
     const attrValue = args![key] as unknown;
     const prop: string =
       (attr.control as any).type === "boolean" ? `?${attrName}` : attrName;
-    attrOperators[prop] = attrValue === "false" ? false : attrValue;
+    if (!options.hideDefaultAttributeValues || attrValue !== attributes[key].defaultValue) {
+      attrOperators[prop] = attrValue === "false" ? false : attrValue;
+    }
   });
 
   Object.keys(args)
