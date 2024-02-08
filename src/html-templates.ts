@@ -66,7 +66,7 @@ export function getTemplate(
  * @returns styles in a tagged template literal
  */
 export function getStyleTemplate(component?: Declaration, args?: any) {
-  const cssPartsTemplate = getCssPartsTemplate(component!, args) || '';
+  const cssPartsTemplate = getCssPartsTemplate(component!, args) || "";
 
   return `${cssPartsTemplate}`.replaceAll(/\s+/g, "") != ""
     ? html`<style>
@@ -155,7 +155,7 @@ function getCssPartsTemplate(component: Declaration, args: any) {
     .filter((key) => key.endsWith("-part"))
     .map((key) => {
       const cssPartName = cssParts[key].name;
-      const cssPartValue = args![key] || '';
+      const cssPartValue = args![key] || "";
       return cssPartValue.replaceAll(/\s+/g, "") !== ""
         ? `${component?.tagName}::part(${cssPartName}) {
               ${cssPartValue || ""}
