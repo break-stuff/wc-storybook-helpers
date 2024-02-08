@@ -156,7 +156,7 @@ function getCssPartsTemplate(component: Declaration, args: any) {
       .filter((key) => key.endsWith("-part"))
       .map((key) => {
         const cssPartName = cssParts[key].name;
-        const cssPartValue = args![key];
+        const cssPartValue = args![key] || '';
         return cssPartValue?.replaceAll(/\s+/g, "") !== ""
           ? `${component?.tagName}::part(${cssPartName}) {
               ${cssPartValue || ""}
