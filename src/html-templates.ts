@@ -9,9 +9,16 @@ import {
   getCssProperties,
   getSlots,
 } from "./cem-utilities.js";
+import { Options } from "./storybook";
 
 let argObserver: MutationObserver | undefined;
 let lastTagName: string | undefined;
+
+let options: Options = {};
+
+setTimeout(() => {
+  options = (globalThis as any)?.__WC_STORYBOOK_HELPERS_CONFIG__ || {};
+});
 
 /**
  * Gets the template used to render the component in Storybook
@@ -53,9 +60,13 @@ export function getTemplate(
   >
     ${slotsTemplate}${slot || ""}
 </${unsafeStatic(component!.tagName!)}>
-<script>
-  component = document.querySelector('${component!.tagName!}');
-</script>
+${
+  options.hideScriptTag
+    ? ""
+    : html`<script>
+        component = document.querySelector("${component!.tagName!}");
+      </script>`
+}
 `;
 }
 
