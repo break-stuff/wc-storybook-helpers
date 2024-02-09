@@ -7,7 +7,7 @@ export interface Options {
    * doesn't render attributes when their value is equal to the default value
    * of that attribute
    */
-  hideDefaultAttributeValues?: boolean;
+  renderDefaultAttributeValues?: boolean;
 }
 
 export interface ArgTypes {

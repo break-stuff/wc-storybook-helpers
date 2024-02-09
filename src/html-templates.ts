@@ -103,7 +103,7 @@ function getTemplateOperators(component: Declaration, args: any) {
     const attrValue = args![key] as unknown;
     const prop: string =
       (attr.control as any).type === "boolean" ? `?${attrName}` : attrName;
-    if (!options.hideDefaultAttributeValues || attrValue !== attributes[key].defaultValue) {
+    if (attrValue !== attributes[key].defaultValue || options.renderDefaultAttributeValues) {
       attrOperators[prop] = attrValue === "false" ? false : attrValue;
     }
   });
