@@ -363,3 +363,12 @@ It is common for teams to parse or create custom types and add them to the Custo
 ```ts
 setWcStorybookHelpersConfig({ typeRef: "expandedType" });
 ```
+
+### Hide script tag
+
+Every component by default includes a script tag to interact with the component
+over Javascript. The `hideScriptTag` option removes this script tag.
+
+```ts
+setWcStorybookHelpersConfig({ hideScriptTag: true });
+```
