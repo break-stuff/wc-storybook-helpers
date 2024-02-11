@@ -363,3 +363,12 @@ It is common for teams to parse or create custom types and add them to the Custo
 ```ts
 setWcStorybookHelpersConfig({ typeRef: "expandedType" });
 ```
+
+### Render default attribute values
+
+Default attribute values are omitted from the component source code. To always
+show all default values enable the `renderDefaultAttributeValues` setting:
+
+```ts
+setWcStorybookHelpersConfig({ renderDefaultAttributeValues: true });
+```
