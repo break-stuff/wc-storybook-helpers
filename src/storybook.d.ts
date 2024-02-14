@@ -3,6 +3,8 @@ export interface Options {
   hideArgRef?: boolean;
   /** sets the custom type reference in the Custom Elements Manifest */
   typeRef?: string;
+  /** hides the <script> tag, doens't render it in the story/component source code */
+  hideScriptTag?: boolean;
   /**
    * doesn't render attributes when their value is equal to the default value
    * of that attribute

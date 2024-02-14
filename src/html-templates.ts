@@ -60,9 +60,13 @@ export function getTemplate(
   >
     ${slotsTemplate}${slot || ""}
 </${unsafeStatic(component!.tagName!)}>
-<script>
-  component = document.querySelector('${component!.tagName!}');
-</script>
+${
+  options.hideScriptTag
+    ? ""
+    : html`<script>
+        component = document.querySelector("${component!.tagName!}");
+      </script>`
+}
 `;
 }
 
@@ -73,11 +77,11 @@ export function getTemplate(
  * @returns styles in a tagged template literal
  */
 export function getStyleTemplate(component?: Declaration, args?: any) {
-  const cssPartsTemplate = getCssPartsTemplate(component!, args);
+  const cssPartsTemplate = getCssPartsTemplate(component!, args) || "";
 
-  return `${cssPartsTemplate}`?.replaceAll(/\s+/g, "") != ""
+  return `${cssPartsTemplate}`.replaceAll(/\s+/g, "") != ""
     ? html`<style>
-        ${cssPartsTemplate}
+        ${unsafeStatic(cssPartsTemplate)}
       </style> `
     : "";
 }
@@ -160,21 +164,19 @@ function getCssPartsTemplate(component: Declaration, args: any) {
 
   const cssParts = getCssParts(component);
 
-  return unsafeStatic(
-    `${Object.keys(cssParts)
-      .filter((key) => key.endsWith("-part"))
-      .map((key) => {
-        const cssPartName = cssParts[key].name;
-        const cssPartValue = args![key];
-        return cssPartValue?.replaceAll(/\s+/g, "") !== ""
-          ? `${component?.tagName}::part(${cssPartName}) {
+  return `${Object.keys(cssParts)
+    .filter((key) => key.endsWith("-part"))
+    .map((key) => {
+      const cssPartName = cssParts[key].name;
+      const cssPartValue = args![key] || "";
+      return cssPartValue.replaceAll(/\s+/g, "") !== ""
+        ? `${component?.tagName}::part(${cssPartName}) {
               ${cssPartValue || ""}
             }`
-          : null;
-      })
-      .filter((value) => value !== null)
-      .join("\n")}`
-  );
+        : null;
+    })
+    .filter((value) => value !== null)
+    .join("\n")}`;
 }
 
 /**
