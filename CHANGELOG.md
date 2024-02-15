@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 1.3.0
+
+- Fixed timing issue with `component` variable in `template()` helper
+- Remove attributes when they match the default value. They can be added back in using the `renderDefaultAttributeValues` setting
+- Add `hideScriptTag` option to hide the script tag section of the template
+- Fix logic to hide styles tag when no CSS parts have been added
+
 ## 1.2.2
 
 - Remove unset attributes

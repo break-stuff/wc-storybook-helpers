@@ -63,7 +63,7 @@ export function getTemplate(
 ${
   options.hideScriptTag
     ? ""
-    : html`<script>
+    : html`<script type="module">
         component = document.querySelector("${component!.tagName!}");
       </script>`
 }
