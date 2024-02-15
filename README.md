@@ -372,3 +372,12 @@ over Javascript. The `hideScriptTag` option removes this script tag.
 ```ts
 setWcStorybookHelpersConfig({ hideScriptTag: true });
 ```
+
+### Render default attribute values
+
+Default attribute values are omitted from the component source code. To always
+show all default values enable the `renderDefaultAttributeValues` setting:
+
+```ts
+setWcStorybookHelpersConfig({ renderDefaultAttributeValues: true });
+```

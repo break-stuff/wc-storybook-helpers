@@ -3,7 +3,11 @@ import { setCustomElementsManifest } from "@storybook/web-components";
 import customElements from "../custom-elements.json";
 import { setWcStorybookHelpersConfig } from "../../..";
 
-setWcStorybookHelpersConfig({ hideArgRef: false, typeRef: "expandedType" });
+setWcStorybookHelpersConfig({
+  hideArgRef: false,
+  typeRef: "expandedType",
+  // renderDefaultAttributeValues: true,
+});
 setCustomElementsManifest(customElements);
 
 const preview: Preview = {

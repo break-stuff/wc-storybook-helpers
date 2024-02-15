@@ -8,7 +8,7 @@ const { args, events, argTypes, template } =
 
 console.log(args);
 const meta = {
-  title: "Components/My Element",
+  title: "My Element",
   component: "my-element",
   args,
   argTypes,
