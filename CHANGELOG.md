@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.3.1
+
+- Fixed issue with missing `component` variable in `template()` helper
+
 ## 1.3.0
 
 - Fixed timing issue with `component` variable in `template()` helper

@@ -6,7 +6,7 @@ declare const meta: {
     title: string;
     component: string;
     args: Record<string, any>;
-    argTypes: import("../../../dist/storybook").ArgTypes;
+    argTypes: ArgTypes;
     parameters: {
         actions: {
             handles: string[];
