@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.4.0
+
+- Fixed false negatives for properties that don't have `setters`.
+- Allow additional attributes used in `args` to be added to stories.
+- Removed controls for events
+
 ## 1.3.1
 
 - Fixed issue with missing `component` variable in `template()` helper
