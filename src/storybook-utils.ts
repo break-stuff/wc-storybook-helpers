@@ -42,15 +42,16 @@ export function getWcStorybookHelpers(tagName: string) {
 
   const component = getComponentByTagName(tagName, cem);
   const eventNames = component?.events?.map((event) => event.name) || [];
+  const argTypes = getArgTypes(component);
 
   return {
     args: getArgs(component),
-    argTypes: getArgTypes(component),
+    argTypes,
     reactArgTypes: getReactProps(component),
     events: eventNames,
     styleTemplate: (args?: any) => getStyleTemplate(component, args),
     template: (args?: any, slot?: TemplateResult) =>
-      getTemplate(component, args, slot),
+      getTemplate(component, args, slot, argTypes),
   };
 }
 

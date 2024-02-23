@@ -9,7 +9,7 @@ import {
   getCssProperties,
   getSlots,
 } from "./cem-utilities.js";
-import { Options } from "./storybook";
+import { ArgTypes, Options } from "./storybook";
 
 let argObserver: MutationObserver | undefined;
 let lastTagName: string | undefined;
@@ -30,7 +30,8 @@ setTimeout(() => {
 export function getTemplate(
   component?: Declaration,
   args?: any,
-  slot?: TemplateResult
+  slot?: TemplateResult,
+  argTypes?: ArgTypes
 ): TemplateResult {
   if (!args) {
     return html`<${unsafeStatic(component!.tagName!)}></${unsafeStatic(
@@ -44,11 +45,9 @@ export function getTemplate(
     lastTagName = component?.tagName;
   }
 
-  const { attrOperators, propOperators } = getTemplateOperators(
-    component!,
-    args
-  );
-  const operators = { ...attrOperators, ...propOperators };
+  const { attrOperators, propOperators, additionalAttrs } =
+    getTemplateOperators(component!, args, argTypes);
+  const operators = { ...attrOperators, ...propOperators, ...additionalAttrs };
   const slotsTemplate = getSlotsTemplate(component!, args);
   const cssPropertiesTemplate = getCssPropTemplate(component!, args);
   syncControls(component!);
@@ -92,10 +91,15 @@ export function getStyleTemplate(component?: Declaration, args?: any) {
  * @param args args object from Storybook story
  * @returns object of properties and attributes with their values
  */
-function getTemplateOperators(component: Declaration, args: any) {
+function getTemplateOperators(
+  component: Declaration,
+  args: any,
+  argTypes?: ArgTypes
+) {
   const attributes = getAttributesAndProperties(component);
   const attrOperators: any = {};
   const propOperators: any = {};
+  const additionalAttrs: any = {};
 
   Object.keys(attributes).forEach((key) => {
     const attr = attributes[key];
@@ -107,7 +111,10 @@ function getTemplateOperators(component: Declaration, args: any) {
     const attrValue = args![key] as unknown;
     const prop: string =
       (attr.control as any).type === "boolean" ? `?${attrName}` : attrName;
-    if (attrValue !== attributes[key].defaultValue || options.renderDefaultAttributeValues) {
+    if (
+      attrValue !== attributes[key].defaultValue ||
+      options.renderDefaultAttributeValues
+    ) {
       attrOperators[prop] = attrValue === "false" ? false : attrValue;
     }
   });
@@ -123,7 +130,11 @@ function getTemplateOperators(component: Declaration, args: any) {
       propOperators[`.${key}`] = propValue;
     });
 
-  return { attrOperators, propOperators };
+  Object.keys(args)
+    .filter((x) => !Object.keys(argTypes || {}).includes(x))
+    .forEach((key) => (additionalAttrs[key] = args[key]));
+
+  return { attrOperators, propOperators, additionalAttrs };
 }
 
 /**

@@ -7,7 +7,6 @@ import { html } from "lit";
 const { args, events, argTypes, template } =
   getWcStorybookHelpers("my-element");
 
-console.log(args);
 const meta = {
   title: "My Element",
   component: "my-element",
@@ -28,5 +27,7 @@ export const Default: StoryObj<MyElement & typeof args> = {
       console.log("component", component);
     </script>
   `,
-  args: {},
+  args: {
+    'data-test': 'test',
+  },
 };
