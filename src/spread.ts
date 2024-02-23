@@ -1,13 +1,13 @@
 /**
- * 
+ *
  * TEMPORARILY IMPORTED FROM @open-wc/lit-helpers
- * 
+ *
  */
 
-import { ElementPart, Part } from 'lit';
-import { nothing } from 'lit/html.js';
-import { directive } from 'lit/directive.js';
-import { AsyncDirective } from 'lit/async-directive.js';
+import { ElementPart, Part } from "lit";
+import { nothing } from "lit/html.js";
+import { directive } from "lit/directive.js";
+import { AsyncDirective } from "lit/async-directive.js";
 
 type EventListenerWithOptions = EventListenerOrEventListenerObject &
   Partial<AddEventListenerOptions>;
@@ -40,7 +40,7 @@ export class SpreadPropsDirective extends AsyncDirective {
   render(_spreadData: { [key: string]: unknown }) {
     return nothing;
   }
-  update(part: Part, [spreadData]: Parameters<this['render']>) {
+  update(part: Part, [spreadData]: Parameters<this["render"]>) {
     if (this.element !== (part as ElementPart).element) {
       this.element = (part as ElementPart).element;
     }
@@ -67,7 +67,10 @@ export class SpreadPropsDirective extends AsyncDirective {
     const { prevData, element } = this;
     if (!prevData) return;
     for (const key in prevData) {
-      if (!data || (!(key in data) && (element as any)[key] === prevData[key])) {
+      if (
+        !data ||
+        (!(key in data) && (element as any)[key] === prevData[key])
+      ) {
         safeSetProperty(element, key, undefined);
       }
     }
@@ -124,7 +127,10 @@ export class SpreadEventsDirective extends SpreadPropsDirective {
     const { prevData, element } = this;
     if (!prevData) return;
     for (const key in prevData) {
-      if (!data || (!(key in data) && (element as any)[key] === prevData[key])) {
+      if (
+        !data ||
+        (!(key in data) && (element as any)[key] === prevData[key])
+      ) {
         this.groomEvent(key, prevData[key] as EventListenerWithOptions);
       }
     }
@@ -140,7 +146,7 @@ export class SpreadEventsDirective extends SpreadPropsDirective {
     const value: Function | EventListenerObject = this.eventData[event.type] as
       | Function
       | EventListenerObject;
-    if (typeof value === 'function') {
+    if (typeof value === "function") {
       (value as Function).call(this.host, event);
     } else {
       (value as EventListenerObject).handleEvent(event);
@@ -200,16 +206,16 @@ export class SpreadDirective extends SpreadEventsDirective {
       }
       const name = key.slice(1);
       switch (key[0]) {
-        case '@': // event listener
+        case "@": // event listener
           this.eventData[name] = value;
           this.applyEvent(name, value as EventListenerWithOptions);
           break;
-        case '.': // property
+        case ".": // property
           safeSetProperty(element, name, value);
           break;
-        case '?': // boolean attribute
+        case "?": // boolean attribute
           if (value) {
-            element.setAttribute(name, '');
+            element.setAttribute(name, "");
           } else {
             element.removeAttribute(name);
           }
@@ -231,15 +237,18 @@ export class SpreadDirective extends SpreadEventsDirective {
     if (!prevData) return;
     for (const key in prevData) {
       const name = key.slice(1);
-      if (!data || (!(key in data) && (element as any)[name] === prevData[key])) {
+      if (
+        !data ||
+        (!(key in data) && (element as any)[name] === prevData[key])
+      ) {
         switch (key[0]) {
-          case '@': // event listener
+          case "@": // event listener
             this.groomEvent(name, prevData[key] as EventListenerWithOptions);
             break;
-          case '.': // property
+          case ".": // property
             safeSetProperty(element, name, undefined);
             break;
-          case '?': // boolean attribute
+          case "?": // boolean attribute
             element.removeAttribute(name);
             break;
           default:
@@ -253,17 +262,13 @@ export class SpreadDirective extends SpreadEventsDirective {
 }
 
 function safeSetProperty(element: Element, name: string, value: unknown) {
-  if (hasSetter(element, name)) {
+  try {
     (element as any)[name] = value;
-  } else {
+  } catch (error) {
     console.warn(
-      `Could not set property "${name}" on ${element.tagName} because it has no "setter".`,
+      `Could not set property "${name}" on ${element.tagName} because it has no "setter".`
     );
   }
-}
-
-function hasSetter(element: Element, name: string) {
-  return !!Object.getOwnPropertyDescriptor(element.constructor.prototype, name)?.set;
 }
 
 export const spread = directive(SpreadDirective);
