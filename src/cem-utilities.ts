@@ -18,7 +18,7 @@ export function getComponentByTagName(
   );
 }
 
-export function getAttributesAndProperties(component?: Declaration): ArgTypes {
+export function getAttributesAndProperties(component?: Declaration, enabled = true): ArgTypes {
   const properties: ArgTypes = {};
 
   component?.members?.forEach((member) => {
@@ -61,9 +61,9 @@ export function getAttributesAndProperties(component?: Declaration): ArgTypes {
         member.deprecated
       ),
       defaultValue: defaultValue === "''" ? "" : defaultValue,
-      control: {
+      control: enabled ? {
         type: getControl(propType, attribute !== undefined),
-      },
+      } : false,
       table: {
         category: attribute ? "attributes" : "properties",
         defaultValue: {
@@ -84,7 +84,7 @@ export function getAttributesAndProperties(component?: Declaration): ArgTypes {
   return properties;
 }
 
-export function getReactProperties(component?: Declaration): ArgTypes {
+export function getReactProperties(component?: Declaration, enabled = true): ArgTypes {
   const properties: ArgTypes = {};
 
   component?.members?.forEach((member) => {
@@ -118,9 +118,9 @@ export function getReactProperties(component?: Declaration): ArgTypes {
       name: member.name,
       description: member.description,
       defaultValue: getDefaultValue(controlType, member.default),
-      control: {
+      control: enabled ? {
         type: controlType,
-      },
+      } : false,
       table: {
         category: "properties",
         defaultValue: {
@@ -162,7 +162,7 @@ export function getReactEvents(component?: Declaration): ArgTypes {
   return events;
 }
 
-export function getCssProperties(component?: Declaration): ArgTypes {
+export function getCssProperties(component?: Declaration, enabled = true): ArgTypes {
   const properties: ArgTypes = {};
 
   component?.cssProperties?.forEach((property) => {
@@ -170,16 +170,16 @@ export function getCssProperties(component?: Declaration): ArgTypes {
       name: property.name,
       description: property.description,
       defaultValue: property.default,
-      control: {
+      control: enabled ? {
         type: (property.name.toLowerCase()).includes('color') ? "color" : "text",
-      },
+      } : false,
     };
   });
 
   return properties;
 }
 
-export function getCssParts(component?: Declaration): ArgTypes {
+export function getCssParts(component?: Declaration, enabled = true): ArgTypes {
   const parts: ArgTypes = {};
 
   component?.cssParts?.forEach((part) => {
@@ -192,8 +192,8 @@ export function getCssParts(component?: Declaration): ArgTypes {
 
     parts[`${part.name}-part`] = {
       name: part.name,
-      description: getDescription(part.description, `${part.name}-part`),
-      control: "text",
+      description: getDescription(part.description, enabled ? `${part.name}-part` : ""),
+      control: enabled ? "text" : false,
       table: {
         category: "css shadow parts",
       },
@@ -203,7 +203,7 @@ export function getCssParts(component?: Declaration): ArgTypes {
   return parts;
 }
 
-export function getSlots(component?: Declaration): ArgTypes {
+export function getSlots(component?: Declaration, enabled = true): ArgTypes {
   const slots: ArgTypes = {};
 
   component?.slots?.forEach((slot) => {
@@ -217,8 +217,8 @@ export function getSlots(component?: Declaration): ArgTypes {
     const slotName = slot.name || "default";
     slots[`${slotName}-slot`] = {
       name: slotName,
-      description: getDescription(slot.description, `${slotName}-slot`),
-      control: "text",
+      description: getDescription(slot.description, enabled ? `${slotName}-slot` : ""),
+      control: enabled ? "text" : false,
       table: {
         category: "slots",
       },
@@ -326,7 +326,7 @@ function getDescription(
     desc += description;
   }
 
-  return options.hideArgRef ? desc : (desc += `\n\n\narg ref - \`${argRef}\``);
+  return options.hideArgRef || !argRef ? desc : (desc += `\n\n\narg ref - \`${argRef}\``);
 }
 
 export const getReactEventName = (eventName: string) =>

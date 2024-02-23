@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.4.1
+
+- Disable controls for `reactArgTypes` except for properties
+
 ## 1.4.0
 
 - Fixed false negatives for properties that don't have `setters`.

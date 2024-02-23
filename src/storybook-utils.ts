@@ -116,9 +116,9 @@ function getReactProps(component?: Declaration): ArgTypes {
   const argTypes: ArgTypes = {
     ...getReactProperties(component),
     ...getReactEvents(component),
-    ...getCssProperties(component),
-    ...getCssParts(component),
-    ...getSlots(component),
+    ...getCssProperties(component, false),
+    ...getCssParts(component, false),
+    ...getSlots(component, false),
   };
 
   return argTypes;
