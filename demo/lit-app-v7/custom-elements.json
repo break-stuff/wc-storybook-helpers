@@ -143,6 +143,19 @@
               "privacy": "private"
             }
           ],
+          "events": [
+            {
+              "type": {
+                "text": "MyEventType"
+              },
+              "description": "This is a custom event",
+              "name": "my-event"
+            },
+            {
+              "description": "This is a custom event without a type",
+              "name": "untyped-event"
+            }
+          ],
           "attributes": [
             {
               "name": "docs-hint",

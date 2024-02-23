@@ -152,8 +152,9 @@ export function getReactEvents(component?: Declaration): ArgTypes {
     events[eventName] = {
       name: eventName,
       description: member.description,
+      control: false,
       table: {
-        category: "events",
+        category: "events"
       },
     };
   });
@@ -225,6 +226,26 @@ export function getSlots(component?: Declaration): ArgTypes {
   });
 
   return slots;
+}
+
+export function getEvents(component?: Declaration): ArgTypes {
+  const events: ArgTypes = {};
+
+  component?.events?.forEach((event) => {
+    events[event.name] = {
+      name: event.name,
+      description: event.description,
+      control: false,
+      table: {
+        category: "events",
+        type: {
+          summary: `CustomEvent${event.type ? `<${event.type.text}>` : ''}`,
+        },
+      },
+    };
+  });
+
+  return events;
 }
 
 function getDefaultValue(controlType: ControlOptions, defaultValue?: string) {

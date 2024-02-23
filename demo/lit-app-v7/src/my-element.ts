@@ -26,6 +26,9 @@ type DataObject = {
  * @csspart label - Adds custom styles to label
  * 
  * @cssprop [--my-element-background-color=#ccc] - The background color
+ * 
+ * @event {MyEventType} my-event - This is a custom event
+ * @event untyped-event - This is a custom event without a type
  */
 @customElement("my-element")
 export class MyElement extends LitElement {

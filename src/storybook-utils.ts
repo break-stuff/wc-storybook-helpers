@@ -9,6 +9,7 @@ import {
   getReactEvents,
   getReactProperties,
   getSlots,
+  getEvents,
 } from "./cem-utilities.js";
 import { Declaration } from "./cem-schema";
 
@@ -67,6 +68,7 @@ function getArgTypes(component?: Declaration): ArgTypes {
     ...getCssParts(component),
     ...getSlots(component),
     ...getAttributesAndProperties(component),
+    ...getEvents(component)
   };
 
   return argTypes;

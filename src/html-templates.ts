@@ -63,8 +63,8 @@ ${
   options.hideScriptTag
     ? ""
     : html`<script>
-        globalThis.component = document.querySelector("${component!.tagName!}");
-      </script>`
+  window.component = document.querySelector("${component!.tagName!}");
+</script>`
 }
 `;
 }

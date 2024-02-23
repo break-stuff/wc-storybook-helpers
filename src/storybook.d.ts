@@ -24,7 +24,7 @@ interface ArgSettings {
   /** Sets a Markdown description for the property. */
   description?: string;
   table?: Table;
-  control?: Control | ControlOptions;
+  control?: Control | ControlOptions | Boolean;
   options?: string[];
 }
 
