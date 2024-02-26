@@ -173,6 +173,9 @@ export function getCssProperties(component?: Declaration, enabled = true): ArgTy
       control: enabled ? {
         type: (property.name.toLowerCase()).includes('color') ? "color" : "text",
       } : false,
+      table: {
+        category: "css properties",
+      },
     };
   });
 
