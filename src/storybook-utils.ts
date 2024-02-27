@@ -48,6 +48,7 @@ export function getWcStorybookHelpers(tagName: string) {
   return {
     args: getArgs(component),
     argTypes,
+    reactArgs: getReactArgs(component),
     reactArgTypes: getReactProps(component),
     events: eventNames,
     styleTemplate: (args?: any) => getStyleTemplate(component, args),
@@ -68,7 +69,7 @@ function getArgTypes(component?: Declaration): ArgTypes {
     ...getCssParts(component),
     ...getSlots(component),
     ...getAttributesAndProperties(component),
-    ...getEvents(component)
+    ...getEvents(component),
   };
 
   return argTypes;
@@ -77,14 +78,24 @@ function getArgTypes(component?: Declaration): ArgTypes {
 /**
  * Gets the Storybook `args` (default values) for the component
  * @param component component object from the Custom Elements Manifest
+ * @param argTypes argTypes object for component
  * @returns an object containing the `args` for the component
  */
-function getArgs(component?: Declaration): Record<string, any> {
-  const args = Object.entries(getArgTypes(component))
+function getArgs(
+  component?: Declaration,
+  argTypes?: ArgTypes
+): Record<string, any> {
+  if (!argTypes) argTypes = getArgTypes(component);
+  const args = Object.entries(argTypes)
     // We only want to get args that have a control in Storybook
     .filter(([, value]) => value?.control)
     .map(([key, value]) => {
-      const defaultValue = getDefaultValue(value.defaultValue);
+      let defaultValue = getDefaultValue(value.defaultValue);
+
+      if (value.table?.category === "css properties") {
+        defaultValue = defaultValue.toString();
+      }
+
       return {
         [key]: defaultValue === undefined ? '' : defaultValue,
       };
@@ -122,4 +133,23 @@ function getReactProps(component?: Declaration): ArgTypes {
   };
 
   return argTypes;
+}
+
+/**
+ * Gets the Storybook `args` (default values) formatted for React components
+ * @param component component object from the Custom Elements Manifest
+ * @returns an object containing the `args` for the component
+ */
+function getReactArgs(component?: Declaration): Record<string, any> {
+  const args = getArgs(component, getReactProps(component));
+
+  const events = Object.entries(getReactEvents(component))
+    .map(([key]) => {
+      return {
+        [key]: () => {},
+      };
+    })
+    .reduce((acc, value) => ({ ...acc, ...value }), {});
+
+  return { ...args, ...events };
 }
