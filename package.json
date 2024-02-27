@@ -37,9 +37,7 @@
     "storybook web components"
   ],
   "dependencies": {
-    "@open-wc/lit-helpers": "^0.5.1",
-    "@storybook/client-api": "^6.5.16",
-    "lit": "^2.6.1"
+    "@storybook/client-api": "^6.5.16"
   },
   "devDependencies": {
     "@types/jest": "^29.4.0",
@@ -49,5 +47,8 @@
     "@typescript-eslint/parser": "^5.48.1",
     "eslint": "^8.32.0",
     "ts-jest": "^29.0.5"
+  },
+  "peerDependencies": {
+    "lit": "^2.6.1"
   }
 }

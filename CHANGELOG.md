@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.5.0
+
+- Removed unused `@open-wc/lit-helpers` dependency
+- Moved `lit` to a `peerDependency` to prevent multiple versions of Lit
+- Added `reactArgs` property for beta React wrapper support
+
 ## 1.4.1
 
 - Disable controls for `reactArgTypes` except for properties
