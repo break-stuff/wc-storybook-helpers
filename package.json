@@ -1,6 +1,6 @@
 {
   "name": "wc-storybook-helpers",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Helpers designed to make integrating Web Components with Storybook easier.",
   "main": "index.js",
   "types": "index.d.ts",
@@ -49,6 +49,6 @@
     "ts-jest": "^29.0.5"
   },
   "peerDependencies": {
-    "lit": "^2.6.1"
+    "lit": "^2.0.0 || ^3.0.0"
   }
 }

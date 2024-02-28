@@ -93,7 +93,7 @@ function getArgs(
       let defaultValue = getDefaultValue(value.defaultValue);
 
       if (value.table?.category === "css properties") {
-        defaultValue = defaultValue.toString();
+        defaultValue = defaultValue?.toString();
       }
 
       return {

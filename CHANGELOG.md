@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.5.2
+
+- Fixed `peerDependency` error
+- Fixed `toString` error when CSS Property default values are `undefined`
+
 ## 1.5.1
 
 - Removed Storybook events from templates

@@ -15,6 +15,10 @@
               "description": "The background color",
               "name": "--my-element-background-color",
               "default": "#ccc"
+            },
+            {
+              "description": "The border color",
+              "name": "--my-element-border-color"
             }
           ],
           "cssParts": [
