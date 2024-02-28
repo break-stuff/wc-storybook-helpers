@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.5.1
+
+- Removed Storybook events from templates
+
 ## 1.5.0
 
 - Removed unused `@open-wc/lit-helpers` dependency

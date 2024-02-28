@@ -132,7 +132,12 @@ function getTemplateOperators(
 
   Object.keys(args)
     .filter((x) => !Object.keys(argTypes || {}).includes(x))
-    .forEach((key) => (additionalAttrs[key] = args[key]));
+    .forEach((key) => {
+      // exclude Storybook event listeners
+      if (!key.startsWith("on") && typeof args[key] !== "function") {
+        additionalAttrs[key] = args[key];
+      }
+    });
 
   return { attrOperators, propOperators, additionalAttrs };
 }
