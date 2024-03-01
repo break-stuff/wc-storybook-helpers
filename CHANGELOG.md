@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.5.3
+
+- Update types to include new options
+- Update docs to include more details for configuration
+
 ## 1.5.2
 
 - Fixed `peerDependency` error
