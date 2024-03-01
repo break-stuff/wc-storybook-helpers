@@ -3,12 +3,9 @@ export interface Options {
   hideArgRef?: boolean;
   /** sets the custom type reference in the Custom Elements Manifest */
   typeRef?: string;
-  /** hides the <script> tag, doens't render it in the story/component source code */
+  /** hides the <script> tag, doesn't render it in the story/component source code */
   hideScriptTag?: boolean;
-  /**
-   * doesn't render attributes when their value is equal to the default value
-   * of that attribute
-   */
+  /** doesn't render attributes when their value is equal to the default value of that attribute */
   renderDefaultAttributeValues?: boolean;
 }
 
@@ -41,7 +38,14 @@ interface Table {
   /** Removes control from table. */
   disable?: boolean;
   /** Assigns control to control group */
-  category?: 'slots' | 'attributes' | 'css properties' | 'css shadow parts' | 'events' | 'properties' | 'methods';
+  category?:
+    | "slots"
+    | "attributes"
+    | "css properties"
+    | "css shadow parts"
+    | "events"
+    | "properties"
+    | "methods";
   /** Assigns the argTypes to a specific subcategory */
   subcategory?: string;
 }
@@ -69,17 +73,17 @@ interface Control {
 }
 
 type ControlOptions =
-  | 'text'
-  | 'radio'
-  | 'select'
-  | 'boolean'
-  | 'number'
-  | 'color'
-  | 'date'
-  | 'object'
-  | 'file'
-  | 'inline-radio'
-  | 'check'
-  | 'inline-check'
-  | 'multi-select'
+  | "text"
+  | "radio"
+  | "select"
+  | "boolean"
+  | "number"
+  | "color"
+  | "date"
+  | "object"
+  | "file"
+  | "inline-radio"
+  | "check"
+  | "inline-check"
+  | "multi-select"
   | null;

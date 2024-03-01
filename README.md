@@ -345,18 +345,32 @@ import { setWcStorybookHelpersConfig } from "wc-storybook-helpers";
 
 setWcStorybookHelpersConfig({ ... });
 setCustomElementsManifest(customElements);
-
 ```
 
-### Hide "Arg Types"
+The helpers can be passed the following options:
 
-There may be times you want to hide the "arg types" label. You can set the `hideArgRef` to `false` and it will remove the label from controls.
+```ts
+interface Options {
+  /** hides the `arg ref` label on each control */
+  hideArgRef?: boolean;
+  /** sets the custom type reference in the Custom Elements Manifest */
+  typeRef?: string;
+  /** hides the <script> tag, doesn't render it in the story/component source code */
+  hideScriptTag?: boolean;
+  /** doesn't render attributes when their value is equal to the default value of that attribute */
+  renderDefaultAttributeValues?: boolean;
+}
+```
+
+### Hide "Arg Refs"
+
+There may be times you want to hide the "arg ref" label. You can set the `hideArgRef` to `true` and it will remove the label from controls.
 
 ```ts
 setWcStorybookHelpersConfig({ hideArgRef: true });
 ```
 
-### Custom Types
+### Custom Types using `typeRef`
 
 It is common for teams to parse or create custom types and add them to the Custom Elements Manifest to use for other tools (if you're not already, [CEM Analyzer Expanded Types plugin](https://www.npmjs.com/package/cem-plugin-expanded-types)) can help with this. The helpers can be configured to use those types instead of the default types in your manifest using the `typeRef`. If no custom type is found, it will fallback to the default type.
 
@@ -364,19 +378,17 @@ It is common for teams to parse or create custom types and add them to the Custo
 setWcStorybookHelpersConfig({ typeRef: "expandedType" });
 ```
 
-### Hide script tag
+### Hide Script Tag
 
-Every component by default includes a script tag to interact with the component
-over Javascript. The `hideScriptTag` option removes this script tag.
+Every story using the `template` helper includes a script tag with a reference to the custom element in the `component` variable. The `hideScriptTag` option removes this script tag and the variable.
 
 ```ts
 setWcStorybookHelpersConfig({ hideScriptTag: true });
 ```
 
-### Render default attribute values
+### Render Default Attribute Values
 
-Default attribute values are omitted from the component source code. To always
-show all default values enable the `renderDefaultAttributeValues` setting:
+If an `arg` value matches the default value, it will not be added to the component. To always show the default values, enable the `renderDefaultAttributeValues` setting:
 
 ```ts
 setWcStorybookHelpersConfig({ renderDefaultAttributeValues: true });
