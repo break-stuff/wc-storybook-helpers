@@ -1,5 +1,5 @@
 import { spread } from "./spread";
-import { useArgs } from "@storybook/client-api";
+import { useArgs } from "@storybook/preview-api";
 import { TemplateResult } from "lit";
 import { html, unsafeStatic } from "lit/static-html.js";
 import { Declaration } from "./cem-schema";
