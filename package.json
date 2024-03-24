@@ -15,8 +15,8 @@
     "build": "tsc && cp src/storybook.d.ts dist/storybook.d.ts || copy src/storybook.d.ts dist/storybook.d.ts",
     "deploy": "tsc && npm publish",
     "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
-    "demo:v6": "tsc && cd demo/lit-app-v6 && npm i && npm run storybook",
-    "demo:v7": "tsc && cd demo/lit-app-v7 && npm i && npm run storybook"
+    "demo:v7": "tsc && cd demo/lit-app-v7 && npm i && npm run storybook",
+    "demo:v8": "tsc && cd demo/lit-app-v8 && npm i && npm run storybook"
   },
   "repository": {
     "type": "git",

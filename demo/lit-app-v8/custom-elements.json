@@ -10,16 +10,35 @@
           "kind": "class",
           "description": "An example element.",
           "name": "MyElement",
+          "cssProperties": [
+            {
+              "description": "The background color",
+              "name": "--my-element-background-color",
+              "default": "#ccc"
+            },
+            {
+              "description": "The border color",
+              "name": "--my-element-border-color"
+            }
+          ],
           "cssParts": [
             {
               "description": "The button",
               "name": "button"
+            },
+            {
+              "description": "Adds custom styles to label",
+              "name": "label"
             }
           ],
           "slots": [
             {
               "description": "This element has a slot",
               "name": ""
+            },
+            {
+              "description": "This element has a slot",
+              "name": "button"
             }
           ],
           "members": [
@@ -38,12 +57,24 @@
               "kind": "field",
               "name": "variant",
               "type": {
-                "text": "| \"default\"\n    | \"primary\"\n    | \"success\"\n    | \"neutral\"\n    | \"warning\"\n    | \"danger\"\n    | \"text\""
+                "text": "Variant"
               },
-              "default": "\"default\"",
+              "default": "\"primary\"",
               "description": "The button's theme variant.",
               "attribute": "variant",
-              "reflects": true
+              "reflects": true,
+              "expandedType": {
+                "text": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text' | 'number'"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "dataObject",
+              "type": {
+                "text": "DataObject | undefined"
+              },
+              "default": "{}",
+              "description": "The button's theme variant."
             },
             {
               "kind": "field",
@@ -60,7 +91,7 @@
               "kind": "field",
               "name": "count",
               "type": {
-                "text": "number"
+                "text": "number | undefined"
               },
               "default": "0",
               "description": "The number of times the button has been clicked.",
@@ -68,9 +99,65 @@
               "reflects": true
             },
             {
+              "kind": "field",
+              "name": "values",
+              "type": {
+                "text": "string[] | undefined"
+              },
+              "default": "[]",
+              "description": "An example with a type of string array."
+            },
+            {
+              "kind": "field",
+              "name": "test",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "test property"
+            },
+            {
+              "kind": "field",
+              "name": "validity",
+              "type": {
+                "text": "string"
+              },
+              "description": "Test getter property"
+            },
+            {
+              "kind": "field",
+              "name": "noType",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "Example without a type"
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Adds a label to the component",
+              "attribute": "label"
+            },
+            {
               "kind": "method",
               "name": "_onClick",
               "privacy": "private"
+            }
+          ],
+          "events": [
+            {
+              "type": {
+                "text": "MyEventType"
+              },
+              "description": "This is a custom event",
+              "name": "my-event"
+            },
+            {
+              "description": "This is a custom event without a type",
+              "name": "untyped-event"
             }
           ],
           "attributes": [
@@ -86,11 +173,14 @@
             {
               "name": "variant",
               "type": {
-                "text": "| \"default\"\n    | \"primary\"\n    | \"success\"\n    | \"neutral\"\n    | \"warning\"\n    | \"danger\"\n    | \"text\""
+                "text": "Variant"
               },
-              "default": "\"default\"",
+              "default": "\"primary\"",
               "description": "The button's theme variant.",
-              "fieldName": "variant"
+              "fieldName": "variant",
+              "expandedType": {
+                "text": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text' | 'number'"
+              }
             },
             {
               "name": "old-docs-hint",
@@ -104,11 +194,19 @@
             {
               "name": "count",
               "type": {
-                "text": "number"
+                "text": "number | undefined"
               },
               "default": "0",
               "description": "The number of times the button has been clicked.",
               "fieldName": "count"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Adds a label to the component",
+              "fieldName": "label"
             }
           ],
           "superclass": {

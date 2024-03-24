@@ -56,22 +56,6 @@ const { events, args, argTypes, template } =
 
 Add the `argTypes` and `events` to your story config:
 
-> **NOTE:** If you are using using Storybook v6 the default values are included as part of the `argTypes`. If you are using v7 you will need to include the `args` object from the helpers and add them to the default export.
-
-```js
-// Storybook v6
-export default {
-  title: "Components/My Element",
-  component: "my-element",
-  argTypes,
-  parameters: {
-    actions: {
-      handles: events,
-    },
-  },
-};
-```
-
 ```js
 // Storybook v7
 import type { Meta, StoryObj } from "@storybook/web-components";
@@ -93,16 +77,6 @@ export default meta;
 Add the template to your story's template and pass in the story `args` into the `template` function (this is an optional parameter, but required for arguments to function properly):
 
 ```ts
-// Storybook v6
-const DefaultTemplate = (args: any) => template(args);
-
-export const Default: any = DefaultTemplate.bind({});
-Default.args = {};
-```
-
-```ts
-// Storybook v7
-
 /**
  * create Story type that will provide autocomplete and docs for `args`,
  * but also allow for namespaced args like CSS Shadow Parts and Slots
@@ -233,8 +207,6 @@ export default {
 ```
 
 ### Events in Actions Tab
-
-If you are migrating from v6 to v7, and important note is that there were a number of APIs removed from the default project including the ability to automatically capture events in the `Actions` tab. To add it back in, you will need to update your stories with the `withActions` decorator.
 
 ```ts
 import { withActions } from '@storybook/addon-actions/decorator';
