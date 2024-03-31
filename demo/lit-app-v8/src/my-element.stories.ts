@@ -7,8 +7,6 @@ import { html } from "lit";
 const { args, events, argTypes, template } =
   getWcStorybookHelpers("my-element");
 
-console.log(events);
-
 const meta = {
   title: "My Element",
   component: "my-element",
