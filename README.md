@@ -10,7 +10,7 @@ There are a number of things that this helper library does to provide developers
 4. Provides two-way binding for controls and attributes in the template to help keep control values in sync with the component
 
 <div style="text-align:center; margin-top: 24px;">
-  <a href="https://stackblitz.com/github/break-stuff/wc-storybook-helpers/tree/storybook-v8-support/demo/sandbox">
+  <a href="https://stackblitz.com/github/break-stuff/wc-storybook-helpers/tree/demo/sandbox">
     <img
       alt="Open in StackBlitz"
       src="https://developer.stackblitz.com/img/open_in_stackblitz.svg"
