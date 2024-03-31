@@ -4,10 +4,16 @@ import customElements from "../custom-elements.json";
 import { setWcStorybookHelpersConfig } from "wc-storybook-helpers";
 
 setWcStorybookHelpersConfig({
+  /** hides the `arg ref` label on each control */
   hideArgRef: false,
+  /** sets the custom type reference in the Custom Elements Manifest */
   typeRef: "expandedType",
-  // renderDefaultAttributeValues: true,
+  /** hides the <script> tag, doesn't render it in the story/component source code */
+  hideScriptTag: false,
+  /** doesn't render attributes when their value is equal to the default value of that attribute */
+  renderDefaultAttributeValues: false,
 });
+
 setCustomElementsManifest(customElements);
 
 const preview: Preview = {
