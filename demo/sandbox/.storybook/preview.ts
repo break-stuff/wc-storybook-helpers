@@ -1,7 +1,7 @@
 import type { Preview } from "@storybook/web-components";
 import { setCustomElementsManifest } from "@storybook/web-components";
 import customElements from "../custom-elements.json";
-import { setWcStorybookHelpersConfig } from "../../..";
+import { setWcStorybookHelpersConfig } from "wc-storybook-helpers";
 
 setWcStorybookHelpersConfig({
   hideArgRef: false,
