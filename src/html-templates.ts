@@ -52,14 +52,12 @@ export function getTemplate(
   syncControls(component!);
 
   return html`${getStyleTemplate(component, args)}
-<${unsafeStatic(component!.tagName!)} ${spread(operators)}>
-    ${slotsTemplate}${slot || ""}
-</${unsafeStatic(component!.tagName!)}>
+<${unsafeStatic(component!.tagName!)} ${spread(operators)}>${slotsTemplate}${slot || ""}</${unsafeStatic(component!.tagName!)}>
 ${
   options.setComponentVariable
     ? html`<script>
-        window.component = document.querySelector("${component!.tagName!}");
-      </script>`
+  window.component = document.querySelector("${component!.tagName!}");
+</script>`
     : ""
 }
 `;
@@ -190,10 +188,10 @@ function getCssPartsTemplate(component: Declaration, args: any) {
     .filter((key) => key.endsWith("-part"))
     .map((key) => {
       const cssPartName = cssParts[key].name;
-      const cssPartValue = args![key] || "";
+      const cssPartValue: string = args![key];
       return cssPartValue.replaceAll(/\s+/g, "") !== ""
-        ? `  ${component?.tagName}::part(${cssPartName}) {
-    ${cssPartValue || ""}
+        ? `${component?.tagName}::part(${cssPartName}) {
+${cssPartValue.split(`\n`).map(part => `    ${part}`).join('\n')}
   }`
         : null;
     })
@@ -214,21 +212,32 @@ function getSlotsTemplate(component: Declaration, args: any) {
 
   const slots = getSlots(component);
 
-  return unsafeStatic(
+  const slotTemplates = 
     `${Object.keys(slots)
       .filter((key) => key.endsWith("-slot"))
       .map((key) => {
-        const slotName = slots[key].name;
+        // trim the "-slot" scope from arg name
+        const slotName = key === "default-slot" ? null : key.slice(0, -5);
         const slotValue = args![key];
-        return slotValue
-          ? slotName === "default"
-            ? `${slotValue || ""}`
-            : `<span slot="${slotName}">${slotValue || ""}</span>`
-          : null;
+        if(!slotName && slotValue) {
+          return `  ${slotValue}`;
+        }
+        const container = document.createElement("div");
+        container.innerHTML = slotValue;
+
+        for (const child of container.childNodes) {
+          if (child instanceof Text) {
+            return `  <span slot=${slotName}>${child.textContent}</span>`;
+          } else if (child instanceof Element) {
+            child.setAttribute("slot", slotName!);
+            return `  ${child.outerHTML}`;
+          }
+        }
       })
       .filter((value) => value !== null)
-      .join("\n")}`
-  );
+      .join("\n")}`;
+
+  return slotTemplates.trim() ? unsafeStatic(`\n${slotTemplates}\n`) : '';
 }
 
 /**
