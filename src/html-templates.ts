@@ -49,21 +49,17 @@ export function getTemplate(
     getTemplateOperators(component!, args, argTypes);
   const operators = { ...attrOperators, ...propOperators, ...additionalAttrs };
   const slotsTemplate = getSlotsTemplate(component!, args);
-  const cssPropertiesTemplate = getCssPropTemplate(component!, args);
   syncControls(component!);
 
   return html`${getStyleTemplate(component, args)}
-<${unsafeStatic(component!.tagName!)} 
-  ${spread(operators)}
-  ${cssPropertiesTemplate}
-  >
+<${unsafeStatic(component!.tagName!)} ${spread(operators)}>
     ${slotsTemplate}${slot || ""}
 </${unsafeStatic(component!.tagName!)}>
 ${
   options.setComponentVariable
     ? html`<script>
-  window.component = document.querySelector("${component!.tagName!}");
-</script>`
+        window.component = document.querySelector("${component!.tagName!}");
+      </script>`
     : ""
 }
 `;
@@ -76,12 +72,14 @@ ${
  * @returns styles in a tagged template literal
  */
 export function getStyleTemplate(component?: Declaration, args?: any) {
+  const cssPropertiesTemplate = getCssPropTemplate(component!, args) || "";
   const cssPartsTemplate = getCssPartsTemplate(component!, args) || "";
+  const spacer = cssPropertiesTemplate && cssPartsTemplate ? '\n\n' : '';
 
-  return `${cssPartsTemplate}`.replaceAll(/\s+/g, "") != ""
+  return `${cssPropertiesTemplate}${cssPartsTemplate}`.replaceAll(/\s+/g, "") !== ""
     ? html`<style>
-        ${unsafeStatic(cssPartsTemplate)}
-      </style> `
+  ${cssPropertiesTemplate}${spacer}${unsafeStatic(cssPartsTemplate)}
+</style> `
     : "";
 }
 
@@ -113,7 +111,7 @@ function getTemplateOperators(
       (attr.control as any).type === "boolean" ? `?${attrName}` : attrName;
     if (
       attrValue !== attributes[key].defaultValue ||
-      options.renderDefaultAttributeValues
+      options.renderDefaultValues
     ) {
       attrOperators[prop] = attrValue === "false" ? false : attrValue;
     }
@@ -154,17 +152,25 @@ function getCssPropTemplate(component: Declaration, args: any) {
   }
 
   const cssProperties = getCssProperties(component);
-
-  return unsafeStatic(
-    `style="${Object.keys(cssProperties)
+  const values = Object.keys(cssProperties)
       .map((key) => {
+        const isDefaultValue = args![key] === cssProperties[key].defaultValue;
         const cssName = cssProperties[key].name;
         const cssValue = args![key];
-        return cssValue ? `${cssName}: ${cssValue || ""}` : null;
+        return cssValue &&
+          (!isDefaultValue ||
+            (isDefaultValue && options.renderDefaultValues))
+          ? `    ${cssName}: ${cssValue}`
+          : null;
       })
       .filter((value) => value !== null)
-      .join(";")}"`
-  );
+      .join(";\n");
+
+  return values ? unsafeStatic(
+    `${component.tagName} {
+${values};
+  }`
+  ) : '';
 }
 
 /**
@@ -186,13 +192,13 @@ function getCssPartsTemplate(component: Declaration, args: any) {
       const cssPartName = cssParts[key].name;
       const cssPartValue = args![key] || "";
       return cssPartValue.replaceAll(/\s+/g, "") !== ""
-        ? `${component?.tagName}::part(${cssPartName}) {
-              ${cssPartValue || ""}
-            }`
+        ? `  ${component?.tagName}::part(${cssPartName}) {
+    ${cssPartValue || ""}
+  }`
         : null;
     })
     .filter((value) => value !== null)
-    .join("\n")}`;
+    .join("\n\n")}`;
 }
 
 /**
