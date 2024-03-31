@@ -7,16 +7,17 @@ type DataObject = {
 /**
  * An example element.
  *
- * @slot - This element has a slot
- * @slot button - This element has a slot
+ * @slot - This adds content between the logo and the counter button
+ * @slot button-content - This adds extra content into the counter button
+ *
  * @csspart button - The button
- * @csspart label - Adds custom styles to label
+ * @csspart docs-hint - Adds custom styles to the docs hint
  *
- * @cssprop [--my-element-background-color=#ccc] - The background color
- * @cssprop --my-element-border-color - The border color
+ * @cssprop [--card-border-color=#ccc] - The card border color
+ * @cssprop [--card-border-size=1px] - The card border color
+ * @cssprop [--card-border-style=solid] - The card border color
  *
- * @event {MyEventType} my-event - This is a custom event
- * @event untyped-event - This is a custom event without a type
+ * @event count - This is a custom event
  */
 export declare class MyElement extends LitElement {
     /**
@@ -50,8 +51,8 @@ export declare class MyElement extends LitElement {
     noType: string;
     /** Adds a label to the component */
     label?: string;
-    render(): import("lit-html").TemplateResult<1>;
     private _onClick;
+    render(): import("lit-html").TemplateResult<1>;
     static styles: import("lit").CSSResult;
 }
 declare global {

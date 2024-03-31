@@ -2,23 +2,25 @@ import type { Preview } from "@storybook/web-components";
 import { setCustomElementsManifest } from "@storybook/web-components";
 import customElements from "../custom-elements.json";
 import { setWcStorybookHelpersConfig } from "../../..";
-import { withActions } from '@storybook/addon-actions/decorator';
 
 setWcStorybookHelpersConfig({
   hideArgRef: false,
   typeRef: "expandedType",
-  renderDefaultAttributeValues: false,
+  // renderDefaultAttributeValues: true,
 });
 setCustomElementsManifest(customElements);
 
 const preview: Preview = {
   parameters: {
+    actions: { argTypesRegex: "^on[A-Z].*" },
     controls: {
       expanded: true,
-      sort: 'alpha'
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/,
+      },
     },
   },
-  decorators: [withActions],
 };
 
 export default preview;

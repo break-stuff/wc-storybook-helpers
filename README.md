@@ -208,22 +208,24 @@ export default {
 
 ### Events in Actions Tab
 
+If you are not seeing the events show up in your actions tab, it may be one of two things:
+
+1. Your events are not [configured to bubble](https://javascript.info/dispatch-events#bubbling-example).
+2. Your Storybook configuration needs to be updated to include the `withActions` decorator.
+
 ```ts
+// preview.js
 import { withActions } from '@storybook/addon-actions/decorator';
 
-const { args, argTypes, events, template } = getWcStorybookHelpers('my-element');
-
-const meta: Meta<MyElement> = {
-  ...
+const preview: Preview = {
   parameters: {
-    actions: {
-      handles: events,
+    controls: {
+      expanded: true,
+      sort: 'alpha'
     },
   },
   decorators: [withActions],
 };
-
-export default meta;
 ```
 
 ## Templates

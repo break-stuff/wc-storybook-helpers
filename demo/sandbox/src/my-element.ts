@@ -1,33 +1,19 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
-export type Variant =
-  | "default"
-  | "primary"
-  | "success"
-  | "neutral"
-  | "warning"
-  | "danger"
-  | "text"
-  | "number";
-
-type DataObject = {
-  test?: string;
-  value?: string;
-};
-
 /**
- * An example element.
+ * An sample element.
  *
  * @slot - This adds content between the logo and the counter button
  * @slot button-content - This adds extra content into the counter button
- * 
+ *
  * @csspart button - The button
  * @csspart docs-hint - Adds custom styles to the docs hint
  *
  * @cssprop [--card-border-color=#ccc] - The card border color
  * @cssprop [--card-border-size=1px] - The card border color
  * @cssprop [--card-border-style=solid] - The card border color
+ * @cssprop [--card-border-radius=8px] - The card border radius
  *
  * @event count - This is a custom event
  */
@@ -39,46 +25,11 @@ export class MyElement extends LitElement {
   @property({ attribute: "docs-hint", reflect: true })
   docsHint = "Click on the Vite and Lit logos to learn more";
 
-  /** The button's theme variant. */
-  @property({ reflect: true }) variant: Variant = "primary";
-
-  /** The button's theme variant. */
-  @property({ attribute: false }) dataObject?: DataObject = {};
-
-  /**
-   * @deprecated replaced by `docs-hint`
-   * Copy for the read the docs hint.
-   */
-  @property({ attribute: "old-docs-hint", reflect: true })
-  oldDocsHint = "Click on the Vite and Lit logos to learn more";
-
   /**
    * The number of times the button has been clicked.
    */
   @property({ type: Number, reflect: true })
   count?: number = 0;
-
-  /**
-   * An example with a type of string array.
-   */
-  @property({ attribute: false })
-  values?: string[] = [];
-
-  /**
-   * test property
-   */
-  @property({ attribute: false })
-  test?: string;
-
-  /** Test getter property */
-  @property({ attribute: false })
-  get validity(): string {
-    return "";
-  }
-
-  /** Example without a type */
-  @property({ attribute: false })
-  noType = "";
 
   /** Adds a label to the component */
   @property()
@@ -88,12 +39,15 @@ export class MyElement extends LitElement {
     this.count!++;
     this.dispatchEvent(new CustomEvent("count", { bubbles: true }));
   }
-  
+
   render() {
     return html`
       <div class="card">
         <div>
-          <a href="https://storybook.js.org/docs/get-started/web-components-vite" target="_blank">
+          <a
+            href="https://storybook.js.org/docs/get-started/web-components-vite"
+            target="_blank"
+          >
             <img src="/storybook.svg" class="logo" alt="Vite logo" />
           </a>
         </div>
@@ -136,7 +90,8 @@ export class MyElement extends LitElement {
 
     .card {
       padding: 2em;
-      border: var(--card-border-color) var(--card-border-size) var(--card-border-style);
+      border: var(--card-border-color) var(--card-border-size)
+        var(--card-border-style);
       border-radius: var(--card-border-radius);
     }
 

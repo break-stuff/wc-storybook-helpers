@@ -12,19 +12,13 @@
           "name": "MyElement",
           "cssProperties": [
             {
-              "description": "The card border color",
-              "name": "--card-border-color",
+              "description": "The background color",
+              "name": "--my-element-background-color",
               "default": "#ccc"
             },
             {
-              "description": "The card border color",
-              "name": "--card-border-size",
-              "default": "1px"
-            },
-            {
-              "description": "The card border color",
-              "name": "--card-border-style",
-              "default": "solid"
+              "description": "The border color",
+              "name": "--my-element-border-color"
             }
           ],
           "cssParts": [
@@ -33,18 +27,18 @@
               "name": "button"
             },
             {
-              "description": "Adds custom styles to the docs hint",
-              "name": "docs-hint"
+              "description": "Adds custom styles to label",
+              "name": "label"
             }
           ],
           "slots": [
             {
-              "description": "This adds content between the logo and the counter button",
+              "description": "This element has a slot",
               "name": ""
             },
             {
-              "description": "This adds extra content into the counter button",
-              "name": "button-content"
+              "description": "This element has a slot",
+              "name": "button"
             }
           ],
           "members": [
@@ -127,8 +121,7 @@
               "type": {
                 "text": "string"
               },
-              "description": "Test getter property",
-              "readonly": true
+              "description": "Test getter property"
             },
             {
               "kind": "field",
@@ -136,7 +129,7 @@
               "type": {
                 "text": "string"
               },
-              "default": "\"\"",
+              "default": "''",
               "description": "Example without a type"
             },
             {
@@ -156,11 +149,15 @@
           ],
           "events": [
             {
-              "name": "count",
               "type": {
-                "text": "CustomEvent"
+                "text": "MyEventType"
               },
-              "description": "This is a custom event"
+              "description": "This is a custom event",
+              "name": "my-event"
+            },
+            {
+              "description": "This is a custom event without a type",
+              "name": "untyped-event"
             }
           ],
           "attributes": [
