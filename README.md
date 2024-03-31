@@ -9,6 +9,15 @@ There are a number of things that this helper library does to provide developers
 3. Provides a template with bindings for attributes, properties, CSS custom properties, and CSS shadow parts.
 4. Provides two-way binding for controls and attributes in the template to help keep control values in sync with the component
 
+<div style="text-align:center; margin-top: 24px;">
+  <a href="https://stackblitz.com/github/break-stuff/wc-storybook-helpers/tree/storybook-v8-support/demo/sandbox">
+    <img
+      alt="Open in StackBlitz"
+      src="https://developer.stackblitz.com/img/open_in_stackblitz.svg"
+    />
+  </a>
+</div>
+
 ## Before You Install
 
 1. Follow the installation steps in the [Storybook docs](https://storybook.js.org/docs/web-components/get-started/install)
