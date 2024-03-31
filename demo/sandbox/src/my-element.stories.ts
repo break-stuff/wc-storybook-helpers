@@ -1,8 +1,8 @@
+import { getWcStorybookHelpers } from "wc-storybook-helpers";
+import { html } from "lit";
+import "./my-element";
 import type { StoryObj } from "@storybook/web-components";
 import type { MyElement } from "./my-element";
-import "./my-element";
-import { getWcStorybookHelpers } from "../../..";
-import { html } from "lit";
 
 const { args, events, argTypes, template } =
   getWcStorybookHelpers("my-element");
