@@ -340,8 +340,8 @@ interface Options {
   typeRef?: string;
   /** Adds a <script> tag where a `component` variable will reference the story's component */
   setComponentVariable: false,
-  /** doesn't render attributes when their value is equal to the default value of that attribute */
-  renderDefaultAttributeValues?: boolean;
+  /** renders default values for attributes and CSS properties */
+  renderDefaultValues: false,
 }
 ```
 
@@ -371,8 +371,8 @@ setWcStorybookHelpersConfig({ setComponentVariable: true });
 
 ### Render Default Attribute Values
 
-If an `arg` value matches the default value, it will not be added to the component. To always show the default values, enable the `renderDefaultAttributeValues` setting:
+If an `arg` value matches the default value, it will not be added to the component. To always show the default values for attributes and CSS custom properties, enable the `renderDefaultValues` setting:
 
 ```ts
-setWcStorybookHelpersConfig({ renderDefaultAttributeValues: true });
+setWcStorybookHelpersConfig({ renderDefaultValues: true });
 ```

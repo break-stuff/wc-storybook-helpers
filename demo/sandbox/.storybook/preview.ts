@@ -10,8 +10,8 @@ setWcStorybookHelpersConfig({
   typeRef: "expandedType",
   /** Adds a <script> tag where a `component` variable will reference the story's component */
   setComponentVariable: false,
-  /** doesn't render attributes when their value is equal to the default value of that attribute */
-  renderDefaultAttributeValues: false,
+  /** renders default values for attributes and CSS properties */
+  renderDefaultValues: false,
 });
 
 setCustomElementsManifest(customElements);

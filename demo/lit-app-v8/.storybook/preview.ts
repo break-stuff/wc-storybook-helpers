@@ -7,7 +7,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 setWcStorybookHelpersConfig({
   hideArgRef: false,
   typeRef: "expandedType",
-  renderDefaultAttributeValues: false,
+  renderDefaultValues: false
 });
 setCustomElementsManifest(customElements);
 

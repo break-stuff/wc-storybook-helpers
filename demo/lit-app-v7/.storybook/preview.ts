@@ -6,7 +6,7 @@ import { setWcStorybookHelpersConfig } from "../../..";
 setWcStorybookHelpersConfig({
   hideArgRef: false,
   typeRef: "expandedType",
-  // renderDefaultAttributeValues: true,
+  renderDefaultValues: false;
 });
 setCustomElementsManifest(customElements);
 

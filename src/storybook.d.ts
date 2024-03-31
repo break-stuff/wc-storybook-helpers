@@ -5,8 +5,8 @@ export interface Options {
   typeRef?: string;
   /** Adds a <script> tag where a `component` variable will reference the story's component */
   setComponentVariable?: boolean;
-  /** doesn't render attributes when their value is equal to the default value of that attribute */
-  renderDefaultAttributeValues?: boolean;
+  /** renders default values for attributes and CSS properties */
+  renderDefaultValues?: boolean;
 }
 
 export interface ArgTypes {
