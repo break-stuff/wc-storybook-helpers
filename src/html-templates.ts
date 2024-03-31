@@ -60,11 +60,11 @@ export function getTemplate(
     ${slotsTemplate}${slot || ""}
 </${unsafeStatic(component!.tagName!)}>
 ${
-  options.hideScriptTag
-    ? ""
-    : html`<script>
+  options.setComponentVariable
+    ? html`<script>
   window.component = document.querySelector("${component!.tagName!}");
 </script>`
+    : ""
 }
 `;
 }

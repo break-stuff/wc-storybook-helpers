@@ -338,8 +338,8 @@ interface Options {
   hideArgRef?: boolean;
   /** sets the custom type reference in the Custom Elements Manifest */
   typeRef?: string;
-  /** hides the <script> tag, doesn't render it in the story/component source code */
-  hideScriptTag?: boolean;
+  /** Adds a <script> tag where a `component` variable will reference the story's component */
+  setComponentVariable: false,
   /** doesn't render attributes when their value is equal to the default value of that attribute */
   renderDefaultAttributeValues?: boolean;
 }
@@ -361,12 +361,12 @@ It is common for teams to parse or create custom types and add them to the Custo
 setWcStorybookHelpersConfig({ typeRef: "expandedType" });
 ```
 
-### Hide Script Tag
+### Add Component Variable
 
-Every story using the `template` helper includes a script tag with a reference to the custom element in the `component` variable. The `hideScriptTag` option removes this script tag and the variable.
+Every story using the `template` helper includes the option to add a script tag with a reference to the custom element in the `component` variable. The `setComponentVariable` option adds this script tag and the variable.
 
 ```ts
-setWcStorybookHelpersConfig({ hideScriptTag: true });
+setWcStorybookHelpersConfig({ setComponentVariable: true });
 ```
 
 ### Render Default Attribute Values

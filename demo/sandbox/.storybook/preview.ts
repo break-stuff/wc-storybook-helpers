@@ -8,8 +8,8 @@ setWcStorybookHelpersConfig({
   hideArgRef: false,
   /** sets the custom type reference in the Custom Elements Manifest */
   typeRef: "expandedType",
-  /** hides the <script> tag, doesn't render it in the story/component source code */
-  hideScriptTag: false,
+  /** Adds a <script> tag where a `component` variable will reference the story's component */
+  setComponentVariable: false,
   /** doesn't render attributes when their value is equal to the default value of that attribute */
   renderDefaultAttributeValues: false,
 });
