@@ -9,6 +9,15 @@ There are a number of things that this helper library does to provide developers
 3. Provides a template with bindings for attributes, properties, CSS custom properties, and CSS shadow parts.
 4. Provides two-way binding for controls and attributes in the template to help keep control values in sync with the component
 
+<div style="text-align:center; margin-top: 24px;">
+  <a href="https://stackblitz.com/github/break-stuff/wc-storybook-helpers/tree/demo/sandbox">
+    <img
+      alt="Open in StackBlitz"
+      src="https://developer.stackblitz.com/img/open_in_stackblitz.svg"
+    />
+  </a>
+</div>
+
 ## Before You Install
 
 1. Follow the installation steps in the [Storybook docs](https://storybook.js.org/docs/web-components/get-started/install)
@@ -56,22 +65,6 @@ const { events, args, argTypes, template } =
 
 Add the `argTypes` and `events` to your story config:
 
-> **NOTE:** If you are using using Storybook v6 the default values are included as part of the `argTypes`. If you are using v7 you will need to include the `args` object from the helpers and add them to the default export.
-
-```js
-// Storybook v6
-export default {
-  title: "Components/My Element",
-  component: "my-element",
-  argTypes,
-  parameters: {
-    actions: {
-      handles: events,
-    },
-  },
-};
-```
-
 ```js
 // Storybook v7
 import type { Meta, StoryObj } from "@storybook/web-components";
@@ -93,16 +86,6 @@ export default meta;
 Add the template to your story's template and pass in the story `args` into the `template` function (this is an optional parameter, but required for arguments to function properly):
 
 ```ts
-// Storybook v6
-const DefaultTemplate = (args: any) => template(args);
-
-export const Default: any = DefaultTemplate.bind({});
-Default.args = {};
-```
-
-```ts
-// Storybook v7
-
 /**
  * create Story type that will provide autocomplete and docs for `args`,
  * but also allow for namespaced args like CSS Shadow Parts and Slots
@@ -234,24 +217,24 @@ export default {
 
 ### Events in Actions Tab
 
-If you are migrating from v6 to v7, and important note is that there were a number of APIs removed from the default project including the ability to automatically capture events in the `Actions` tab. To add it back in, you will need to update your stories with the `withActions` decorator.
+If you are not seeing the events show up in your actions tab, it may be one of two things:
+
+1. Your events are not [configured to bubble](https://javascript.info/dispatch-events#bubbling-example).
+2. Your Storybook configuration needs to be updated to include the `withActions` decorator.
 
 ```ts
+// preview.js
 import { withActions } from '@storybook/addon-actions/decorator';
 
-const { args, argTypes, events, template } = getWcStorybookHelpers('my-element');
-
-const meta: Meta<MyElement> = {
-  ...
+const preview: Preview = {
   parameters: {
-    actions: {
-      handles: events,
+    controls: {
+      expanded: true,
+      sort: 'alpha'
     },
   },
   decorators: [withActions],
 };
-
-export default meta;
 ```
 
 ## Templates
