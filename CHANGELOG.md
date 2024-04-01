@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.0.1
+
+- Updated sandbox URL
+
 ## 2.0.0
 
 - Added support for Storybook 8
