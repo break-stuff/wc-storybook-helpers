@@ -19,15 +19,11 @@ import { customElement, property } from "lit/decorators.js";
  */
 @customElement("my-element")
 export class MyElement extends LitElement {
-  /**
-   * Copy for the read the docs hint.
-   */
+  /** Copy for the read the docs hint. */
   @property({ attribute: "docs-hint", reflect: true })
-  docsHint = "Click on the Vite and Lit logos to learn more";
+  docsHint = "Click on the Storybook logo to learn more";
 
-  /**
-   * The number of times the button has been clicked.
-   */
+  /** The number of times the button has been clicked. */
   @property({ type: Number, reflect: true })
   count?: number = 0;
 
@@ -48,7 +44,7 @@ export class MyElement extends LitElement {
             href="https://storybook.js.org/docs/get-started/web-components-vite"
             target="_blank"
           >
-            <img src="/storybook.svg" class="logo" alt="Vite logo" />
+            <img src="/storybook.svg" class="logo" alt="Storybook logo" />
           </a>
         </div>
         <slot></slot>
