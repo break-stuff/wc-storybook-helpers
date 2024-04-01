@@ -66,13 +66,12 @@ const { events, args, argTypes, template } =
 Add the `argTypes` and `events` to your story config:
 
 ```js
-// Storybook v7
 import type { Meta, StoryObj } from "@storybook/web-components";
 
 const meta: Meta<MyElement> = {
   title: "Components/My Element",
   component: "my-element",
-  args, // <- default values for Storybook v7
+  args,
   argTypes,
   parameters: {
     actions: {
@@ -130,7 +129,6 @@ Default.args = {
 ```
 
 ```ts
-// Storybook v7
 export const Default: Story = {
   render: (args) => template(args),
   args: {
