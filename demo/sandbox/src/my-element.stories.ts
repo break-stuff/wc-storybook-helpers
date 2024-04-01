@@ -22,7 +22,5 @@ export default meta;
 
 export const Default: StoryObj<MyElement & typeof args> = {
   render: (args) => html` ${template(args)} `,
-  args: {
-    "data-test": "test",
-  },
+  args: {},
 };
