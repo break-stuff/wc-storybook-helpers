@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## 2.0.0
+
+- Added support for Storybook 8
+- Removed support for Storybook 6
+- Moved CSS Custom Properties to `<style>` block instead of as an inline style for better readability when displaying code.
+- Renamed `renderDefaultAttributeValues` setting to `renderDefaultValues` to include attributes and CSS custom properties.
+- Renamed `hideScriptTag` setting to `setComponentVariable` for assigning a `component` variable referencing your custom element in the `template` helper. 
+- Added a link to the StackBlitz sandbox environment to the `README.md`
+- Removed default `<span>` tag from values with slot controls. Spans assigned to the slot will still be used to wrap text content. Otherwise, the appropriate slot attributes name will be assigned to the immediate child elements.
+- Improved formatting for code display
+
 ## 1.5.3
 
 - Update types to include new options
