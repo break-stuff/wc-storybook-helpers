@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 2.0.2
+
+- Fixed console warning about incompatibility in v8
+- Fixed types
+
 ## 2.0.1
 
 - Updated sandbox URL
