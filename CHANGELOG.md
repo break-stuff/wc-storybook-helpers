@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.0.3
+
+- Fixed error when property names are undefined
+
 ## 2.0.2
 
 - Fixed console warning about incompatibility in v8
