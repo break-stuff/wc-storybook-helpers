@@ -171,7 +171,7 @@ export function getCssProperties(component?: Declaration, enabled = true): ArgTy
       description: property.description,
       defaultValue: property.default,
       control: enabled ? {
-        type: (property.name.toLowerCase()).includes('color') ? "color" : "text",
+        type: (property.name?.toLowerCase())?.includes('color') ? "color" : "text",
       } : false,
       table: {
         category: "css properties",
