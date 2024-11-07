@@ -21,7 +21,7 @@ There are a number of things that this helper library does to provide developers
 ## Before You Install
 
 1. Follow the installation steps in the [Storybook docs](https://storybook.js.org/docs/web-components/get-started/install)
-2. Load your custom elements manifest into Storybook in the `preview.js` file:
+2. Load your [custom elements manifest](https://dev.to/stuffbreaker/you-should-be-shipping-a-manifest-with-your-web-components-2da0) into Storybook in the `preview.js` file:
 
 ```js
 import { setCustomElementsManifest } from "@storybook/web-components";
