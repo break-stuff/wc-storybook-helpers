@@ -8,17 +8,28 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "An example element.",
+          "description": "An sample element.",
           "name": "MyElement",
           "cssProperties": [
             {
-              "description": "The background color",
-              "name": "--my-element-background-color",
+              "description": "The card border color",
+              "name": "--card-border-color",
               "default": "#ccc"
             },
             {
-              "description": "The border color",
-              "name": "--my-element-border-color"
+              "description": "The card border color",
+              "name": "--card-border-size",
+              "default": "1px"
+            },
+            {
+              "description": "The card border color",
+              "name": "--card-border-style",
+              "default": "solid"
+            },
+            {
+              "description": "The card border radius",
+              "name": "--card-border-radius",
+              "default": "8px"
             }
           ],
           "cssParts": [
@@ -27,18 +38,18 @@
               "name": "button"
             },
             {
-              "description": "Adds custom styles to label",
-              "name": "label"
+              "description": "Adds custom styles to the docs hint",
+              "name": "docs-hint"
             }
           ],
           "slots": [
             {
-              "description": "This element has a slot",
+              "description": "This adds content between the logo and the counter button",
               "name": ""
             },
             {
-              "description": "This element has a slot",
-              "name": "button"
+              "description": "This adds extra content into the counter button",
+              "name": "button-content"
             }
           ],
           "members": [
@@ -48,43 +59,9 @@
               "type": {
                 "text": "string"
               },
-              "default": "\"Click on the Vite and Lit logos to learn more\"",
+              "default": "\"Click on the Storybook logo to learn more\"",
               "description": "Copy for the read the docs hint.",
               "attribute": "docs-hint",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "variant",
-              "type": {
-                "text": "Variant"
-              },
-              "default": "\"primary\"",
-              "description": "The button's theme variant.",
-              "attribute": "variant",
-              "reflects": true,
-              "expandedType": {
-                "text": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text' | 'number'"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "dataObject",
-              "type": {
-                "text": "DataObject | undefined"
-              },
-              "default": "{}",
-              "description": "The button's theme variant."
-            },
-            {
-              "kind": "field",
-              "name": "oldDocsHint",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"Click on the Vite and Lit logos to learn more\"",
-              "deprecated": "replaced by `docs-hint`\nCopy for the read the docs hint.",
-              "attribute": "old-docs-hint",
               "reflects": true
             },
             {
@@ -97,40 +74,6 @@
               "description": "The number of times the button has been clicked.",
               "attribute": "count",
               "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "values",
-              "type": {
-                "text": "string[] | undefined"
-              },
-              "default": "[]",
-              "description": "An example with a type of string array."
-            },
-            {
-              "kind": "field",
-              "name": "test",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "test property"
-            },
-            {
-              "kind": "field",
-              "name": "validity",
-              "type": {
-                "text": "string"
-              },
-              "description": "Test getter property"
-            },
-            {
-              "kind": "field",
-              "name": "noType",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "Example without a type"
             },
             {
               "kind": "field",
@@ -149,15 +92,11 @@
           ],
           "events": [
             {
+              "name": "count",
               "type": {
-                "text": "MyEventType"
+                "text": "CustomEvent"
               },
-              "description": "This is a custom event",
-              "name": "my-event"
-            },
-            {
-              "description": "This is a custom event without a type",
-              "name": "untyped-event"
+              "description": "This is a custom event"
             }
           ],
           "attributes": [
@@ -166,30 +105,9 @@
               "type": {
                 "text": "string"
               },
-              "default": "\"Click on the Vite and Lit logos to learn more\"",
+              "default": "\"Click on the Storybook logo to learn more\"",
               "description": "Copy for the read the docs hint.",
               "fieldName": "docsHint"
-            },
-            {
-              "name": "variant",
-              "type": {
-                "text": "Variant"
-              },
-              "default": "\"primary\"",
-              "description": "The button's theme variant.",
-              "fieldName": "variant",
-              "expandedType": {
-                "text": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text' | 'number'"
-              }
-            },
-            {
-              "name": "old-docs-hint",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"Click on the Vite and Lit logos to learn more\"",
-              "deprecated": "replaced by `docs-hint`\nCopy for the read the docs hint.",
-              "fieldName": "oldDocsHint"
             },
             {
               "name": "count",

@@ -222,17 +222,21 @@ function getSlotsTemplate(component: Declaration, args: any) {
         if(!slotName && slotValue) {
           return `  ${slotValue}`;
         }
+
+        let slotContent = '';
         const container = document.createElement("div");
         container.innerHTML = slotValue;
 
         for (const child of container.childNodes) {
           if (child instanceof Text) {
-            return `  <span slot=${slotName}>${child.textContent}</span>`;
+            slotContent += `  <span slot=${slotName}>${child.textContent}</span>`;
           } else if (child instanceof Element) {
             child.setAttribute("slot", slotName!);
-            return `  ${child.outerHTML}`;
+            slotContent += `  ${child.outerHTML}`;
           }
         }
+
+        return slotContent;
       })
       .filter((value) => value !== null)
       .join("\n")}`;

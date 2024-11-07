@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2.0.4
+
+- Added missing file extension to the exported type definition
+- Fixed missing content when multiple elements are added to a slot control
+- Added link to documentation for the custom elements manifest (CEM)
+
 ## 2.0.3
 
 - Fixed error when property names are undefined
