@@ -1,5 +1,8 @@
 # Storybook Helpers for Web Components
 
+> [!WARNING]
+> [This project has moved and can now be found here](https://github.com/wc-toolkit/storybook-helpers).
+
 These helpers are designed to make integrating Web Components with Storybook easier.
 
 There are a number of things that this helper library does to provide developers a better experience with Storybook and Web Components:
